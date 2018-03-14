@@ -1,35 +1,31 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
+/* eslint-disable no-new */
 import Vue from 'vue'
-import VueRouter from 'vue-router'
-import vueResource from 'vue-resource'
-import LandingPage from './components/LandingPage'
-import Login from './components/Login'
-import App from './App'
+import App from './App.vue'
+import axios from 'axios'
 
-Vue.use(vueResource)
-Vue.use(VueRouter)
-Vue.config.productionTip = false
+import router from './router'
+import store from './store'
 
-const router = new VueRouter({
-  mode: 'history',
-  base: __dirname,
-  routes: [
-    {path: '/landingPage', component: LandingPage},
-    {path: '/login', component: Login}
-  ]
+axios.defaults.baseURL = 'https://pic-a-pup.firebaseio.com'
+// axios.defaults.headers.common['Authorization'] = 'fasfdsa'
+axios.defaults.headers.get['Accepts'] = 'application/json'
+
+const reqInterceptor = axios.interceptors.request.use(config => {
+  console.log('Request Interceptor', config)
+  return config
+})
+const resInterceptor = axios.interceptors.response.use(res => {
+  console.log('Response Interceptor', res)
+  return res
 })
 
-/* eslint-disable no-new */
+axios.interceptors.request.eject(reqInterceptor)
+axios.interceptors.response.eject(resInterceptor)
+
 new Vue({
+  el: '#app',
   router,
-  template: `
-  <div id="app">
-    <ul>
-      <li><router-link to="/LandingPage">LandingPage</router-link></li>
-      <li><router-link to="/Login">Login</router-link></li>
-    </ul>
-    <router-view></router-view>
-  </div>
-  `
-}).$mount('#app')
+  store,
+  render: h => h(App)
+})
+/* eslint-disable */
