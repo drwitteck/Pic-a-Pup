@@ -1,28 +1,32 @@
+/* eslint-disable */
 <template>
   <div id="app">
-    <router-view/>
+    <app-header />
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import landingPage from './components/LandingPage'
-import login from './components/Login'
-
+import Header from './components/header/header.vue'
 export default {
-  name: 'App',
+  name: 'app',
   components: {
-    landingPage, login
+    'app-header': Header
+  },
+  created () {
+    this.$store.dispatch('tryAutoLogin')
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  body, html {
+    min-height: 100vh;
+    margin: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: white;
+    background: linear-gradient(45deg, #551053, #1e8196);
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
 </style>
