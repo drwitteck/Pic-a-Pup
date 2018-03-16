@@ -1,4 +1,3 @@
-/* eslint-disable */
 <template>
   <div id="dashboard">
     <h1>That's the dashboard!</h1>
@@ -8,20 +7,18 @@
 </template>
 
 <script>
-/* eslint-disable no-unused-vars */
+  import axios from 'axios';
 
-import axios from 'axios'
-
-export default {
-  computed: {
-    email () {
-      return !this.$store.getters.user ? false : this.$store.getters.user.email
+  export default {
+    computed: {
+      email () {
+        return !this.$store.getters.user ? false : this.$store.getters.user.email
+      }
+    },
+    created () {
+      this.$store.dispatch('fetchUser')
     }
-  },
-  created () {
-    this.$store.dispatch('fetchUser')
   }
-}
 </script>
 
 <style scoped>

@@ -1,5 +1,4 @@
 /* eslint-disable */
-
 <template>
   <div id="signin">
     <div class="signin-form">

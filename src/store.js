@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from './axios-auth'
@@ -44,6 +45,7 @@ export default new Vuex.Store({
             token: res.data.idToken,
             userId: res.data.localId
           })
+          authData.uuid = res.data.localId
           const now = new Date()
           const expirationDate = new Date(now.getTime() + res.data.expiresIn * 1000)
           localStorage.setItem('token', res.data.idToken)
@@ -55,6 +57,7 @@ export default new Vuex.Store({
         .catch(error => console.log(error))
     },
     login ({commit, dispatch}, authData) {
+      console.log(authData)
       axios.post('/verifyPassword?key=AIzaSyDFULdMLBvglLWLD6m2sjyJ43g_rfjcBj4', {
         email: authData.email,
         password: authData.password,
@@ -102,7 +105,7 @@ export default new Vuex.Store({
       if (!state.idToken) {
         return
       }
-      globalAxios.post('/users.json' + '?auth=' + state.idToken, userData)
+      globalAxios.put('/users/' + userData.uuid + '/.json' + '?auth=' + state.idToken, userData)
         .then(res => console.log(res))
         .catch(error => console.log(error))
     },
@@ -110,18 +113,9 @@ export default new Vuex.Store({
       if (!state.idToken) {
         return
       }
-      globalAxios.get('/users.json' + '?auth=' + state.idToken)
+      globalAxios.get('/users/'+state.userId+'/.json' + '?auth=' + state.idToken)
         .then(res => {
-          console.log(res)
-          const data = res.data
-          const users = []
-          for (let key in data) {
-            const user = data[key]
-            user.id = key
-            users.push(user)
-          }
-          console.log(users)
-          commit('storeUser', users[0])
+          commit('storeUser', res.data)
         })
         .catch(error => console.log(error))
     }
@@ -135,4 +129,3 @@ export default new Vuex.Store({
     }
   }
 })
-/* eslint-disable */

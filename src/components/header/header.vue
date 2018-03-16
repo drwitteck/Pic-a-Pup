@@ -1,4 +1,3 @@
-/* eslint-disable */
 <template>
   <header id="header">
     <div class="logo">
@@ -24,18 +23,18 @@
 </template>
 
 <script>
-export default {
-  computed: {
-    auth () {
-      return this.$store.getters.isAuthenticated
-    }
-  },
-  methods: {
-    onLogout () {
-      this.$store.dispatch('logout')
+  export default {
+    computed: {
+      auth () {
+        return this.$store.getters.isAuthenticated
+      }
+    },
+    methods: {
+      onLogout() {
+        this.$store.dispatch('logout')
+      }
     }
   }
-}
 </script>
 
 <style scoped>
