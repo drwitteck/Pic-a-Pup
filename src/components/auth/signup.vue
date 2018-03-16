@@ -1,4 +1,3 @@
-/* eslint-disable */
 <template>
   <div id="signup">
     <div class="signup-form">
@@ -55,34 +54,34 @@
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      email: '',
-      age: null,
-      password: '',
-      confirmPassword: '',
-      phone: '',
-      address: ''
-
-    }
-  },
-  methods: {
-    onSubmit () {
-      const formData = {
-        email: this.email,
-        age: this.age,
-        password: this.password,
-        confirmPassword: this.confirmPassword,
-        phone: this.phone,
-        address: this.address
+  export default {
+    data () {
+      return {
+        email: '',
+        age: null,
+        password: '',
+        confirmPassword: '',
+        phone: '',
+        address: '',
 
       }
-      console.log(formData)
-      this.$store.dispatch('signup', formData)
+    },
+    methods: {
+      onSubmit () {
+        const formData = {
+          email: this.email,
+          age: this.age,
+          password: this.password,
+          confirmPassword: this.confirmPassword,
+          phone: this.phone,
+          address: this.address,
+
+        }
+        console.log(formData)
+        this.$store.dispatch('signup', formData)
+      }
     }
   }
-}
 </script>
 
 <style scoped>
@@ -159,6 +158,7 @@ export default {
 
   .submit button:hover,
   .submit button:active {
+
     background-color: #521751;
     color: white;
   }

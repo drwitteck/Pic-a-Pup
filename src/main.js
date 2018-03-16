@@ -1,4 +1,3 @@
-/* eslint-disable no-new */
 import Vue from 'vue'
 import App from './App.vue'
 import axios from 'axios'
@@ -28,4 +27,3 @@ new Vue({
   store,
   render: h => h(App)
 })
-/* eslint-disable */

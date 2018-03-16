@@ -1,4 +1,3 @@
-/* eslint-disable */
 <template>
   <div id="welcome">
     <img id="logo" src="../pictures/pap.png">
@@ -23,9 +22,11 @@
 
   #logo{
     padding-top: 5%;
-    padding-left: 35%;
+    margin: 0 auto;
+    display: block;
     height: 30%;
     width: 30%;
+    filter: drop-shadow(0 10px 8px rgba(0,40,80,.5));
 
   }
 
@@ -44,6 +45,7 @@
   }
 
   .cta a {
+    transition: 1s;
     margin: 10px;
     text-decoration: none;
     display: inline-block;
@@ -53,6 +55,7 @@
     padding: 10px;
     box-sizing: border-box;
     color: cyan;
+
   }
 
   .cta a:hover,
