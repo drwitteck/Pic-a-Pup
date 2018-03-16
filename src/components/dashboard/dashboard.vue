@@ -3,30 +3,40 @@
     <h1>That's the dashboard!</h1>
     <p>You should only get here if you're authenticated!</p>
     <p v-if="email">Your email address: {{ email }}</p>
+    <div id="feature">
+      <router-link to="/breed">Breed</router-link>
+    </div>
   </div>
 </template>
 
 <script>
-  import axios from 'axios';
+import axios from "axios";
 
-  export default {
-    computed: {
-      email () {
-        return !this.$store.getters.user ? false : this.$store.getters.user.email
-      }
-    },
-    created () {
-      this.$store.dispatch('fetchUser')
+export default {
+  computed: {
+    email() {
+      return !this.$store.getters.user ? false : this.$store.getters.user.email;
     }
+  },
+  created() {
+    this.$store.dispatch("fetchUser");
   }
+};
 </script>
 
 <style scoped>
-  h1, p {
-    text-align: center;
-  }
+h1,
+p {
+  text-align: center;
+}
 
-  p {
-    color: red;
-  }
+p {
+  color: red;
+}
+
+#feature a {
+  font-size: 10vh;
+  text-decoration: none;
+  color: white;
+}
 </style>
