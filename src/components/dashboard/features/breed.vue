@@ -41,82 +41,82 @@
 
 <script>
 // swap as you need
-import { upload } from "./file-upload.fake.service"; // fake service
+import { upload } from './file-upload.fake.service' // fake service
 // import { upload } from './file-upload.service';   // real service
-import { wait } from "./utils";
+import { wait } from './utils'
 
 const STATUS_INITIAL = 0,
   STATUS_SAVING = 1,
   STATUS_SUCCESS = 2,
-  STATUS_FAILED = 3;
-const BASE_URL = "http://localhost:3001";
+  STATUS_FAILED = 3
+const BASE_URL = 'http://localhost:3001'
 
 export default {
-  name: "app",
-  data() {
+  name: 'app',
+  data () {
     return {
       uploadedFiles: [],
       uploadError: null,
       currentStatus: null,
-      uploadFieldName: "photos"
-    };
+      uploadFieldName: 'photos'
+    }
   },
   computed: {
-    isInitial() {
-      return this.currentStatus === STATUS_INITIAL;
+    isInitial () {
+      return this.currentStatus === STATUS_INITIAL
     },
-    isSaving() {
-      return this.currentStatus === STATUS_SAVING;
+    isSaving () {
+      return this.currentStatus === STATUS_SAVING
     },
-    isSuccess() {
-      return this.currentStatus === STATUS_SUCCESS;
+    isSuccess () {
+      return this.currentStatus === STATUS_SUCCESS
     },
-    isFailed() {
-      return this.currentStatus === STATUS_FAILED;
+    isFailed () {
+      return this.currentStatus === STATUS_FAILED
     }
   },
   methods: {
-    reset() {
+    reset () {
       // reset form to initial state
-      this.currentStatus = STATUS_INITIAL;
-      this.uploadedFiles = [];
-      this.uploadError = null;
+      this.currentStatus = STATUS_INITIAL
+      this.uploadedFiles = []
+      this.uploadError = null
     },
-    save(formData) {
+    save (formData) {
       // upload data to the server
-      this.currentStatus = STATUS_SAVING;
-      const url = `${BASE_URL}/photos/upload`;
+      this.currentStatus = STATUS_SAVING
+      const url = `${BASE_URL}/photos/upload`
 
       upload(formData)
         .then(wait(1500))
         .then(x => {
-          this.uploadedFiles = [].concat(x);
-          this.currentStatus = STATUS_SUCCESS;
+          this.uploadedFiles = [].concat(x)
+          this.currentStatus = STATUS_SUCCESS
         })
         .catch(err => {
-          this.uploadError = err.response;
-          this.currentStatus = STATUS_FAILED;
-        });
+          this.uploadError = err.response
+          this.currentStatus = STATUS_FAILED
+        })
     },
-    filesChange(fieldName, fileList) {
+    filesChange (fieldName, fileList) {
       // handle file changes
-      const formData = new FormData();
+      const formData = new FormData()
 
-      if (!fileList.length) return;
+      if (!fileList.length) return
 
       // append the files to FormData
       Array.from(Array(fileList.length).keys()).map(x => {
-        formData.append(fieldName, fileList[x], fileList[x].name);
-      });
+        formData.append(fieldName, fileList[x], fileList[x].name)
+      })
 
       // save it
-      this.save(formData);
+      this.save(formData)
     }
   },
-  mounted() {
-    this.reset();
+  mounted () {
+    this.reset()
   }
-};
+}
 </script>
 
 <style lang="scss">
