@@ -29,3 +29,7 @@
     background-repeat: no-repeat;
   }
 </style>
+#app {
+
+}
+</style>

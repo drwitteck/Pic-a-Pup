@@ -7,6 +7,7 @@ import WelcomePage from './components/welcome/welcome.vue'
 import DashboardPage from './components/dashboard/dashboard.vue'
 import SignupPage from './components/auth/signup.vue'
 import SigninPage from './components/auth/signin.vue'
+import BreedPage from './components/dashboard/features/breed.vue'
 
 Vue.use(VueRouter)
 
@@ -24,7 +25,8 @@ const routes = [
         next('/signin')
       }
     }
-  }
+  },
+  { path: '/breed', component: BreedPage }
 ]
 
 export default new VueRouter({mode: 'history', routes})
