@@ -19,9 +19,11 @@ export default new Vuex.Store({
       state.idToken = userData.token
       state.userId = userData.userId
     },
+    /**
     storeUser (state, user) {
       state.user = user
     },
+     **/
     clearAuthData (state) {
       state.idToken = null
       state.userId = null
@@ -51,7 +53,7 @@ export default new Vuex.Store({
           localStorage.setItem('token', res.data.idToken)
           localStorage.setItem('userId', res.data.localId)
           localStorage.setItem('expirationDate', expirationDate)
-          dispatch('storeUser', authData)
+          //dispatch('storeUser', authData)
           dispatch('setLogoutTimer', res.data.expiresIn)
         })
         .catch(error => console.log(error))
@@ -101,7 +103,7 @@ export default new Vuex.Store({
       localStorage.removeItem('userId')
       router.replace('/signin')
     },
-    storeUser ({commit, state}, userData) {
+    /** storeUser ({commit, state}, userData) {
       if (!state.idToken) {
         return
       }
@@ -118,7 +120,7 @@ export default new Vuex.Store({
           commit('storeUser', res.data)
         })
         .catch(error => console.log(error))
-    }
+    }**/
   },
   getters: {
     user (state) {
