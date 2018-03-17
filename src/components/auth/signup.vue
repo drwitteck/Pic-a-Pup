@@ -3,18 +3,18 @@
     <div class="signup-form">
       <form @submit.prevent="onSubmit">
         <div class="input">
+          <label for="name">Name</label>
+          <input
+            type="name"
+            id="name"
+            v-model="name">
+        </div>
+        <div class="input">
           <label for="email">Email</label>
           <input
                   type="email"
                   id="email"
                   v-model="email">
-        </div>
-        <div class="input">
-          <label for="age">Your Age</label>
-          <input
-                  type="number"
-                  id="age"
-                  v-model.number="age">
         </div>
         <div class="input">
           <label for="password">Password</label>
@@ -30,21 +30,6 @@
                   id="confirm-password"
                   v-model="confirmPassword">
         </div>
-        <div class="input">
-          <label for="phone">Phone Number</label>
-          <input
-                  type="phone"
-                  id="phone"
-                  v-model.number="phone">
-        </div>
-        <div class="input">
-          <label for="address">Address</label>
-          <input
-                  type="address"
-                  id="address"
-                  v-model.number="address">
-        </div>
-
         <div class="submit">
           <button type="submit">Submit</button>
         </div>
@@ -54,34 +39,36 @@
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
-        email: '',
-        age: null,
-        password: '',
-        confirmPassword: '',
-        phone: '',
-        address: '',
+export default {
+  data () {
+    return {
+      email: '',
+      password: '',
+      confirmPassword: '',
+      name: ''
+    }
+  },
+  methods: {
+    onSubmit () {
+      const formData = {
+        email: this.email,
+        password: this.password
 
       }
-    },
-    methods: {
-      onSubmit () {
-        const formData = {
-          email: this.email,
-          age: this.age,
-          password: this.password,
-          confirmPassword: this.confirmPassword,
-          phone: this.phone,
-          address: this.address,
-
-        }
-        console.log(formData)
-        this.$store.dispatch('signup', formData)
+      console.log(formData)
+      this.$store.dispatch('signup', formData)
+      const nameData = {
+        name: this.name
       }
+      this.$http.post('https://pic-a-pup.firebaseio.com/users/6NSspNCP0ZRzJ0GcD2MDn1x5stg1', this.nameData)
+        .then(response => {
+          console.log(response)
+        }, error => {
+          console.log(error)
+        })
     }
   }
+}
 </script>
 
 <style scoped>
