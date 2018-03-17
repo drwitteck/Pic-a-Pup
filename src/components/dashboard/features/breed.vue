@@ -17,14 +17,20 @@
       </form>
       <!--SUCCESS-->
       <div v-if="isSuccess">
-        <h2>Uploaded {{ uploadedFiles.length }} pup successfully.</h2>
+        <!-- Fake service Multiple Upload test -->
+        <!-- <h2>Uploaded {{ uploadedFiles.length }} pup successfully.</h2> -->
+
+        <h2>Uploaded pup successfully.</h2>
         <p>
-          <a href="javascript:void(0)" @click="reset()">Upload pup again</a>
+          <a href="javascript:void(0)" @click="reset()" class="uploadAgain">Upload pup again</a>
         </p>
         <ul class="list-unstyled">
-          <li v-for="item in uploadedFiles">
+          <!-- Uncomment if want to use fake.service -->
+          <!-- <li v-for="item in uploadedFiles">
             <img :src="item.url" class="img-responsive img-thumbnail" :alt="item.originalName">
-          </li>
+          </li> -->
+
+          <img :src="item_url" alt="">
         </ul>
       </div>
       <!--FAILED-->
@@ -41,82 +47,109 @@
 
 <script>
 // swap as you need
-import { upload } from './file-upload.fake.service' // fake service
+// import { upload } from "./file-upload.fake.service"; // fake service
 // import { upload } from './file-upload.service';   // real service
-import { wait } from './utils'
+import { wait } from "./utils"
+import { fbStorage } from '../../../main'
 
 const STATUS_INITIAL = 0,
   STATUS_SAVING = 1,
   STATUS_SUCCESS = 2,
-  STATUS_FAILED = 3
-const BASE_URL = 'http://localhost:3001'
+  STATUS_FAILED = 3;
+const BASE_URL = "http://localhost:3001";
 
 export default {
-  name: 'app',
-  data () {
+  name: "app",
+  data() {
     return {
       uploadedFiles: [],
       uploadError: null,
       currentStatus: null,
-      uploadFieldName: 'photos'
-    }
+      uploadFieldName: "photos",
+      item_url: ''
+    };
   },
   computed: {
-    isInitial () {
-      return this.currentStatus === STATUS_INITIAL
+    isInitial() {
+      return this.currentStatus === STATUS_INITIAL;
     },
-    isSaving () {
-      return this.currentStatus === STATUS_SAVING
+    isSaving() {
+      return this.currentStatus === STATUS_SAVING;
     },
-    isSuccess () {
-      return this.currentStatus === STATUS_SUCCESS
+    isSuccess() {
+      return this.currentStatus === STATUS_SUCCESS;
     },
-    isFailed () {
-      return this.currentStatus === STATUS_FAILED
+    isFailed() {
+      return this.currentStatus === STATUS_FAILED;
     }
   },
   methods: {
-    reset () {
+    reset() {
       // reset form to initial state
-      this.currentStatus = STATUS_INITIAL
-      this.uploadedFiles = []
-      this.uploadError = null
+      this.currentStatus = STATUS_INITIAL;
+      this.uploadedFiles = [];
+      this.uploadError = null;
     },
-    save (formData) {
+    save(formData) {
       // upload data to the server
-      this.currentStatus = STATUS_SAVING
-      const url = `${BASE_URL}/photos/upload`
-
-      upload(formData)
-        .then(wait(1500))
-        .then(x => {
-          this.uploadedFiles = [].concat(x)
-          this.currentStatus = STATUS_SUCCESS
-        })
-        .catch(err => {
-          this.uploadError = err.response
-          this.currentStatus = STATUS_FAILED
-        })
+      this.currentStatus = STATUS_SAVING;
+      const url = `${BASE_URL}/photos/upload`;
+      this.upload();
+      // New Upload Code
+      
+      // upload(formData)
+      //   .then(wait(1500))
+      //   .then(x => {
+      //     this.uploadedFiles = [].concat(x);
+      //     this.currentStatus = STATUS_SUCCESS;
+      //   })
+      //   .catch(err => {
+      //     this.uploadError = err.response;
+      //     this.currentStatus = STATUS_FAILED;
+      //   });
     },
-    filesChange (fieldName, fileList) {
+    filesChange(fieldName, fileList) {
       // handle file changes
-      const formData = new FormData()
+      const formData = new FormData();
 
-      if (!fileList.length) return
+      if (!fileList.length) return;
 
       // append the files to FormData
       Array.from(Array(fileList.length).keys()).map(x => {
-        formData.append(fieldName, fileList[x], fileList[x].name)
-      })
-
+        formData.append(fieldName, fileList[x], fileList[x].name);
+      });
       // save it
-      this.save(formData)
+      this.save(formData);
+    },
+    upload() {
+      let input = document.querySelector('.input-file')
+      if (input.files && input.files[0]) {
+        let reader = new FileReader()
+        reader.onload = (e) => {
+          this.item_url = e.target.result
+
+          fbStorage.ref('imgs/').child(this.$store.state.userId + '_pup.png').put(input.files[0], {
+            contentType: 'image/png'
+          })
+
+          this.uploadTask = fbStorage.ref('imgs/').child(this.$store.state.userId + '_pup.png').put(input.files[0], {
+            contentType: 'image/png'
+          })
+          this.uploadTask.then(snapshot => {
+            console.log(snapshot)
+            this.downloadUrl = snapshot.downloadURL
+            this.$emit('url', this.downloadUrl)
+          })
+        }
+        reader.readAsDataURL(input.files[0])
+        this.currentStatus = STATUS_SUCCESS;
+      }
     }
   },
-  mounted () {
-    this.reset()
+  mounted() {
+    this.reset();
   }
-}
+};
 </script>
 
 <style lang="scss">
@@ -157,5 +190,12 @@ h1 {
   font-size: 1.2em;
   text-align: center;
   padding: 50px 0;
+}
+
+.uploadAgain {
+  text-decoration: none;
+  color: white;
+  border: 2px solid white;
+  padding: 2px;
 }
 </style>
