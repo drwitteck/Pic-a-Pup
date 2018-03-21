@@ -1,8 +1,10 @@
 
 import Vue from 'vue'
+import Vuetify from 'vuetify'
 import App from './App.vue'
 import axios from 'axios'
 import VueResources from 'vue-resource'
+import 'vuetify/dist/vuetify.min.css'
 
 import router from './router'
 import store from './store'
@@ -11,6 +13,7 @@ var VueFire = require('vuefire')
 var firebase = require('firebase')
 
 // explicit installation required in module environments
+Vue.use(Vuetify)
 Vue.use(VueResources)
 Vue.use(VueFire)
 

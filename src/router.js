@@ -8,6 +8,7 @@ import DashboardPage from './components/dashboard/dashboard.vue'
 import SignupPage from './components/auth/signup.vue'
 import SigninPage from './components/auth/signin.vue'
 import BreedPage from './components/dashboard/features/breed.vue'
+import NotFound from './components/GeneralViews/NotFoundPage.vue'
 
 Vue.use(VueRouter)
 
@@ -24,9 +25,15 @@ const routes = [
       } else {
         next('/signin')
       }
-    }
+    },
+    children: [
+      {
+        path: '/breed',
+        component: BreedPage
+      }
+    ]
   },
-  { path: '/breed', component: BreedPage }
+  { path: '*', component: NotFound }
 ]
 
 export default new VueRouter({mode: 'history', routes})
