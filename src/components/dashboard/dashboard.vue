@@ -100,6 +100,7 @@ export default {
         reader.readAsDataURL(input.files[0])
       }
     }
+
   },
   watch: {
     uploadTask: function () {
