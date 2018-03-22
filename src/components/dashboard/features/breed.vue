@@ -1,6 +1,9 @@
 <template>
   <div id="app">
     <div class="container">
+      <p v-if="zipcode">Your zipcode: {{ zipcode }}</p>
+      <input type="text" v-model="zipcode" placeholder="19111">
+
       <!--UPLOAD-->
       <form enctype="multipart/form-data" novalidate v-if="isInitial || isSaving">
         <h1>Upload Your Pup</h1>
@@ -16,6 +19,7 @@
         </div>
       </form>
       <!--SUCCESS-->
+      <button v-on:click="sendImageBackend()">Submit To Backend</button>
       <div v-if="isSuccess">
         <!-- Fake service Multiple Upload test -->
         <!-- <h2>Uploaded {{ uploadedFiles.length }} pup successfully.</h2> -->
@@ -41,6 +45,8 @@
         </p>
         <pre>{{ uploadError }}</pre>
       </div>
+      <p v-if="realBreed">Dog Breed is: {{ realBreed }}</p>
+      <p v-if="breedInfo">About this Breed: {{ breedInfo }}</p>
     </div>
   </div>
 </template>
@@ -49,54 +55,65 @@
 // swap as you need
 // import { upload } from "./file-upload.fake.service"; // fake service
 // import { upload } from './file-upload.service';   // real service
-import { wait } from "./utils"
+import { wait } from './utils'
 import { fbStorage } from '../../../main'
+import axios from 'axios'
+import VueResources from 'vue-resource'
 
 const STATUS_INITIAL = 0,
   STATUS_SAVING = 1,
   STATUS_SUCCESS = 2,
-  STATUS_FAILED = 3;
-const BASE_URL = "http://localhost:3001";
+  STATUS_FAILED = 3
+const BASE_URL = 'http://localhost:3001'
+
+const breedPageinstance = axios.create({
+  baseURL: '18.219.234.168:5000'
+})
 
 export default {
-  name: "app",
-  data() {
+  breedPageinstance,
+  name: 'app',
+  data () {
     return {
       uploadedFiles: [],
       uploadError: null,
       currentStatus: null,
-      uploadFieldName: "photos",
-      item_url: ''
-    };
+      uploadFieldName: 'photos',
+      item_url: '',
+      downloadURL: '',
+      zipcode: '',
+      realBreed: '',
+      breedInfo: ''
+    }
   },
   computed: {
-    isInitial() {
-      return this.currentStatus === STATUS_INITIAL;
+    isInitial () {
+      return this.currentStatus === STATUS_INITIAL
     },
-    isSaving() {
-      return this.currentStatus === STATUS_SAVING;
+    isSaving () {
+      return this.currentStatus === STATUS_SAVING
     },
-    isSuccess() {
-      return this.currentStatus === STATUS_SUCCESS;
+    isSuccess () {
+      return this.currentStatus === STATUS_SUCCESS
     },
-    isFailed() {
-      return this.currentStatus === STATUS_FAILED;
+    isFailed () {
+      return this.currentStatus === STATUS_FAILED
     }
   },
   methods: {
-    reset() {
+    reset () {
       // reset form to initial state
-      this.currentStatus = STATUS_INITIAL;
-      this.uploadedFiles = [];
-      this.uploadError = null;
+      this.currentStatus = STATUS_INITIAL
+      this.uploadedFiles = []
+      this.uploadError = null
     },
-    save(formData) {
+    save (formData) {
       // upload data to the server
-      this.currentStatus = STATUS_SAVING;
-      const url = `${BASE_URL}/photos/upload`;
-      this.upload();
+      this.currentStatus = STATUS_SAVING
+      const url = `${BASE_URL}/photos/upload`
+      this.upload()
       // New Upload Code
-      
+
       // upload(formData)
       //   .then(wait(1500))
       //   .then(x => {
@@ -108,20 +125,20 @@ export default {
       //     this.currentStatus = STATUS_FAILED;
       //   });
     },
-    filesChange(fieldName, fileList) {
+    filesChange (fieldName, fileList) {
       // handle file changes
-      const formData = new FormData();
+      const formData = new FormData()
 
-      if (!fileList.length) return;
+      if (!fileList.length) return
 
       // append the files to FormData
       Array.from(Array(fileList.length).keys()).map(x => {
-        formData.append(fieldName, fileList[x], fileList[x].name);
-      });
+        formData.append(fieldName, fileList[x], fileList[x].name)
+      })
       // save it
-      this.save(formData);
+      this.save(formData)
     },
-    upload() {
+    upload () {
       let input = document.querySelector('.input-file')
       if (input.files && input.files[0]) {
         let reader = new FileReader()
@@ -142,14 +159,39 @@ export default {
           })
         }
         reader.readAsDataURL(input.files[0])
-        this.currentStatus = STATUS_SUCCESS;
+        this.currentStatus = STATUS_SUCCESS
       }
+    },
+    sendImageBackend1 () {
+      axios.post('http://httpbin.org/post', {
+        breed: 'Beagle',
+        location: this.zipcode,
+        url: this.downloadUrl
+      })
+        .then(res => console.log(res))
+        .catch(error => console.log(error))
+    },
+    sendImageBackend () {
+      this.$http.post('http://18.219.234.168:5000/breedSearch', {
+        breed: 'Beagle',
+        location: this.zipcode,
+        url: this.downloadUrl
+      })
+        .then(response => {
+          console.log(response)
+          console.log(response.body.age)
+          this.realBreed = response.body.age
+          this.breedInfo = response.body.info
+        }, error => {
+          console.log(error)
+        })
     }
   },
-  mounted() {
-    this.reset();
+  mounted () {
+    this.reset()
   }
-};
+
+}
 </script>
 
 <style lang="scss">
