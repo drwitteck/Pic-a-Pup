@@ -17,6 +17,7 @@
     <img :src="profileImageData" alt=""> -->
   <v-app id="inspire" dark>
     <v-navigation-drawer
+      id="drawer"
       clipped
       fixed
       v-model="drawer"
@@ -44,7 +45,7 @@
         <!-- Link 3 -->
         <v-list-tile @click="onLogout">
           <v-list-tile-action>
-            <v-icon>arrow back</v-icon>
+            <v-icon>power_settings_new</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>Sign Out</v-list-tile-title>
@@ -52,7 +53,7 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar app fixed clipped-left>
+    <v-toolbar id="toolbar" app fixed clipped-left>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>Pic-a-Pup Dashboard</v-toolbar-title>
     </v-toolbar>
@@ -117,8 +118,8 @@ export default {
     /** this function puts the property in the users database, always need that axios line to put info in the database
      based on the current user logged in **/
     onLogout() {
-        this.$store.dispatch('logout')
-    }, 
+      this.$store.dispatch("logout");
+    },
     submitName() {
       axios
         .put(
@@ -175,7 +176,6 @@ export default {
         reader.readAsDataURL(input.files[0]);
       }
     }
-
   },
   watch: {
     uploadTask: function() {
@@ -188,5 +188,13 @@ export default {
 </script>
 
 <style scoped>
-
+#inspire {
+  background: linear-gradient(45deg, #551053, #1e8196);
+}
+/* #drawer {
+  background: linear-gradient(45deg, #551053, #1e8196);
+} */
+#toolbar {
+  background: linear-gradient(45deg, #551053, #1e8196);
+}
 </style>
