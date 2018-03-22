@@ -40,122 +40,136 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      email: '',
-      password: '',
-      confirmPassword: '',
-      name: ''
-    }
+      email: "",
+      password: "",
+      confirmPassword: "",
+      name: ""
+    };
   },
   methods: {
-    onSubmit () {
+    onSubmit() {
       const formData = {
         email: this.email,
         password: this.password
-
-      }
-      console.log(formData)
-      this.$store.dispatch('signup', formData)
+      };
+      console.log(formData);
+      this.$store.dispatch("signup", formData);
       const nameData = {
         name: this.name
-      }
-      this.$http.post('https://pic-a-pup.firebaseio.com/users/6NSspNCP0ZRzJ0GcD2MDn1x5stg1', this.nameData)
-        .then(response => {
-          console.log(response)
-        }, error => {
-          console.log(error)
-        })
+      };
+      this.$http
+        .post(
+          "https://pic-a-pup.firebaseio.com/users/6NSspNCP0ZRzJ0GcD2MDn1x5stg1",
+          this.nameData
+        )
+        .then(
+          response => {
+            console.log(response);
+          },
+          error => {
+            console.log(error);
+          }
+        );
     }
   }
-}
+};
 </script>
 
 <style scoped>
-  .signup-form {
-    width: 400px;
-    margin: 30px auto;
-    border: 1px solid #eee;
-    padding: 20px;
-    box-shadow: 0 2px 3px #ccc;
-  }
+#signup {
+  min-height: 100vh;
+  margin: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: white;
+  background: linear-gradient(45deg, #551053, #1e8196);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.signup-form {
+  width: 400px;
+  margin: 30px auto;
+  border: 1px solid #eee;
+  padding: 20px;
+  box-shadow: 0 2px 3px #ccc;
+}
 
-  .input {
-    margin: 10px auto;
-  }
+.input {
+  margin: 10px auto;
+}
 
-  .input label {
-    display: block;
-    color: white;
-    margin-bottom: 6px;
-  }
+.input label {
+  display: block;
+  color: white;
+  margin-bottom: 6px;
+}
 
-  .input.inline label {
-    display: inline;
-  }
+.input.inline label {
+  display: inline;
+}
 
-  .input input {
-    font: inherit;
-    width: 100%;
-    padding: 6px 12px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-  }
+.input input {
+  font: inherit;
+  width: 100%;
+  padding: 6px 12px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+}
 
-  .input.inline input {
-    width: auto;
-  }
+.input.inline input {
+  width: auto;
+}
 
-  .input input:focus {
-    outline: none;
-    border: 1px solid #521751;
-    background-color: #eee;
-  }
+.input input:focus {
+  outline: none;
+  border: 1px solid #521751;
+  background-color: #eee;
+}
 
-  .input select {
-    border: 1px solid #ccc;
-    font: inherit;
-  }
+.input select {
+  border: 1px solid #ccc;
+  font: inherit;
+}
 
-  .hobbies button {
-    border: 1px solid #521751;
-    background: #521751;
-    color: white;
-    padding: 6px;
-    font: inherit;
-    cursor: pointer;
-  }
+.hobbies button {
+  border: 1px solid #521751;
+  background: #521751;
+  color: white;
+  padding: 6px;
+  font: inherit;
+  cursor: pointer;
+}
 
-  .hobbies button:hover,
-  .hobbies button:active {
-    background-color: #8d4288;
-  }
+.hobbies button:hover,
+.hobbies button:active {
+  background-color: #8d4288;
+}
 
-  .hobbies input {
-    width: 90%;
-  }
+.hobbies input {
+  width: 90%;
+}
 
-  .submit button {
-    border: 1px solid #521751;
-    color: #521751;
-    padding: 10px 20px;
-    font: inherit;
-    cursor: pointer;
-  }
+.submit button {
+  border: 1px solid #521751;
+  color: #521751;
+  padding: 10px 20px;
+  font: inherit;
+  cursor: pointer;
+}
 
-  .submit button:hover,
-  .submit button:active {
+.submit button:hover,
+.submit button:active {
+  background-color: #521751;
+  color: white;
+}
 
-    background-color: #521751;
-    color: white;
-  }
-
-  .submit button[disabled],
-  .submit button[disabled]:hover,
-  .submit button[disabled]:active {
-    border: 1px solid #ccc;
-    background-color: transparent;
-    color: #ccc;
-    cursor: not-allowed;
-  }
+.submit button[disabled],
+.submit button[disabled]:hover,
+.submit button[disabled]:active {
+  border: 1px solid #ccc;
+  background-color: transparent;
+  color: #ccc;
+  cursor: not-allowed;
+}
 </style>
