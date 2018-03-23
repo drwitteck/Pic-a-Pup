@@ -1,5 +1,5 @@
 <template>
-  <!-- 
+  <!--
     <p v-if="name">Your name: {{ name }}</p>
     <input type="text" v-model="name" placeholder="Name">
     <button v-on:click="submitName()">Submit Name</button>
@@ -75,58 +75,58 @@
 </template>
 
 <script>
-import axios from "axios";
-import { fbStorage } from "../../main";
+import axios from 'axios'
+import { fbStorage } from '../../main'
 // import * as firebase from 'firebase'
 
 // below is an example of how to add fields to firebase database and get info based on an existing logged in user
 export default {
-  data() {
+  data () {
     return {
-      name: "defaultName",
-      picture: "../pictures/pap.png",
-      imgData: "",
-      profileImageData: "",
-      uploadTask: "",
-      downloadUrl: "",
+      name: 'defaultName',
+      picture: '../pictures/pap.png',
+      imgData: '',
+      profileImageData: '',
+      uploadTask: '',
+      downloadUrl: '',
       drawer: true
-    };
+    }
   },
   props: {
     source: String
   },
-  created() {
+  created () {
     /** this function gets the name field after the name was submiited in the function below, if the user doesnt have a name yet
      then the catch error will show up, you always need the axios line below to get the user data**/
     axios
       .get(
-        "/users/" +
+        '/users/' +
           this.$store.state.userId +
-          "/.json" +
-          "?auth=" +
+          '/.json' +
+          '?auth=' +
           this.$store.state.idToken
       )
       .then(res => {
-        this.name = res.data.name;
+        this.name = res.data.name
       })
       .catch(err => {
-        this.name = "Please Enter You Name";
-        console.log(err);
-      });
+        this.name = 'Please Enter You Name'
+        console.log(err)
+      })
   },
   methods: {
     /** this function puts the property in the users database, always need that axios line to put info in the database
      based on the current user logged in **/
-    onLogout() {
-      this.$store.dispatch("logout");
+    onLogout () {
+      this.$store.dispatch('logout')
     },
-    submitName() {
+    submitName () {
       axios
         .put(
-          "/users/" +
+          '/users/' +
             this.$store.state.userId +
-            "/.json" +
-            "?auth=" +
+            '/.json' +
+            '?auth=' +
             this.$store.state.idToken,
           {
             image: this.downloadUrl,
@@ -134,57 +134,57 @@ export default {
           }
         )
         .then(res => console.log(res))
-        .catch(error => console.log(error));
+        .catch(error => console.log(error))
     },
-    submitPic(event) {
+    submitPic (event) {
       // axios.post('https://pic-a-pup.appspot.com/pics')
-      let input = event.target;
+      let input = event.target
       if (input.files && input.files[0]) {
-        let reader = new FileReader();
+        let reader = new FileReader()
         reader.onload = e => {
-          this.imageData = e.target.result;
-        };
-        reader.readAsDataURL(input.files[0]);
+          this.imageData = e.target.result
+        }
+        reader.readAsDataURL(input.files[0])
       }
     },
-    updateProfileImg() {
-      let input = document.querySelector("#profileImage");
+    updateProfileImg () {
+      let input = document.querySelector('#profileImage')
       if (input.files && input.files[0]) {
-        let reader = new FileReader();
+        let reader = new FileReader()
         reader.onload = e => {
-          this.profileImageData = e.target.result;
+          this.profileImageData = e.target.result
 
           fbStorage
-            .ref("imgs/")
-            .child(this.$store.state.userId + "_profile.png")
+            .ref('imgs/')
+            .child(this.$store.state.userId + '_profile.png')
             .put(input.files[0], {
-              contentType: "image/png"
-            });
+              contentType: 'image/png'
+            })
 
           this.uploadTask = fbStorage
-            .ref("imgs/")
-            .child(this.$store.state.userId + "_profile.png")
+            .ref('imgs/')
+            .child(this.$store.state.userId + '_profile.png')
             .put(input.files[0], {
-              contentType: "image/png"
-            });
+              contentType: 'image/png'
+            })
           this.uploadTask.then(snapshot => {
-            console.log(snapshot);
-            this.downloadUrl = snapshot.downloadURL;
-            this.$emit("url", this.downloadUrl);
-          });
-        };
-        reader.readAsDataURL(input.files[0]);
+            console.log(snapshot)
+            this.downloadUrl = snapshot.downloadURL
+            this.$emit('url', this.downloadUrl)
+          })
+        }
+        reader.readAsDataURL(input.files[0])
       }
     }
   },
   watch: {
-    uploadTask: function() {
-      this.uploadTask.on("state_changed", sp => {
-        console.log(Math.floor(sp.bytesTransferred / sp.totalBytes) * 100);
-      });
+    uploadTask: function () {
+      this.uploadTask.on('state_changed', sp => {
+        console.log(Math.floor(sp.bytesTransferred / sp.totalBytes) * 100)
+      })
     }
   }
-};
+}
 </script>
 
 <style scoped>
