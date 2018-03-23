@@ -16,6 +16,7 @@
 
     <img :src="profileImageData" alt=""> -->
   <v-app id="inspire" dark>
+    <!-- Sidenav -->
     <v-navigation-drawer
       id="drawer"
       clipped
@@ -23,7 +24,18 @@
       v-model="drawer"
       app
     >
-      <v-list dense>
+      <v-list>
+        <v-list-tile avatar>
+          <v-list-tile-avatar>
+            <img src="https://cis.temple.edu/sites/default/files/styles/portrait-large/public/user_pictures/picture-767-1518386325.jpg?itok=AsYTIEq5" >
+          </v-list-tile-avatar>
+          <v-list-tile-content>
+            <v-list-tile-title>Charles Wang</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+
+        <v-divider></v-divider>
+
         <!-- Link 1 -->
         <v-list-tile router-link to="/dashboard">
           <v-list-tile-action>
@@ -43,20 +55,29 @@
           </v-list-tile-content>
         </v-list-tile>
         <!-- Link 3 -->
-        <v-list-tile @click="onLogout">
+        <!-- <v-list-tile @click="onLogout">
           <v-list-tile-action>
             <v-icon>power_settings_new</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>Sign Out</v-list-tile-title>
           </v-list-tile-content>
-        </v-list-tile>
+        </v-list-tile> -->
       </v-list>
     </v-navigation-drawer>
+    <!-- Top Navbar -->
     <v-toolbar id="toolbar" app fixed clipped-left>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>Pic-a-Pup Dashboard</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-toolbar-items class="hidden-sm-and-down">
+        <v-btn flat @click="onLogout">
+          <v-icon>power_settings_new</v-icon>
+            &nbsp; Sign Out
+          </v-btn>
+      </v-toolbar-items>
     </v-toolbar>
+    <!-- Main View -->
     <v-content>
       <v-container fluid fill-height>
         <!-- align-center to put contents in center -->
@@ -68,6 +89,7 @@
         </v-layout>
       </v-container>
     </v-content>
+    <!-- Footer -->
     <v-footer app fixed>
       <span>&copy; 2018 Pic-a-Pup Corp</span>
     </v-footer>
