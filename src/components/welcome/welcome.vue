@@ -104,7 +104,7 @@ body {
           animation-direction: alternate;
           animation-timing-function: ease;
         }
-        @-webkit-keyframes MISSION-HOVER {
+        @keyframes MISSION-HOVER {
           0%,
           100% {
             font-size: 4rem;
