@@ -67,7 +67,7 @@ const STATUS_INITIAL = 0,
 const BASE_URL = 'http://localhost:3001'
 
 const breedPageinstance = axios.create({
-  baseURL: '18.219.234.168:5000'
+  baseURL: '18.219.234.144'
 })
 
 export default {
@@ -172,7 +172,7 @@ export default {
         .catch(error => console.log(error))
     },
     sendImageBackend () {
-      this.$http.post('http://18.219.234.168:5000/breedSearch', {
+      this.$http.post('http://18.219.234.144', {
         breed: 'Beagle',
         location: this.zipcode,
         url: this.downloadUrl
@@ -180,8 +180,8 @@ export default {
         .then(response => {
           console.log(response)
           console.log(response.body.age)
-          this.realBreed = response.body.age
-          this.breedInfo = response.body.info
+          this.realBreed = response.body.breed
+          this.breedInfo = response.body.breed_info
         }, error => {
           console.log(error)
         })
