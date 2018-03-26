@@ -1,7 +1,7 @@
 /* eslint-disable */
 <template>
   <div id="signin">
-    
+
     <app-header />
     <div class="signin-form">
       <form @submit.prevent="onSubmit">
@@ -75,6 +75,7 @@ export default {
 
 .input {
   margin: 10px auto;
+  color: black;
 }
 
 .input label {
@@ -95,6 +96,7 @@ export default {
   outline: none;
   border: 1px solid #521751;
   background-color: #eee;
+
 }
 
 .submit button {

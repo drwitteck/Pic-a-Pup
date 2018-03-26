@@ -1,5 +1,6 @@
 <template>
   <div id="signup">
+    <app-header />
     <div class="signup-form">
       <form @submit.prevent="onSubmit">
         <div class="input">
@@ -39,42 +40,46 @@
 </template>
 
 <script>
+import Header from '../header/header.vue'
 export default {
-  data() {
+  components: {
+    'app-header': Header
+  },
+  data () {
     return {
-      email: "",
-      password: "",
-      confirmPassword: "",
-      name: ""
-    };
+      email: '',
+      password: '',
+      confirmPassword: '',
+      name: ''
+    }
   },
   methods: {
-    onSubmit() {
+    onSubmit () {
       const formData = {
         email: this.email,
         password: this.password
-      };
-      console.log(formData);
-      this.$store.dispatch("signup", formData);
+      }
+      console.log(formData)
+      this.$store.dispatch('signup', formData)
       const nameData = {
         name: this.name
-      };
+      }
       this.$http
         .post(
-          "https://pic-a-pup.firebaseio.com/users/6NSspNCP0ZRzJ0GcD2MDn1x5stg1",
+          'https://pic-a-pup.firebaseio.com/users/6NSspNCP0ZRzJ0GcD2MDn1x5stg1',
           this.nameData
         )
         .then(
           response => {
-            console.log(response);
+            console.log(response)
           },
           error => {
-            console.log(error);
+            console.log(error)
           }
-        );
+        )
     }
   }
-};
+}
 </script>
 
 <style scoped>
@@ -97,6 +102,7 @@ export default {
 
 .input {
   margin: 10px auto;
+  color: black;
 }
 
 .input label {
@@ -151,11 +157,12 @@ export default {
 }
 
 .submit button {
-  border: 1px solid #521751;
-  color: #521751;
+  border: 1px solid white;
+  color: White;
   padding: 10px 20px;
   font: inherit;
   cursor: pointer;
+
 }
 
 .submit button:hover,
