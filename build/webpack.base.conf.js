@@ -3,6 +3,7 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
+const nodeExternals = require('webpack-node-externals')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -21,6 +22,8 @@ const createLintingRule = () => ({
 
 module.exports = {
   context: path.resolve(__dirname, '../'),
+  externals: [nodeExternals()],
+  devtool: 'inline-cheap-module-source-map',
   entry: {
     app: './src/main.js'
   },
