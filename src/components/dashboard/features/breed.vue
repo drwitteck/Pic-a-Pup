@@ -47,9 +47,9 @@
       </div>
       <p v-if="realBreed">Dog Breed is: {{ realBreed }}</p>
       <p v-if="breedInfo">About this Breed: {{ breedInfo }}</p>
-      <p v-if="shelter">About the Shelter <br><br> Address: {{ shelter }}</p>
-      <p v-if="sheltercity">City: {{ sheltercity }}</p>
-      <p v-if="shelterzip">Zip: {{ shelterzip }}</p>
+      <!--<p v-if="shelter">About the Shelter <br><br> Address: {{ shelter }}</p>-->
+      <!--<p v-if="sheltercity">City: {{ sheltercity }}</p>-->
+      <!--<p v-if="shelterzip">Zip: {{ shelterzip }}</p>-->
     </div>
   </div>
 </template>
@@ -86,10 +86,10 @@ export default {
       downloadURL: '',
       zipcode: '',
       realBreed: '',
-      breedInfo: '',
-      shelter: '',
-      sheltercity: '',
-      shelterzip: ''
+      breedInfo: ''
+      // shelter: '',
+      // sheltercity: '',
+      // shelterzip: ''
     }
   },
   computed: {
@@ -188,9 +188,9 @@ export default {
           console.log(response.body.age)
           this.realBreed = response.body.breed
           this.breedInfo = response.body.breed_info
-          this.shelter = response.body['shelter Contact'].address1
-          this.sheltercity = response.body['shelter Contact'].city
-          this.shelterzip = response.body['shelter Contact'].zip
+          // this.shelter = response.body['shelter Contact'].address1
+          // this.sheltercity = response.body['shelter Contact'].city
+          // this.shelterzip = response.body['shelter Contact'].zip
         }, error => {
           console.log(error)
         })

@@ -35,7 +35,7 @@ body {
   margin: 0 auto;
   background-color: #1c1c1c;
   font-family: "Quicksand", sans-serif;
-  overflow: hidden;
+  //overflow: hidden;
   #background {
     position: fixed;
     top: 50%;
@@ -48,7 +48,7 @@ body {
     -webkit-transform: translateX(-50%) translateY(-50%);
     transform: translateX(-50%) translateY(-50%);
     background-size: cover;
-    overflow: hidden;
+    //overflow: hidden;
     -webkit-filter: blur(5px);
     -moz-filter: blur(5px);
     -o-filter: blur(5px);
