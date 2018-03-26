@@ -47,6 +47,9 @@
       </div>
       <p v-if="realBreed">Dog Breed is: {{ realBreed }}</p>
       <p v-if="breedInfo">About this Breed: {{ breedInfo }}</p>
+      <p v-if="shelter">About the Shelter <br><br> Address: {{ shelter }}</p>
+      <p v-if="sheltercity">City: {{ sheltercity }}</p>
+      <p v-if="shelterzip">Zip: {{ shelterzip }}</p>
     </div>
   </div>
 </template>
@@ -83,7 +86,10 @@ export default {
       downloadURL: '',
       zipcode: '',
       realBreed: '',
-      breedInfo: ''
+      breedInfo: '',
+      shelter: '',
+      sheltercity: '',
+      shelterzip: ''
     }
   },
   computed: {
@@ -173,7 +179,7 @@ export default {
     },
     sendImageBackend () {
       this.$http.post('http://18.219.234.144', {
-        breed: 'Beagle',
+        breed: 'Lab',
         location: this.zipcode,
         url: this.downloadUrl
       })
@@ -182,6 +188,9 @@ export default {
           console.log(response.body.age)
           this.realBreed = response.body.breed
           this.breedInfo = response.body.breed_info
+          this.shelter = response.body['shelter Contact'].address1
+          this.sheltercity = response.body['shelter Contact'].city
+          this.shelterzip = response.body['shelter Contact'].zip
         }, error => {
           console.log(error)
         })
