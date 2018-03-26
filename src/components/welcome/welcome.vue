@@ -35,7 +35,6 @@ body {
   margin: 0 auto;
   background-color: #1c1c1c;
   font-family: "Quicksand", sans-serif;
-  overflow: hidden;
   #background {
     position: fixed;
     top: 50%;
@@ -62,6 +61,7 @@ body {
     top: 50%;
     left: 50%;
     margin: 0 auto;
+    overflow: hidden;
     transform: translate(-50%, -50%);
     background: linear-gradient(
       45deg,

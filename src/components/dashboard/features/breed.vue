@@ -104,6 +104,9 @@
         </p>
         <pre>{{ uploadError }}</pre>
       </div>
+      <!--<p v-if="shelter">About the Shelter <br><br> Address: {{ shelter }}</p>-->
+      <!--<p v-if="sheltercity">City: {{ sheltercity }}</p>-->
+      <!--<p v-if="shelterzip">Zip: {{ shelterzip }}</p>-->
     </div>
   </v-flex>
 </template>
@@ -124,8 +127,8 @@ const STATUS_INITIAL = 0,
 const BASE_URL = "http://localhost:3001";
 
 const breedPageinstance = axios.create({
-  baseURL: "18.219.234.168:5000"
-});
+  baseURL: '18.219.234.144'
+})
 
 export default {
   breedPageinstance,
@@ -135,14 +138,17 @@ export default {
       uploadedFiles: [],
       uploadError: null,
       currentStatus: null,
-      uploadFieldName: "photos",
-      item_url: "",
-      downloadURL: "",
-      zipcode: "",
-      realBreed: "",
-      breedInfo: "",
+      uploadFieldName: 'photos',
+      item_url: '',
+      downloadURL: '',
+      zipcode: '',
+      realBreed: '',
+      breedInfo: '',
+      // shelter: '',
+      // sheltercity: '',
+      // shelterzip: ''
       show: false
-    };
+    }
   },
   computed: {
     isInitial() {
@@ -236,12 +242,22 @@ export default {
         .then(res => console.log(res))
         .catch(error => console.log(error));
     },
-    sendImageBackend() {
-      this.$http
-        .post("http://18.219.234.168:5000/breedSearch", {
-          breed: "Beagle",
-          location: this.zipcode,
-          url: this.downloadUrl
+    sendImageBackend () {
+      this.$http.post('http://18.219.234.144', {
+        breed: 'Lab',
+        location: this.zipcode,
+        url: this.downloadUrl
+      })
+        .then(response => {
+          console.log(response)
+          console.log(response.body.age)
+          this.realBreed = response.body.breed
+          this.breedInfo = response.body.breed_info
+          // this.shelter = response.body['shelter Contact'].address1
+          // this.sheltercity = response.body['shelter Contact'].city
+          // this.shelterzip = response.body['shelter Contact'].zip
+        }, error => {
+          console.log(error)
         })
         .then(
           response => {
