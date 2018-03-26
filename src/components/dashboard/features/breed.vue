@@ -52,7 +52,7 @@
                     class="input-group--focused black--text"
                     v-model="zipcode"
                     dark
-                  ></v-text-field>
+                  />
                 </v-flex>
                 <!-- <span class="zipcode">Zipcode: <input type="text" v-model="zipcode" placeholder="19111"></span> -->
               </div>
@@ -68,7 +68,6 @@
 
               <!-- <p v-if="zipcode">Your zipcode: {{ zipcode }}</p> -->
               <!-- <button v-on:click="sendImageBackend()">Submit To Backend</button> -->
-      
               <v-spacer></v-spacer>
               <v-btn icon @click.native="show = !show">
                 <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
