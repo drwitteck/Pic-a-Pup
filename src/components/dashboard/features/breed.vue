@@ -47,9 +47,10 @@
       </div>
       <p v-if="realBreed">Dog Breed is: {{ realBreed }}</p>
       <p v-if="breedInfo">About this Breed: {{ breedInfo }}</p>
-      <p v-if="shelter">About the Shelter <br><br> Address: {{ shelter }}</p>
+      <!-- <p v-if="shelter">About the Shelter <br><br> Address: {{ shelter }}</p>
       <p v-if="sheltercity">City: {{ sheltercity }}</p>
       <p v-if="shelterzip">Zip: {{ shelterzip }}</p>
+      -->
     </div>
   </div>
 </template>
