@@ -1,7 +1,6 @@
 /* eslint-disable */
 <template>
   <div id="signin">
-
     <app-header />
     <div class="signin-form">
       <form @submit.prevent="onSubmit">
