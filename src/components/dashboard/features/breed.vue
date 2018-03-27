@@ -1,9 +1,6 @@
 <template>
-  <div id="app">
+  <v-flex>
     <div class="container">
-      <p v-if="zipcode">Your zipcode: {{ zipcode }}</p>
-      <input type="text" v-model="zipcode" placeholder="19111">
-
       <!--UPLOAD-->
       <form enctype="multipart/form-data" novalidate v-if="isInitial || isSaving">
         <h1>Upload Your Pup</h1>
@@ -17,42 +14,104 @@
               Uploading your pup...
             </p>
         </div>
+        <br>
+        <v-divider></v-divider>
+        <!-- Possibly going to be a 'recent posted sort of deal' -->
       </form>
       <!--SUCCESS-->
-      <button v-on:click="sendImageBackend()">Submit To Backend</button>
       <div v-if="isSuccess">
         <!-- Fake service Multiple Upload test -->
         <!-- <h2>Uploaded {{ uploadedFiles.length }} pup successfully.</h2> -->
-
-        <h2>Uploaded pup successfully.</h2>
-        <p>
-          <a href="javascript:void(0)" @click="reset()" class="uploadAgain">Upload pup again</a>
-        </p>
-        <ul class="list-unstyled">
+        <h1>Uploaded Pup Successfully</h1>
+        <!-- <ul class="list-unstyled"> -->
           <!-- Uncomment if want to use fake.service -->
           <!-- <li v-for="item in uploadedFiles">
             <img :src="item.url" class="img-responsive img-thumbnail" :alt="item.originalName">
           </li> -->
+          <!-- <img :src="item_url" alt=""> -->
+        <!-- </ul> -->
+        <v-layout row>
+        <v-flex xs12 sm6 offset-sm3>
+          <v-card>
+            <v-card-media
+              :src="item_url"
+              contain
+              height="300px"
+            >
+            </v-card-media>
+            <v-card-title primary-title>
+              <div v-if="!realBreed">
+                <div class="headline">Awesome Pup</div>
+                <br>
+                <span class="white--text">Almost done! Enter your ZIP code and click 'learn more' to find out more about your pup</span>
+                <br>
+                <v-flex xs8>
+                  <v-text-field
+                    name="input-1"
+                    label="ZIP Code"
+                    class="input-group--focused black--text"
+                    v-model="zipcode"
+                    dark
+                  />
+                </v-flex>
+                <!-- <span class="zipcode">Zipcode: <input type="text" v-model="zipcode" placeholder="19111"></span> -->
+              </div>
+              <div v-if="realBreed">
+                <div class="headline">{{ realBreed }}</div>
+                <br>
+                <span v-if="breedInfo" class="white--text">{{ breedInfo }}</span>
+              </div>
+            </v-card-title>
+            <v-card-actions v-if="!realBreed">
+              <v-btn flat color="cyan" @click="sendImageBackend()">Learn More</v-btn>
+              <v-btn flat color="white">Explore</v-btn>
 
-          <img :src="item_url" alt="">
-        </ul>
+              <!-- <p v-if="zipcode">Your zipcode: {{ zipcode }}</p> -->
+              <!-- <button v-on:click="sendImageBackend()">Submit To Backend</button> -->
+              <v-spacer></v-spacer>
+              <v-btn icon @click.native="show = !show">
+                <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
+              </v-btn>
+            </v-card-actions>
+            <v-slide-y-transition>
+              <v-card-text v-show="show">
+               Lorem Ipsum
+              </v-card-text>
+            </v-slide-y-transition>
+          </v-card>
+
+          <br>
+          <v-divider></v-divider>
+
+          <v-btn
+            href="javascript:void(0)"
+            color="blue-grey"
+            class="white--text"
+            @click="reset()"
+          >
+            Upload Another Pup
+            <v-icon right dark>cloud_upload</v-icon>
+          </v-btn>
+        </v-flex>
+      </v-layout>
       </div>
       <!--FAILED-->
       <div v-if="isFailed">
-        <h2>Uploaded failed.</h2>
+        <h1>Uploaded failed.</h1>
         <p>
           <a href="javascript:void(0)" @click="reset()">Try again</a>
         </p>
         <pre>{{ uploadError }}</pre>
       </div>
+
       <p v-if="realBreed">Dog Breed is: {{ realBreed }}</p>
       <p v-if="breedInfo">About this Breed: {{ breedInfo }}</p>
-      <!-- <p v-if="shelter">About the Shelter <br><br> Address: {{ shelter }}</p>
-      <p v-if="sheltercity">City: {{ sheltercity }}</p>
-      <p v-if="shelterzip">Zip: {{ shelterzip }}</p>
-      -->
+      <!--<p v-if="shelter">About the Shelter <br><br> Address: {{ shelter }}</p>-->
+      <!--<p v-if="sheltercity">City: {{ sheltercity }}</p>-->
+      <!--<p v-if="shelterzip">Zip: {{ shelterzip }}</p>-->
+
     </div>
-  </div>
+  </v-flex>
 </template>
 
 <script>
@@ -88,9 +147,10 @@ export default {
       zipcode: '',
       realBreed: '',
       breedInfo: '',
-      shelter: '',
-      sheltercity: '',
-      shelterzip: ''
+      // shelter: '',
+      // sheltercity: '',
+      // shelterzip: ''
+      show: false
     }
   },
   computed: {
@@ -149,16 +209,22 @@ export default {
       let input = document.querySelector('.input-file')
       if (input.files && input.files[0]) {
         let reader = new FileReader()
-        reader.onload = (e) => {
+        reader.onload = e => {
           this.item_url = e.target.result
 
-          fbStorage.ref('imgs/').child(this.$store.state.userId + '_pup.png').put(input.files[0], {
-            contentType: 'image/png'
-          })
+          fbStorage
+            .ref('imgs/')
+            .child(this.$store.state.userId + '_pup.png')
+            .put(input.files[0], {
+              contentType: 'image/png'
+            })
 
-          this.uploadTask = fbStorage.ref('imgs/').child(this.$store.state.userId + '_pup.png').put(input.files[0], {
-            contentType: 'image/png'
-          })
+          this.uploadTask = fbStorage
+            .ref('imgs/')
+            .child(this.$store.state.userId + '_pup.png')
+            .put(input.files[0], {
+              contentType: 'image/png'
+            })
           this.uploadTask.then(snapshot => {
             console.log(snapshot)
             this.downloadUrl = snapshot.downloadURL
@@ -170,11 +236,12 @@ export default {
       }
     },
     sendImageBackend1 () {
-      axios.post('http://httpbin.org/post', {
-        breed: 'Beagle',
-        location: this.zipcode,
-        url: this.downloadUrl
-      })
+      axios
+        .post('http://httpbin.org/post', {
+          breed: 'Beagle',
+          location: this.zipcode,
+          url: this.downloadUrl
+        })
         .then(res => console.log(res))
         .catch(error => console.log(error))
     },
@@ -189,18 +256,28 @@ export default {
           console.log(response.body.age)
           this.realBreed = response.body.breed
           this.breedInfo = response.body.breed_info
-          this.shelter = response.body['shelter Contact'].address1
-          this.sheltercity = response.body['shelter Contact'].city
-          this.shelterzip = response.body['shelter Contact'].zip
+          // this.shelter = response.body['shelter Contact'].address1
+          // this.sheltercity = response.body['shelter Contact'].city
+          // this.shelterzip = response.body['shelter Contact'].zip
         }, error => {
           console.log(error)
         })
+        .then(
+          response => {
+            console.log(response)
+            console.log(response.body.age)
+            this.realBreed = response.body.age
+            this.breedInfo = response.body.info
+          },
+          error => {
+            console.log(error)
+          }
+        )
     }
   },
   mounted () {
     this.reset()
   }
-
 }
 </script>
 
@@ -244,10 +321,18 @@ h1 {
   padding: 50px 0;
 }
 
-.uploadAgain {
-  text-decoration: none;
-  color: white;
-  border: 2px solid white;
-  padding: 2px;
+.card {
+  padding: 20px;
 }
+
+.headline {
+  background: linear-gradient(#d660d2, #1e8196);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+// .zipcode {
+//   background: linear-gradient(45deg, #551053, #1e8196);
+//   border-radius: 10px;
+// }
 </style>

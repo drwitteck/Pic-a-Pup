@@ -82,7 +82,7 @@
       <v-container fluid fill-height>
         <!-- align-center to put contents in center -->
         <v-layout justify-center>
-          <v-flex shrink>
+          <v-flex>
             <!-- New View Opens here -->
             <router-view></router-view>
           </v-flex>
