@@ -14,9 +14,30 @@ Vue.use(VueRouter)
 
 const routes = [
   { path: '/', component: WelcomePage },
-  { path: '/signup', component: SignupPage },
-  { path: '/signin', component: SigninPage },
+  { path: '/signup',
+    component: SignupPage,
+    beforeEnter (to, from, next) {
+      if (store.state.idToken) {
+        next('/dashboard')
+        console.log('help signup')
+      } else {
+        console.log(store.state)
+        next()
+      }
+    } },
   {
+    path: '/signin',
+    component: SigninPage,
+    beforeEnter (to, from, next) {
+      if (store.state.idToken) {
+        next('/dashboard')
+        console.log('help')
+      } else {
+        console.log(store.state)
+        next()
+      }
+    }
+  }, {
     path: '/dashboard',
     component: DashboardPage,
     beforeEnter (to, from, next) {

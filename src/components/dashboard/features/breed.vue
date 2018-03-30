@@ -104,7 +104,6 @@
         <pre>{{ uploadError }}</pre>
       </div>
 
-
       <!--<p v-if="shelter">About the Shelter <br><br> Address: {{ shelter }}</p>-->
       <!--<p v-if="sheltercity">City: {{ sheltercity }}</p>-->
       <!--<p v-if="shelterzip">Zip: {{ shelterzip }}</p>-->
@@ -246,7 +245,7 @@ export default {
     },
     sendImageBackend () {
       this.$http.post('http://18.219.234.144', {
-        breed: 'Lab',
+        // breed: 'Lab',
         location: this.zipcode,
         url: this.downloadUrl
       })
