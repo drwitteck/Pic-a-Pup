@@ -13,15 +13,22 @@ describe('SignupPage.vue', () => {
     // console.log(comp.$el.textContent);
     expect(comp.$el.textContent)
       .to.equal(' Name  Email  Password  Confirm Password  Submit')
-
+    console.log(comp.email)
     expect(comp.email).to.equal('')
     expect(comp.password).to.equal('')
     comp.password = 'help'
     comp.email = 'hecks@me.com'
+
+    /*
+    console.log(comp.$el.textContent)
     Vue.nextTick(() => {
-      expect(comp.$el.email)
+      expect(comp.textContent)
         .to.equal('poophecks@me.com')
     })
+    console.log(comp.$el.textContent)
+    //expect(wrapper.find('.password').text()).toEqual('help')
+    done()
+    */
     done()
   })
   it(`sign up button works`, done => {
