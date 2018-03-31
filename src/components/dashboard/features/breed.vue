@@ -16,6 +16,7 @@
         </div>
         <br>
         <v-divider></v-divider>
+        <h1>View Recent Posts!</h1>
         <!-- Possibly going to be a 'recent posted sort of deal' -->
       </form>
       <!--SUCCESS-->
@@ -30,70 +31,102 @@
           </li> -->
           <!-- <img :src="item_url" alt=""> -->
         <!-- </ul> -->
-        <v-layout row>
-        <v-flex xs12 sm6 offset-sm3>
-          <v-card>
-            <v-card-media
-              :src="item_url"
-              contain
-              height="300px"
+        <v-layout row wrap>
+          <v-flex xs12 sm6 offset-sm3>
+            <v-card>
+              <v-card-media
+                :src="item_url"
+                contain
+                height="300px"
+              >
+              </v-card-media>
+              <v-card-title primary-title>
+                <div v-if="!realBreed">
+                  <div class="headline">Awesome Pup</div>
+                  <br>
+                  <span class="white--text">Almost done! Enter your ZIP code and click 'learn more' to find out more about your pup</span>
+                  <br>
+                  <v-flex xs8>
+                    <v-text-field
+                      name="input-1"
+                      label="ZIP Code"
+                      class="input-group--focused black--text"
+                      v-model="zipcode"
+                      dark
+                    />
+                  </v-flex>
+                  <!-- <span class="zipcode">Zipcode: <input type="text" v-model="zipcode" placeholder="19111"></span> -->
+                </div>
+                <div v-if="realBreed">
+                  <div class="headline">{{ realBreed }}</div>
+                  <br>
+                  <span v-if="breedInfo" class="white--text">{{ breedInfo }}</span>
+                </div>
+              </v-card-title>
+              <v-card-actions v-if="!realBreed">
+                <v-btn flat color="cyan" @click="sendImageBackend()">Learn More</v-btn>
+                <v-btn flat color="white">Explore</v-btn>
+
+                <!-- <p v-if="zipcode">Your zipcode: {{ zipcode }}</p> -->
+                <!-- <button v-on:click="sendImageBackend()">Submit To Backend</button> -->
+                <v-spacer></v-spacer>
+                <v-btn icon @click.native="show = !show">
+                  <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
+                </v-btn>
+              </v-card-actions>
+              <v-slide-y-transition>
+                <v-card-text v-show="show">
+                Lorem Ipsum
+                </v-card-text>
+              </v-slide-y-transition>
+            </v-card>
+            <br>
+            <v-divider></v-divider>
+
+            <v-btn
+              href="javascript:void(0)"
+              color="blue-grey"
+              class="white--text"
+              @click="reset()"
             >
-            </v-card-media>
-            <v-card-title primary-title>
-              <div v-if="!realBreed">
-                <div class="headline">Awesome Pup</div>
-                <br>
-                <span class="white--text">Almost done! Enter your ZIP code and click 'learn more' to find out more about your pup</span>
-                <br>
-                <v-flex xs8>
-                  <v-text-field
-                    name="input-1"
-                    label="ZIP Code"
-                    class="input-group--focused black--text"
-                    v-model="zipcode"
-                    dark
-                  />
-                </v-flex>
-                <!-- <span class="zipcode">Zipcode: <input type="text" v-model="zipcode" placeholder="19111"></span> -->
-              </div>
-              <div v-if="realBreed">
-                <div class="headline">{{ realBreed }}</div>
-                <br>
-                <span v-if="breedInfo" class="white--text">{{ breedInfo }}</span>
-              </div>
-            </v-card-title>
-            <v-card-actions v-if="!realBreed">
-              <v-btn flat color="cyan" @click="sendImageBackend()">Learn More</v-btn>
-              <v-btn flat color="white">Explore</v-btn>
+              Upload Another Pup
+              <v-icon right dark>cloud_upload</v-icon>
+            </v-btn>
+          <!-- Shelter? -->
+          <v-spacer></v-spacer>
+          </v-flex>
+          <v-spacer></v-spacer>
+          <v-layout v-if="realBreed">
+            <v-flex xs6>
+              <h1>View Shelters On the Map Here!</h1>
+              <!-- Replace with Map API -->
+              <img width="100%" src="https://s3.amazonaws.com/uloop/static_maps/sc-121-map.jpg" alt="">
+            </v-flex>
+            <v-flex xs6 id="shelterInfo">
+              <h1>Shelter Information</h1>
+              <p v-if="shelter">About the Shelter <br><br> Address: {{ shelter }}</p>
+              <p v-if="sheltercity">City: {{ sheltercity }}</p>
+              <p v-if="shelterzip">Zip: {{ shelterzip }}</p>
+            </v-flex>
+          </v-layout>
+          <!-- Test for shelter -->
+          <v-layout>
+            <v-flex xs6>
+              <h1>(Test View Will be deleted soon) View Shelters On the Map Here!</h1>
+              <!-- Replace with Map API -->
+              <img width="100%" src="https://s3.amazonaws.com/uloop/static_maps/sc-121-map.jpg" alt="">
+            </v-flex>
+            <v-flex xs6 id="shelterInfo">
+              <h1>(Test View Will be deleted soon) Shelter Information</h1>
 
-              <!-- <p v-if="zipcode">Your zipcode: {{ zipcode }}</p> -->
-              <!-- <button v-on:click="sendImageBackend()">Submit To Backend</button> -->
-              <v-spacer></v-spacer>
-              <v-btn icon @click.native="show = !show">
-                <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
-              </v-btn>
-            </v-card-actions>
-            <v-slide-y-transition>
-              <v-card-text v-show="show">
-               Lorem Ipsum
-              </v-card-text>
-            </v-slide-y-transition>
-          </v-card>
+              <!-- PlaceHolder -->
+              <p>About the Shelter <br><br> Address: 123 Temple Street</p>
+              <p>City: Philadelphia</p>
+              <p>Zip: 19123</p>
 
-          <br>
-          <v-divider></v-divider>
-
-          <v-btn
-            href="javascript:void(0)"
-            color="blue-grey"
-            class="white--text"
-            @click="reset()"
-          >
-            Upload Another Pup
-            <v-icon right dark>cloud_upload</v-icon>
-          </v-btn>
-        </v-flex>
-      </v-layout>
+            </v-flex>
+          </v-layout>
+        </v-layout>
       </div>
       <!--FAILED-->
       <div v-if="isFailed">
@@ -103,11 +136,6 @@
         </p>
         <pre>{{ uploadError }}</pre>
       </div>
-
-      <!--<p v-if="shelter">About the Shelter <br><br> Address: {{ shelter }}</p>-->
-      <!--<p v-if="sheltercity">City: {{ sheltercity }}</p>-->
-      <!--<p v-if="shelterzip">Zip: {{ shelterzip }}</p>-->
-
     </div>
   </v-flex>
 </template>
@@ -286,6 +314,11 @@ h1 {
   text-align: center;
   margin: 5vh;
 }
+
+#shelterInfo {
+  text-align: center
+}
+
 .dropbox {
   background-size: contain;
   margin: auto;
