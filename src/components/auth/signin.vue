@@ -3,57 +3,57 @@
   <div id="signin">
     <!-- <app-header /> -->
     <v-container>
-    <v-layout>
-    <v-flex xs12 sm6 offset-sm3>
-      <v-card raised>
-        <v-card-title class="purple white--text">
-          <v-icon>contact_mail</v-icon>
-          &nbsp;
-          &nbsp;
-          <span class="headline">Login</span>
-          <v-spacer></v-spacer>
-        </v-card-title>
-        <v-card-text class="white blue--text">
-          <v-avatar :size=200>
-            <img src="../pictures/pap.png" alt="avatar">
-          </v-avatar>
-           <v-form v-model="valid" ref="form" lazy-validation>
-              
-              <v-text-field
-                label="E-mail"
-                v-model="email"
-                :rules="emailRules"
-                required
-                counter
-              ></v-text-field>
+      <v-layout>
+        <v-flex xs12 sm6 offset-sm3>
+          <v-card raised>
+            <v-card-title class="purple white--text">
+              <v-icon>contact_mail</v-icon>
+              &nbsp;
+              &nbsp;
+              <span class="headline">Login</span>
+              <v-spacer></v-spacer>
+            </v-card-title>
+            <v-card-text class="white blue--text">
+              <v-avatar :size=200>
+                <img src="../pictures/pap.png" alt="avatar">
+              </v-avatar>
+              <v-form v-model="valid" ref="form" lazy-validation>
 
-              <v-text-field
-                label="Password"
-                v-model="password"
-                required
-                :append-icon="e1 ? 'visibility_off' : 'visibility'"
-                :append-icon-cb="() => (e1 = !e1)"
-                :type="e1 ? 'password' : 'text'"
-                counter
-              ></v-text-field>
+                <v-text-field
+                  label="E-mail"
+                  v-model="email"
+                  :rules="emailRules"
+                  required
+                  counter
+                ></v-text-field>
 
-              <v-btn
-                @click="onSubmit"
-                :disabled="!valid"
-              >
-                Login
-                &nbsp;
-                <v-icon>send</v-icon>
-              </v-btn>
-              <v-btn @click="clear">clear&nbsp;<v-icon>clear</v-icon></v-btn>
-            </v-form>
-            <br>
-            <p>Want to join the Pic-a-Fam? <router-link to="/signup">Sign Up</router-link></p>
-        </v-card-text>
-      </v-card>
-    </v-flex>
-  </v-layout>
-  </v-container>
+                <v-text-field
+                  label="Password"
+                  v-model="password"
+                  required
+                  :append-icon="e1 ? 'visibility_off' : 'visibility'"
+                  :append-icon-cb="() => (e1 = !e1)"
+                  :type="e1 ? 'password' : 'text'"
+                  counter
+                ></v-text-field>
+
+                <v-btn
+                  @click="onSubmit"
+                  :disabled="!valid"
+                >
+                  Login
+                  &nbsp;
+                  <v-icon>send</v-icon>
+                </v-btn>
+                <v-btn @click="clear">clear&nbsp;<v-icon>clear</v-icon></v-btn>
+              </v-form>
+              <br>
+              <p>Want to join the Pic-a-Fam? <router-link to="/signup">Sign Up</router-link></p>
+            </v-card-text>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-container>
   </div>
 </template>
 
