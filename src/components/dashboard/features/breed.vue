@@ -244,7 +244,7 @@ export default {
         .catch(error => console.log(error))
     },
     sendImageBackend () {
-      this.$http.post('http://18.219.234.144', {
+      this.$http.post('http://18.188.145.20:5000', {
         // breed: 'Lab',
         location: this.zipcode,
         url: this.downloadUrl
