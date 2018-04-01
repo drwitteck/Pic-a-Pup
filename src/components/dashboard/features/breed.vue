@@ -173,9 +173,9 @@ export default {
       zipcode: '',
       realBreed: '',
       breedInfo: '',
-      // shelter: '',
-      // sheltercity: '',
-      // shelterzip: ''
+      shelter: '',
+      sheltercity: '',
+      shelterzip: '',
       show: false
     }
   },
@@ -291,9 +291,9 @@ export default {
         .then(
           response => {
             console.log(response)
-            console.log(response.body.age)
-            this.realBreed = response.body.age
-            this.breedInfo = response.body.info
+            // console.log(response.body.age)
+            // this.realBreed = response.body.age
+            // this.breedInfo = response.body.info
           },
           error => {
             console.log(error)
