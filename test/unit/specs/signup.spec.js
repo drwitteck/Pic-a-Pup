@@ -11,8 +11,6 @@ describe('SignupPage.vue', () => {
 
     }).$mount()
     // console.log(comp.$el.textContent);
-    expect(comp.$el.textContent)
-      .to.equal(' Name  Email  Password  Confirm Password  Submit')
     console.log(comp.email)
     expect(comp.email).to.equal('')
     expect(comp.password).to.equal('')

@@ -10,6 +10,11 @@ describe('BreedPage.vue', () => {
     const comp = new Constructor({
 
     }).$mount()
+    expect(comp.currentStatus).to.equal(0)
+    expect(comp.uploadFieldName).to.equal('photos')
+    expect(comp.item_url).to.equal('')
+    expect(comp.zipcode).to.equal('')
+    expect(comp.breedInfo).to.equal('')
     done()
   })
   it(`image was succesfuly uploaded`, done => {
@@ -17,6 +22,7 @@ describe('BreedPage.vue', () => {
 
     const comp = new Constructor({
     }).$mount()
+    expect(comp.uploadError).to.equal(null)
     done()
   })
 
@@ -32,6 +38,7 @@ describe('BreedPage.vue', () => {
 
     const comp = new Constructor({
     }).$mount()
+    expect(comp.realBreed).to.equal('')
     done()
   })
 })

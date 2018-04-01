@@ -10,19 +10,17 @@ describe('SigninPage.vue', () => {
 
     const comp = new Constructor({ store
     }).$mount()
-    comp.password = '123123'
-    comp.email = 'pls@work.com'
+    // comp.password = '123123'
+    // comp.email = 'pls@work.com'
     comp.onSubmit()
-    console.log(localStorage)
+    expect(comp.password).to.equal('')
+    expect(comp.email).to.equal('')
     // try to compare what is in the local store in the store.js to the user id in firebase
     done()
   })
   it(`sign in button works`, done => {
-    const Constructor = Vue.extend(SigninPage)
-
-    const comp = new Constructor({
-    }).$mount()
-
+    const vm = new Vue(SigninPage).$mount()
+    expect(vm.valid).to.equal(true)
     done()
   })
   it(`logs in succesfully, is redirected to dashboard`, done => {
