@@ -63,6 +63,15 @@
             <v-list-tile-title>Sign Out</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile> -->
+        <!-- Link 4 -->
+        <v-list-tile router-link to="/park">
+          <v-list-tile-action>
+            <v-icon>local_florist</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Pic-a-Park</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
       </v-list>
     </v-navigation-drawer>
     <!-- Top Navbar -->

@@ -3,15 +3,15 @@ import DashboardPage from '../../../src/components/dashboard/dashboard.vue'
 
 describe('DashboardPage', () => {
   it('sets the correct default data', () => {
-    expect(typeof DashboardPage.data).toBe('function')
+    expect(typeof DashboardPage.data).to.equal('function')
     const defaultData = DashboardPage.data()
-    expect(defaultData.name).toBe('defaultName')
-    expect(defaultData.picture).toBe('../pictures/pap.png')
-    expect(defaultData.imgData).toBe('')
-    expect(defaultData.profileImageData).toBe('')
-    expect(defaultData.uploadTask).toBe('')
-    expect(defaultData.downloadUrl).toBe('')
-    expect(defaultData.drawer).toBe(true)
+    expect(defaultData.name).to.equal('defaultName')
+    expect(defaultData.picture).to.equal('../pictures/pap.png')
+    expect(defaultData.imgData).to.equal('')
+    expect(defaultData.profileImageData).to.equal('')
+    expect(defaultData.uploadTask).to.equal('')
+    expect(defaultData.downloadUrl).to.equal('')
+    expect(defaultData.drawer).to.equal(true)
   })
   it(`navigation drawer's visibility should be controlled by a hamburger menu`, done => {
     const Constructor = Vue.extend(DashboardPage)
