@@ -18,7 +18,6 @@
                 <img src="../pictures/pap.png" alt="avatar">
               </v-avatar>
               <v-form v-model="valid" ref="form" lazy-validation>
-              
                 <v-text-field
                   label="E-mail"
                   v-model="email"
