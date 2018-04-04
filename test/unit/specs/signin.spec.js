@@ -5,6 +5,7 @@ import { state, actions } from '../../../src/store.js'
 import SigninPage from '../../../src/components/auth/signin.vue'
 
 describe('SigninPage.vue', () => {
+
   it(`should have different text fields`, done => {
     // Extend the component to get the constructor, which we can then initialize directly.
     const Constructor = Vue.extend(SigninPage)
@@ -70,7 +71,7 @@ describe('SigninPage.vue', () => {
     expect(state.password).to.equal('123123')
     done()
   })
-  it(`logs in succesfully, is redirected to dashboard`, done => {
+  it(`logs in successfully, is redirected to dashboard`, done => {
     const Constructor = Vue.extend(SigninPage)
 
     const comp = new Constructor({
@@ -82,6 +83,32 @@ describe('SigninPage.vue', () => {
 
     const comp = new Constructor({
     }).$mount()
+    done()
+  })
+  it(`Authentication was succesful`, done => {
+    const Constructor = Vue.extend(SigninPage)
+    const comp = new Constructor({
+    }).$mount()
+
+    let storeData = state
+    let storeActions = actions
+
+    console.log(storeData)
+    console.log(storeActions)
+    actions.setUser('test')
+    state.user.should.equal('test')
+    comp.password = '123123'
+    comp.email = 'pls@work.com'
+    actions.login({
+      commit: null,
+      dispatch: null
+    }, {
+      email: comp.email,
+      password: comp.password
+    })
+
+    expect(state.userId).to.equal('6NSspNCP0ZRzJ0GcD2MDn1x5stg1')
+
     done()
   })
 })
