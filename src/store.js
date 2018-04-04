@@ -13,7 +13,8 @@ export const state = {
   userId: null,
   user: null,
   email: null,
-  password: null
+  password: null,
+  error: false
 }
 
 
@@ -59,6 +60,7 @@ export const actions = {
       returnSecureToken: true
     })
       .then(res => {
+        //state.userId = res.data.localId
         console.log(res)
         const now = new Date()
         const expirationDate = new Date(now.getTime() + res.data.expiresIn * 1000)
@@ -128,6 +130,7 @@ export const actions = {
 export const getters = {
   user: (state) => {
     return state.user
+
   },
   isAuthenticated: (state) => {
     return state.idToken !== null
