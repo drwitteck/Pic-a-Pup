@@ -11,8 +11,11 @@ Vue.use(Vuex)
 export const state = {
   idToken: null,
   userId: null,
-  user: null
+  user: null,
+  email: null,
+  password: null
 }
+
 
 export const actions = {
   setLogoutTimer: ({commit}, expirationTime) => {
@@ -46,6 +49,9 @@ export const actions = {
       .catch(error => console.log(error))
   },
   login: ({commit, dispatch}, authData) => {
+    state.email = authData.email
+    state.password = authData.password
+
     console.log(authData)
     axios.post('/verifyPassword?key=AIzaSyDFULdMLBvglLWLD6m2sjyJ43g_rfjcBj4', {
       email: authData.email,

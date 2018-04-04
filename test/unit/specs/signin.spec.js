@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import store from '../../../src/store.js'
+import { state, actions } from '../../../src/store.js'
 
 // The path is relative to the project root.
 import SigninPage from '../../../src/components/auth/signin.vue'
@@ -9,7 +9,6 @@ describe('SigninPage.vue', () => {
     // Extend the component to get the constructor, which we can then initialize directly.
     const Constructor = Vue.extend(SigninPage)
     const store = Vue.extend({
-      store
     })
 
     const comp = new Constructor({ store
@@ -30,17 +29,7 @@ describe('SigninPage.vue', () => {
     // const comp = new Vue(SigninPage).$mount()
     const Constructor = Vue.extend(SigninPage)
     const comp = new Constructor({
-      store
     }).$mount()
-
-    // const comp = new Vue({
-    //   template: '<div><SignIn/></div>',
-    //   store,
-    //   components: {
-    //     'SignIn': SigninPage
-    //   }
-    // })
-
     expect(comp.valid).to.equal(true)
     var button = comp.$el.querySelector('.btn__content')
     var buttonContent = button.innerHTML
@@ -60,6 +49,25 @@ describe('SigninPage.vue', () => {
     console.log(componentHTML)
     // console.log(store)
 
+    let storeData = state
+    let storeActions = actions
+    expect(state.user).to.be.null
+    console.log(storeData)
+    console.log(storeActions)
+    actions.setUser('test')
+    state.user.should.equal('test')
+    comp.password = '123123'
+    comp.email = 'pls@work.com'
+    actions.login({
+      commit: null,
+      dispatch: null
+    }, {
+      email: comp.email,
+      password: comp.password
+    })
+
+    expect(state.email).to.equal('pls@work.com')
+    expect(state.password).to.equal('123123')
     done()
   })
   it(`logs in succesfully, is redirected to dashboard`, done => {
