@@ -1,26 +1,18 @@
 <template>
   <div>
-   <v-app light>
-    <v-content >
+   <v-app dark>
+    <v-content style="margin:0; padding:0">
       <section>
-        <v-parallax src="../pictures/DogSelfie.jpg" height="600px">
+        <v-parallax src="https://wallpapercave.com/wp/IrMqrhR.jpg" height="600">
           <v-layout
             column
             align-center
             justify-center
             class="white--text"
           >
-            <img src="assets/vuetify.png" alt="Vuetify.js" height="200">
-            <h1 class="white--text mb-2 display-1 text-xs-center">Parallax Template</h1>
-            <div class="subheading mb-3 text-xs-center">Powered by Vuetify</div>
-            <v-btn
-              class="blue lighten-2 mt-5"
-              dark
-              large
-              href="/pre-made-themes"
-            >
-              Get Started
-            </v-btn>
+            <img src="../pictures/pap.png" alt="Vuetify.js" height="200">
+            <h1 class="white--text mb-2 display-1 text-xs-center">TITLE HERE</h1>
+            <div class="subheading mb-3 text-xs-center">SHORT DESCRIPTION HERE</div>
           </v-layout>
         </v-parallax>
       </section>
@@ -34,9 +26,9 @@
         >
           <v-flex xs12 sm4 class="my-3">
             <div class="text-xs-center">
-              <h2 class="headline">The best way to start developing</h2>
+              <h2 class="headline">Overview</h2>
               <span class="subheading">
-                Cras facilisis mi vitae nunc 
+                See what you could do, Pic-a-Fam!
               </span>
             </div>
           </v-flex>
@@ -49,13 +41,23 @@
                       <v-icon x-large class="blue--text text--lighten-2">color_lens</v-icon>
                     </v-card-text>
                     <v-card-title primary-title class="layout justify-center">
-                      <div class="headline text-xs-center">Material Design</div>
+                      <div class="headline text-xs-center">Pic-a-Breed</div>
                     </v-card-title>
                     <v-card-text>
                       Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare. 
                       Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. 
                       Nullam in aliquet odio. Aliquam eu est vitae tellus bibendum tincidunt. Suspendisse potenti. 
                     </v-card-text>
+                    <v-card-actions class="layout justify-center">
+                        <v-btn
+                            class="blue lighten-2 mt-5"
+                            dark
+                            large
+                            href="/pre-made-themes"
+                            >
+                            GitHub
+                        </v-btn>
+                    </v-card-actions>
                   </v-card>
                 </v-flex>
                 <v-flex xs12 md4>
@@ -64,13 +66,23 @@
                       <v-icon x-large class="blue--text text--lighten-2">flash_on</v-icon>
                     </v-card-text>
                     <v-card-title primary-title class="layout justify-center">
-                      <div class="headline">Fast development</div>
+                      <div class="headline">Pic-a-Park</div>
                     </v-card-title>
                     <v-card-text>
                       Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare. 
                       Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. 
                       Nullam in aliquet odio. Aliquam eu est vitae tellus bibendum tincidunt. Suspendisse potenti. 
                     </v-card-text>
+                    <v-card-actions class="layout justify-center">
+                        <v-btn
+                            class="blue lighten-2 mt-5"
+                            dark
+                            large
+                            href="/pre-made-themes"
+                            >
+                            GitHub
+                        </v-btn>
+                    </v-card-actions>
                   </v-card>
                 </v-flex>
                 <v-flex xs12 md4>
@@ -79,13 +91,23 @@
                       <v-icon x-large class="blue--text text--lighten-2">build</v-icon>
                     </v-card-text>
                     <v-card-title primary-title class="layout justify-center">
-                      <div class="headline text-xs-center">Completely Open Sourced</div>
+                      <div class="headline text-xs-center">Pic-a-Wah</div>
                     </v-card-title>
                     <v-card-text>
                       Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare. 
                       Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. 
                       Nullam in aliquet odio. Aliquam eu est vitae tellus bibendum tincidunt. Suspendisse potenti. 
                     </v-card-text>
+                    <v-card-actions class="layout justify-center">
+                        <v-btn
+                            class="blue lighten-2 mt-5"
+                            dark
+                            large
+                            href="/pre-made-themes"
+                            >
+                            GitHub
+                        </v-btn>
+                    </v-card-actions>
                   </v-card>
                 </v-flex>
               </v-layout>
@@ -95,17 +117,17 @@
       </section>
 
       <section>
-        <v-parallax src="assets/section.jpg" height="380">
+        <v-parallax src="http://spaysa.org/wp-content/uploads/2013/02/winter-dog-snowflakes-hd-wallpaper-Dog-wallpaper-HD-free-wallpapers-backgrounds-images-FHD-4k-download-2014-2015-2016.jpg" height="380">
           <v-layout column align-center justify-center>
-            <div class="headline white--text mb-3 text-xs-center">Web development has never been easier</div>
-            <em>Kick-start your application today</em>
+            <div class="headline white--text mb-3 text-xs-center">Check Out The Code!</div>
+            <em>Kick-start Your Application Today</em>
             <v-btn
               class="blue lighten-2 mt-5"
               dark
               large
               href="/pre-made-themes"
             >
-              Get Started
+              GitHub
             </v-btn>
           </v-layout>
         </v-parallax>
@@ -117,12 +139,10 @@
             <v-flex xs12 sm4>
               <v-card class="elevation-0 transparent">
                 <v-card-title primary-title class="layout justify-center">
-                  <div class="headline">Company info</div>
+                  <div class="headline">Location</div>
                 </v-card-title>
                 <v-card-text>
-                  Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare. 
-                  Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. 
-                  Nullam in aliquet odio. Aliquam eu est vitae tellus bibendum tincidunt. Suspendisse potenti. 
+                  A MAP OF TEMPLE WILL BE PLACED HERE I GUESS HAHAHAHAHAHAHHAHAHAHHA 
                 </v-card-text>
               </v-card>
             </v-flex>
@@ -132,7 +152,7 @@
                   <div class="headline">Contact us</div>
                 </v-card-title>
                 <v-card-text>
-                  Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare.
+                    Have any pressing questions? Want to just talk?
                 </v-card-text>
                 <v-list class="transparent">
                   <v-list-tile>
@@ -140,7 +160,7 @@
                       <v-icon class="blue--text text--lighten-2">phone</v-icon>
                     </v-list-tile-action>
                     <v-list-tile-content>
-                      <v-list-tile-title>777-867-5309</v-list-tile-title>
+                      <v-list-tile-title>215-742-2787</v-list-tile-title>
                     </v-list-tile-content>
                   </v-list-tile>
                   <v-list-tile>
@@ -148,7 +168,7 @@
                       <v-icon class="blue--text text--lighten-2">place</v-icon>
                     </v-list-tile-action>
                     <v-list-tile-content>
-                      <v-list-tile-title>Chicago, US</v-list-tile-title>
+                      <v-list-tile-title>Philadelphia, PA</v-list-tile-title>
                     </v-list-tile-content>
                   </v-list-tile>
                   <v-list-tile>
@@ -156,7 +176,7 @@
                       <v-icon class="blue--text text--lighten-2">email</v-icon>
                     </v-list-tile-action>
                     <v-list-tile-content>
-                      <v-list-tile-title>john@vuetifyjs.com</v-list-tile-title>
+                      <v-list-tile-title>capstone4398@gmail.com</v-list-tile-title>
                     </v-list-tile-content>
                   </v-list-tile>
                 </v-list>
@@ -165,19 +185,6 @@
           </v-layout>
         </v-container>
       </section>
-
-      <v-footer class="blue darken-2">
-        <v-layout row wrap align-center>
-          <v-flex xs12>
-            <div class="white--text ml-3">
-              Made with
-              <v-icon class="red--text">favorite</v-icon>
-              by <a class="white--text" href="https://vuetifyjs.com" target="_blank">Vuetify</a>
-              and <a class="white--text" href="https://github.com/vwxyzjn">Costa Huang</a>
-            </div>
-          </v-flex>
-        </v-layout>
-      </v-footer>
     </v-content>
   </v-app>
  </div>
@@ -185,7 +192,6 @@
 
 <script>
 export default {
-    title: 'Your Logo'
 }
 </script>
 
