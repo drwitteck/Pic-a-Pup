@@ -110,22 +110,18 @@
             </v-flex>
           </v-layout>
           <!-- Test for shelter -->
-          <v-layout>
+          <!-- <v-layout>
             <v-flex xs6>
               <h1>(Test View Will be deleted soon) View Shelters On the Map Here!</h1>
-              <!-- Replace with Map API -->
               <img width="100%" src="https://s3.amazonaws.com/uloop/static_maps/sc-121-map.jpg" alt="">
             </v-flex>
             <v-flex xs6 id="shelterInfo">
               <h1>(Test View Will be deleted soon) Shelter Information</h1>
-
-              <!-- PlaceHolder -->
               <p>About the Shelter <br><br> Address: 123 Temple Street</p>
               <p>City: Philadelphia</p>
               <p>Zip: 19123</p>
-
             </v-flex>
-          </v-layout>
+          </v-layout> -->
         </v-layout>
       </div>
       <!--FAILED-->
@@ -199,6 +195,17 @@ export default {
       this.currentStatus = STATUS_INITIAL
       this.uploadedFiles = []
       this.uploadError = null
+      this.currentStatus = null
+      this.uploadFieldName = 'photos'
+      this.item_url = ''
+      this.downloadURL = ''
+      this.zipcode = ''
+      this.realBreed = ''
+      this.breedInfo = ''
+      this.shelter = ''
+      this.sheltercity = ''
+      this.shelterzip = ''
+      this.show = false
     },
     save (formData) {
       // upload data to the server
@@ -282,9 +289,9 @@ export default {
           console.log(response.body.age)
           this.realBreed = response.body.breed
           this.breedInfo = response.body.breed_info
-          // this.shelter = response.body['shelter Contact'].address1
-          // this.sheltercity = response.body['shelter Contact'].city
-          // this.shelterzip = response.body['shelter Contact'].zip
+          this.shelter = response.body['shelter Contact'].address1
+          this.sheltercity = response.body['shelter Contact'].city
+          this.shelterzip = response.body['shelter Contact'].zip
         }, error => {
           console.log(error)
         })
