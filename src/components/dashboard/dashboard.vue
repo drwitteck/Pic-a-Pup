@@ -23,6 +23,7 @@
       fixed
       v-model="drawer"
       app
+      style=""
     >
       <v-list>
         <v-list-tile avatar>
@@ -37,7 +38,7 @@
         <v-divider></v-divider>
 
         <!-- Link 1 -->
-        <v-list-tile router-link to="/dashboard">
+        <v-list-tile router-link to="/overview">
           <v-list-tile-action>
             <v-icon>home</v-icon>
           </v-list-tile-action>
@@ -88,15 +89,15 @@
     </v-toolbar>
     <!-- Main View -->
     <v-content>
-      <v-container fluid fill-height>
+      <!-- <v-container fluid fill-height> -->
         <!-- align-center to put contents in center -->
         <v-layout justify-center>
-          <v-flex>
+          <v-flex style="margin:0;">
             <!-- New View Opens here -->
             <router-view></router-view>
           </v-flex>
         </v-layout>
-      </v-container>
+      <!-- </v-container> -->
     </v-content>
     <!-- Footer -->
     <v-footer app fixed>

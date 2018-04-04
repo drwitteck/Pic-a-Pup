@@ -5,6 +5,7 @@ import store from './store'
 
 import WelcomePage from './components/welcome/welcome.vue'
 import DashboardPage from './components/dashboard/dashboard.vue'
+import OverviewPage from './components/dashboard/overview.vue'
 import SignupPage from './components/auth/signup.vue'
 import SigninPage from './components/auth/signin.vue'
 import BreedPage from './components/dashboard/features/breed.vue'
@@ -44,6 +45,7 @@ const routes = [
     beforeEnter (to, from, next) {
       if (store.state.idToken) {
         next()
+        next('/overview')
       } else {
         next('/signin')
       }
@@ -52,6 +54,10 @@ const routes = [
       {
         path: '/breed',
         component: BreedPage
+      },
+      {
+        path: '/overview',
+        component: OverviewPage
       },
       {
         path: '/park',
