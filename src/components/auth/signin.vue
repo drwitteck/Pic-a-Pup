@@ -53,7 +53,6 @@
         </v-flex>
       </v-layout>
     </v-container> -->
-    <div id="app">
       <v-container fill-height>
         <v-layout style="margin-top: 15vh;" justify-center row class="text-xs-center">
           <v-flex xs3 style="background-image: url('https://us.123rf.com/450wm/porpeller/porpeller1508/porpeller150800144/44201646-a-woman-using-a-smart-phone-to-take-a-photo-of-her-dog-playing-on-a-bright-green-grass-field.jpg?ver=6');background-repeat: no-repeat;
@@ -127,7 +126,6 @@
           </v-flex>
         </v-layout>
       </v-container>
-    </div>
   </div>
 </template>
 

@@ -195,7 +195,6 @@ export default {
       this.currentStatus = STATUS_INITIAL
       this.uploadedFiles = []
       this.uploadError = null
-      this.currentStatus = null
       this.uploadFieldName = 'photos'
       this.item_url = ''
       this.downloadURL = ''

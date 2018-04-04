@@ -37,7 +37,7 @@
         <v-divider></v-divider>
 
         <!-- Link 1 -->
-        <v-list-tile router-link to="/dashboard">
+        <v-list-tile router-link to="/overview">
           <v-list-tile-action>
             <v-icon>home</v-icon>
           </v-list-tile-action>
