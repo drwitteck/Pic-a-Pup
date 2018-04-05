@@ -113,8 +113,20 @@
           <v-layout>
             <v-flex xs6>
               <h1>(Test View Will be deleted soon) View Shelters On the Map Here!</h1>
-              <!-- Replace with Map API -->
-              <img width="100%" src="https://s3.amazonaws.com/uloop/static_maps/sc-121-map.jpg" alt="">
+              <gmap-map
+                :center="center"
+                :zoom="7"
+                style="width: 30vw; height: 30vw; margin:auto;"
+              >
+                <gmap-marker
+                  :key="index"
+                  v-for="(m, index) in markers"
+                  :position="m.position"
+                  :clickable="true"
+                  :draggable="true"
+                  @click="center=m.position"
+                ></gmap-marker>
+              </gmap-map>
             </v-flex>
             <v-flex xs6 id="shelterInfo">
               <h1>(Test View Will be deleted soon) Shelter Information</h1>
@@ -144,67 +156,74 @@
 // swap as you need
 // import { upload } from "./file-upload.fake.service"; // fake service
 // import { upload } from './file-upload.service';   // real service
-import { wait } from './utils'
-import { fbStorage } from '../../../main'
-import axios from 'axios'
-import VueResources from 'vue-resource'
+import { wait } from "./utils";
+import { fbStorage } from "../../../main";
+import axios from "axios";
+import VueResources from "vue-resource";
 
 const STATUS_INITIAL = 0,
   STATUS_SAVING = 1,
   STATUS_SUCCESS = 2,
-  STATUS_FAILED = 3
-const BASE_URL = 'http://localhost:3001'
+  STATUS_FAILED = 3;
+const BASE_URL = "http://localhost:3001";
 
 const breedPageinstance = axios.create({
-  baseURL: '18.219.234.144'
-})
+  baseURL: "18.219.234.144"
+});
 
 export default {
   breedPageinstance,
-  name: 'app',
-  data () {
+  name: "app",
+  data() {
     return {
       uploadedFiles: [],
       uploadError: null,
       currentStatus: null,
-      uploadFieldName: 'photos',
-      item_url: '',
-      downloadURL: '',
-      zipcode: '',
-      realBreed: '',
-      breedInfo: '',
-      shelter: '',
-      sheltercity: '',
-      shelterzip: '',
-      show: false
-    }
+      uploadFieldName: "photos",
+      item_url: "",
+      downloadURL: "",
+      zipcode: "",
+      realBreed: "",
+      breedInfo: "",
+      shelter: "",
+      sheltercity: "",
+      shelterzip: "",
+      show: false,
+      center: {lat: 10.0, lng: 10.0},
+        markers: [{
+          position: {lat: 10.0, lng: 10.0}
+        }, {
+          position: {lat: 20.0, lng: 11.0}
+        }]
+      
+    };
   },
   computed: {
-    isInitial () {
-      return this.currentStatus === STATUS_INITIAL
+    isInitial() {
+      return this.currentStatus === STATUS_INITIAL;
     },
-    isSaving () {
-      return this.currentStatus === STATUS_SAVING
+    isSaving() {
+      return this.currentStatus === STATUS_SAVING;
     },
-    isSuccess () {
-      return this.currentStatus === STATUS_SUCCESS
+    isSuccess() {
+      return this.currentStatus === STATUS_SUCCESS;
     },
-    isFailed () {
-      return this.currentStatus === STATUS_FAILED
+    isFailed() {
+      return this.currentStatus === STATUS_FAILED;
     }
   },
   methods: {
-    reset () {
+    reset() {
       // reset form to initial state
-      this.currentStatus = STATUS_INITIAL
-      this.uploadedFiles = []
-      this.uploadError = null
+      this.currentStatus = STATUS_INITIAL;
+      this.uploadedFiles = [];
+      this.uploadError = null;
     },
-    save (formData) {
+    save(formData) {
       // upload data to the server
-      this.currentStatus = STATUS_SAVING
-      const url = `${BASE_URL}/photos/upload`
-      this.upload()
+      this.currentStatus = STATUS_SAVING;
+      const url = `${BASE_URL}/photos/upload`;
+      this.upload();
       // New Upload Code
 
       // upload(formData)
@@ -218,93 +237,97 @@ export default {
       //     this.currentStatus = STATUS_FAILED;
       //   });
     },
-    filesChange (fieldName, fileList) {
+    filesChange(fieldName, fileList) {
       // handle file changes
-      const formData = new FormData()
+      const formData = new FormData();
 
-      if (!fileList.length) return
+      if (!fileList.length) return;
 
       // append the files to FormData
       Array.from(Array(fileList.length).keys()).map(x => {
-        formData.append(fieldName, fileList[x], fileList[x].name)
-      })
+        formData.append(fieldName, fileList[x], fileList[x].name);
+      });
       // save it
-      this.save(formData)
+      this.save(formData);
     },
-    upload () {
-      let input = document.querySelector('.input-file')
+    upload() {
+      let input = document.querySelector(".input-file");
       if (input.files && input.files[0]) {
-        let reader = new FileReader()
+        let reader = new FileReader();
         reader.onload = e => {
-          this.item_url = e.target.result
+          this.item_url = e.target.result;
 
           fbStorage
-            .ref('imgs/')
-            .child(this.$store.state.userId + '_pup.png')
+            .ref("imgs/")
+            .child(this.$store.state.userId + "_pup.png")
             .put(input.files[0], {
-              contentType: 'image/png'
-            })
+              contentType: "image/png"
+            });
 
           this.uploadTask = fbStorage
-            .ref('imgs/')
-            .child(this.$store.state.userId + '_pup.png')
+            .ref("imgs/")
+            .child(this.$store.state.userId + "_pup.png")
             .put(input.files[0], {
-              contentType: 'image/png'
-            })
+              contentType: "image/png"
+            });
           this.uploadTask.then(snapshot => {
-            console.log(snapshot)
-            this.downloadUrl = snapshot.downloadURL
-            this.$emit('url', this.downloadUrl)
-          })
-        }
-        reader.readAsDataURL(input.files[0])
-        this.currentStatus = STATUS_SUCCESS
+            console.log(snapshot);
+            this.downloadUrl = snapshot.downloadURL;
+            this.$emit("url", this.downloadUrl);
+          });
+        };
+        reader.readAsDataURL(input.files[0]);
+        this.currentStatus = STATUS_SUCCESS;
       }
     },
-    sendImageBackend1 () {
+    sendImageBackend1() {
       axios
-        .post('http://httpbin.org/post', {
-          breed: 'Beagle',
+        .post("http://httpbin.org/post", {
+          breed: "Beagle",
           location: this.zipcode,
           url: this.downloadUrl
         })
         .then(res => console.log(res))
-        .catch(error => console.log(error))
+        .catch(error => console.log(error));
     },
-    sendImageBackend () {
-      this.$http.post('http://18.188.145.20', {
-        // breed: 'Lab',
-        location: this.zipcode,
-        url: this.downloadUrl
-      })
-        .then(response => {
-          console.log(response)
-          console.log(response.body.age)
-          this.realBreed = response.body.breed
-          this.breedInfo = response.body.breed_info
-          // this.shelter = response.body['shelter Contact'].address1
-          // this.sheltercity = response.body['shelter Contact'].city
-          // this.shelterzip = response.body['shelter Contact'].zip
-        }, error => {
-          console.log(error)
+    sendImageBackend() {
+      this.$http
+        .post("http://18.188.145.20", {
+          // breed: 'Lab',
+          location: this.zipcode,
+          url: this.downloadUrl
         })
         .then(
           response => {
-            console.log(response)
+            console.log(response);
+            console.log(response.body.age);
+            this.realBreed = response.body.breed;
+            this.breedInfo = response.body.breed_info;
+            // this.shelter = response.body['shelter Contact'].address1
+            // this.sheltercity = response.body['shelter Contact'].city
+            // this.shelterzip = response.body['shelter Contact'].zip
+          },
+          error => {
+            console.log(error);
+          }
+        )
+        .then(
+          response => {
+            console.log(response);
             // console.log(response.body.age)
             // this.realBreed = response.body.age
             // this.breedInfo = response.body.info
           },
           error => {
-            console.log(error)
+            console.log(error);
           }
-        )
+        );
     }
   },
-  mounted () {
-    this.reset()
+  mounted() {
+    this.reset();
   }
-}
+};
 </script>
 
 <style lang="scss">
@@ -316,7 +339,7 @@ h1 {
 }
 
 #shelterInfo {
-  text-align: center
+  text-align: center;
 }
 
 .dropbox {
