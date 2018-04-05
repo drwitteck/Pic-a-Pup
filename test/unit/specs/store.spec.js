@@ -2,6 +2,10 @@ import Vue from 'vue'
 import { state, actions } from '../../../src/store.js'
 
 describe('store test', () => {
+  beforeEach(() => {
+    actions.setUser(null)
+  })
+
   it('works', () => {
     let storeData = state
     let storeActions = actions
