@@ -22,6 +22,7 @@
     "vue": "^2.5.16",
     "vue-resource": "^1.5.0",
     "vue-router": "^3.0.1",
+    "vue2-google-maps": "^0.8.11",
     "vuefire": "^1.4.5",
     "vuetify": "^1.0.10",
     "vuex": "^3.0.1"
