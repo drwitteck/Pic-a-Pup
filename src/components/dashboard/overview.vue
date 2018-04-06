@@ -136,17 +136,30 @@
       <section>
         <v-container grid-list-xl>
           <v-layout row wrap justify-center class="my-5">
-            <v-flex xs12 sm4>
+            <v-flex xs12 sm5>
               <v-card class="elevation-0 transparent">
                 <v-card-title primary-title class="layout justify-center">
                   <div class="headline">Location</div>
                 </v-card-title>
                 <v-card-text>
-                  A MAP OF TEMPLE WILL BE PLACED HERE I GUESS HAHAHAHAHAHAHHAHAHAHHA 
+                  <gmap-map
+                    :center="center"
+                    :zoom="16"
+                    style="width: 20vw; height: 20vw; margin: auto;"
+                  >
+                    <gmap-marker
+                      :key="index"
+                      v-for="(m, index) in markers"
+                      :position="m.position"
+                      :clickable="true"
+                      :draggable="true"
+                      @click="center=m.position"
+                    ></gmap-marker>
+                  </gmap-map>
                 </v-card-text>
               </v-card>
             </v-flex>
-            <v-flex xs12 sm4 offset-sm1>
+            <v-flex xs12 sm5 offset-sm1>
               <v-card class="elevation-0 transparent">
                 <v-card-title primary-title class="layout justify-center">
                   <div class="headline">Contact us</div>
@@ -192,6 +205,16 @@
 
 <script>
 export default {
+  data () {
+      return {
+        center: {lat: 39.9818, lng: -75.1531},
+        markers: [{
+          position: {lat: 39.9818, lng: -75.1531}
+        }, {
+          position: {lat: 11.0, lng: 11.0}
+        }]
+      }
+    }
 }
 </script>
 

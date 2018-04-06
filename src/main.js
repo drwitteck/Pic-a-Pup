@@ -8,11 +8,17 @@ import 'vuetify/dist/vuetify.min.css'
 
 import router from './router'
 import store from './store'
+import * as VueGoogleMaps from 'vue2-google-maps'
 
 var VueFire = require('vuefire')
 var firebase = require('firebase')
 
-// explicit installation required in module environments
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: 'AIzaSyDEMdUkBIXXSOoY2a-Sklz6TkgaREdtOo8',
+    libraries: 'places'
+  }
+})
 Vue.use(Vuetify)
 Vue.use(VueResources)
 Vue.use(VueFire)
