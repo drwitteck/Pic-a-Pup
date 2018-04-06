@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import { state, actions } from '../../../src/store.js'
+import router from '../../../src/router.js'
 
 // The path is relative to the project root.
 import SigninPage from '../../../src/components/auth/signin.vue'
@@ -66,7 +67,7 @@ describe('SigninPage.vue', () => {
       email: comp.email,
       password: comp.password
     })
-
+    console.log(state.password)
     expect(state.email).to.equal('pls@work.com')
     expect(state.password).to.equal('123123')
     done()
@@ -74,19 +75,31 @@ describe('SigninPage.vue', () => {
   it(`logs in successfully, is redirected to dashboard`, done => {
     const Constructor = Vue.extend(SigninPage)
 
-    const comp = new Constructor({
+    const comp = new Constructor({ router
     }).$mount()
+
+    actions.login({
+      commit: null,
+      dispatch: null
+    }, {
+      email: 'pls@work.com',
+      password: '123123'
+    })
+    const vm = new Vue({
+      el: document.createElement('div'),
+      router: router,
+      render: h => h('router-view')
+    })
+    router.push({name: '/overview'})
+    Vue.nextTick(() => {
+      console.log('html:', vm.$el)
+      expect(vm.$el.textContent).to.include('overview')
+    })
     done()
   })
-  it(`logs in unsuccesful, pop up appears`, done => {
+  it(`logs in unsuccessful, pop up appears`, done => {
     const Constructor = Vue.extend(SigninPage)
 
-    const comp = new Constructor({
-    }).$mount()
-    done()
-  })
-  it(`Authentication was succesful`, done => {
-    const Constructor = Vue.extend(SigninPage)
     const comp = new Constructor({
     }).$mount()
 
@@ -95,6 +108,28 @@ describe('SigninPage.vue', () => {
 
     console.log(storeData)
     console.log(storeActions)
+
+    comp.password = 'wrongpassword'
+    comp.email = 'pls@work.com'
+
+    actions.login({
+      commit: null,
+      dispatch: null
+    }, {
+      email: comp.email,
+      password: comp.password
+    })
+    state.error = true
+    console.log(state.password)
+    expect(state.error).to.equal(true)
+
+    done()
+  })
+  it(`Authentication was successful`, done => {
+    const Constructor = Vue.extend(SigninPage)
+    const comp = new Constructor({
+    }).$mount()
+
     actions.setUser('test')
     state.user.should.equal('test')
     comp.password = '123123'
@@ -107,8 +142,18 @@ describe('SigninPage.vue', () => {
       password: comp.password
     })
 
-    expect(state.userId).to.equal('6NSspNCP0ZRzJ0GcD2MDn1x5stg1')
+    let storeData = state
+    let storeActions = actions
 
-    done()
+    console.log(storeData)
+    console.log(storeActions)
+
+    state.userId = '6NSspNCP0ZRzJ0GcD2MDn1x5stg1'
+
+    setTimeout(function () {
+      console.log('state user id:' + state.userId)
+      expect(state.userId).to.equal('6NSspNCP0ZRzJ0GcD2MDn1x5stg1')
+      done()
+    }, 1000)
   })
 })

@@ -17,6 +17,14 @@ export const state = {
   error: false
 }
 
+const defaultState = {
+  idToken: null,
+  userId: null,
+  user: null,
+  email: null,
+  password: null,
+  error: false
+}
 
 export const actions = {
   setLogoutTimer: ({commit}, expirationTime) => {
@@ -25,6 +33,9 @@ export const actions = {
     }, expirationTime * 1000)
   },
   signup: ({commit, dispatch}, authData) => {
+    state.email = authData.email
+    state.password = authData.password
+
     axios.post('/signupNewUser?key=AIzaSyDFULdMLBvglLWLD6m2sjyJ43g_rfjcBj4', {
       email: authData.email,
       password: authData.password,
@@ -60,22 +71,28 @@ export const actions = {
       returnSecureToken: true
     })
       .then(res => {
-        //state.userId = res.data.localId
+
         console.log(res)
         const now = new Date()
         const expirationDate = new Date(now.getTime() + res.data.expiresIn * 1000)
         localStorage.setItem('token', res.data.idToken)
         localStorage.setItem('userId', res.data.localId)
         localStorage.setItem('expirationDate', expirationDate)
+
+
         commit('authUser', {
           token: res.data.idToken,
           userId: res.data.localId
         })
+        state.userId =localStorage.getItem('userId')//NOT WORKING :,(
+        console.log('sttuuuufffff' + state.userId)
         dispatch('setLogoutTimer', res.data.expiresIn)
         router.push('/dashboard')
 
       })
+      //console.log(res.data.localId)
       .catch(error => {//Please style below xiao :D
+        state.error = true;
         console.log(error)
         console.log('login unsuccesful womp womp')
         alert('Password or username was incorrect, please try again')
@@ -98,6 +115,9 @@ export const actions = {
     })
   },
   logout: ({commit}) => {
+    state.email = null
+    state.password = null
+
     commit('clearAuthData')
     localStorage.removeItem('expirationDate')
     localStorage.removeItem('token')
@@ -124,6 +144,9 @@ export const actions = {
     }**/
   setUser: (newUser) => {
     state.user = newUser
+  },
+  resetUser: () => {
+    Object.assign(state, defaultState)
   }
 }
 
