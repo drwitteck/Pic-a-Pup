@@ -130,49 +130,49 @@
 </template>
 
 <script>
-import Header from "../header/header.vue";
+import Header from '../header/header.vue'
 export default {
   components: {
-    "app-header": Header
+    'app-header': Header
   },
-  data() {
+  data () {
     return {
       tile: false,
       e1: true,
       valid: true,
-      email: "",
+      email: '',
       emailRules: [
-        v => !!v || "E-mail is required",
+        v => !!v || 'E-mail is required',
         v =>
           /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
-          "E-mail must be valid"
+          'E-mail must be valid'
       ],
-      password: ""
-    };
+      password: ''
+    }
   },
   methods: {
-    onSubmit() {
+    onSubmit () {
       if (this.$refs.form.validate()) {
         const formData = {
           email: this.email,
           password: this.password
-        };
-        console.log(formData);
-        this.$store.dispatch("login", {
+        }
+        console.log(formData)
+        this.$store.dispatch('login', {
           email: formData.email,
           password: formData.password
-        });
+        })
       }
       // .success(function () {
       //   console.log('silviaaaa!')
       //   this.$router.push('/dashboard')
       // })
     },
-    clear() {
-      this.$refs.form.reset();
+    clear () {
+      this.$refs.form.reset()
     }
   }
-};
+}
 </script>
 
 <style scoped>
