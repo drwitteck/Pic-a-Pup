@@ -46,11 +46,11 @@ const resInterceptor = axios.interceptors.response.use(res => {
 axios.interceptors.request.eject(reqInterceptor)
 axios.interceptors.response.eject(resInterceptor)
 
-new Vue({
+let pipapupApp = new Vue({
   el: '#app',
   router,
   store,
   render: h => h(App)
 })
 
-export { fbStorage }
+export { pipapupApp, fbStorage }
