@@ -107,6 +107,15 @@
               <p v-if="shelter">About the Shelter <br><br> Address: {{ shelter }}</p>
               <p v-if="sheltercity">City: {{ sheltercity }}</p>
               <p v-if="shelterzip">Zip: {{ shelterzip }}</p>
+              <v-btn
+              href="javascript:void(0)"
+              color="blue-grey"
+              class="white--text"
+              @click="addressToLatLong"
+            >
+              Shelter Locat
+              <v-icon right dark>cloud_upload</v-icon>
+            </v-btn>
             </v-flex>
           </v-layout>
           <!-- Test for shelter -->
@@ -314,6 +323,17 @@ export default {
         }, error => {
           console.log(error)
         })
+    },
+    addressToLatLong () {
+      var geocoder = new google.maps.Geocoder();
+      geocoder.geocode({'address': this.shelter + this.sheltercity + this.shelterzip}, (results, status) => {
+        if (status === 'OK') {
+
+          console.log(results[0].geometry.location.lat())
+          console.log(results[0].geometry.location.lng())
+
+        }
+      });
     }
   },
   mounted() {
