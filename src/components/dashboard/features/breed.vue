@@ -16,7 +16,7 @@
         </div>
         <br>
         <v-divider></v-divider>
-        <h1>View Recent Posts!</h1>
+        <!-- <h1>View Recent Posts!</h1> -->
         <!-- Possibly going to be a 'recent posted sort of deal' -->
       </form>
       <!--SUCCESS-->
@@ -63,6 +63,10 @@
                   <span v-if="breedInfo" class="white--text">{{ breedInfo }}</span>
                 </div>
               </v-card-title>
+              <v-card-actions v-if="realBreed">
+                <!-- <v-btn flat color="white" @click="addressToLatLong">Shelter</v-btn> -->
+                <v-spacer></v-spacer>
+              </v-card-actions>
               <v-card-actions v-if="!realBreed">
                 <v-btn flat color="cyan" @click="sendImageBackend()">Learn More</v-btn>
                 <v-btn flat color="white">Explore</v-btn>
@@ -96,26 +100,72 @@
           <v-spacer></v-spacer>
           </v-flex>
           <v-spacer></v-spacer>
-          <v-layout v-if="shelter">
-            <v-flex xs6>
-              <h1>View Shelters On the Map Here!</h1>
-              <!-- Replace with Map API -->
-              <img width="100%" src="https://s3.amazonaws.com/uloop/static_maps/sc-121-map.jpg" alt="">
-            </v-flex>
-            <v-flex xs6 id="shelterInfo">
-              <h1>Shelter Information</h1>
-              <p v-if="shelter">About the Shelter <br><br> Address: {{ shelter }}</p>
-              <p v-if="sheltercity">City: {{ sheltercity }}</p>
-              <p v-if="shelterzip">Zip: {{ shelterzip }}</p>
-              <v-btn
-              href="javascript:void(0)"
-              color="blue-grey"
-              class="white--text"
-              @click="addressToLatLong"
-            >
-              Shelter Locat
-              <v-icon right dark>cloud_upload</v-icon>
-            </v-btn>
+          <v-layout v-if="shelter || sheltercity">
+            <v-container grid-list-xl>
+              <v-layout row wrap justify-center class="my-5">
+                <v-flex xs12 sm5>
+                  <v-card class="elevation-0 transparent">
+                    <v-card-title primary-title class="layout justify-center">
+                      <h1>View Shelters On the Map Here!</h1>
+                    </v-card-title>
+                    <v-card-text>
+                      <gmap-map
+                        :center="center"
+                        :zoom="16"
+                        style="width: 20vw; height: 20vw; margin: auto;"
+                      >
+                        <gmap-marker
+                          :key="index"
+                          v-for="(m, index) in markers"
+                          :position="m.position"
+                          :clickable="true"
+                          :draggable="true"
+                          @click="center=m.position"
+                        ></gmap-marker>
+                      </gmap-map>
+                    </v-card-text>
+                  </v-card>
+                </v-flex>
+                <v-flex xs12 sm5 offset-sm1>
+                  <v-card class="elevation-0 transparent">
+                    <v-card-title primary-title class="layout justify-center">
+                      <h1>Shelter Information</h1>
+                    </v-card-title>
+                    <v-list class="transparent">
+                      <v-list-tile>
+                        <v-list-tile-action>
+                          <v-icon class="blue--text text--lighten-2">place</v-icon>
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                          <v-list-tile-title>Address: {{ shelter }}</v-list-tile-title>
+                        </v-list-tile-content>
+                      </v-list-tile>
+                      <v-list-tile>
+                        <v-list-tile-action>
+                          <v-icon class="blue--text text--lighten-2">location_city</v-icon>
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                          <v-list-tile-title>City: {{ sheltercity }}</v-list-tile-title>
+                        </v-list-tile-content>
+                      </v-list-tile>
+                      <v-list-tile>
+                        <v-list-tile-action>
+                          <v-icon class="blue--text text--lighten-2">domain</v-icon>
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                          <v-list-tile-title>Zip: {{ shelterzip }}</v-list-tile-title>
+                        </v-list-tile-content>
+                      </v-list-tile>
+                    </v-list>
+                  </v-card>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-layout>
+
+          <v-layout v-if="shelterAvail">
+            <v-flex xs12>
+              <h1>Looks like there are no shelters around you who has this breed <v-icon large>sentiment_very_dissatisfied</v-icon></h1>
             </v-flex>
           </v-layout>
           <!-- Test for shelter -->
@@ -182,6 +232,13 @@ export default {
   name: "app",
   data() {
     return {
+      center: {
+        lat: 39.9818, 
+        lng: -75.1531
+      },
+      markers: [{
+        position: {lat: 39.9818, lng: -75.1531}
+      }],
       uploadedFiles: [],
       uploadError: null,
       currentStatus: null,
@@ -194,14 +251,8 @@ export default {
       shelter: "",
       sheltercity: "",
       shelterzip: "",
-      show: false,
-      center: {lat: 10.0, lng: 10.0},
-        markers: [{
-          position: {lat: 10.0, lng: 10.0}
-        }, {
-          position: {lat: 20.0, lng: 11.0}
-        }]
-      
+      shelterAvail: "",
+      show: false
     };
   },
   computed: {
@@ -221,6 +272,13 @@ export default {
   methods: {
     reset() {
       // reset form to initial state
+      this.center = {
+        lat: 39.9818, 
+        lng: -75.1531
+      },
+      this.markers= [{
+        position: {lat: 39.9818, lng: -75.1531}
+      }],
       this.currentStatus = STATUS_INITIAL
       this.uploadedFiles = []
       this.uploadError = null
@@ -233,6 +291,7 @@ export default {
       this.shelter = ''
       this.sheltercity = ''
       this.shelterzip = ''
+      this.shelterAvail = ''
       this.show = false
     },
     save(formData) {
@@ -320,8 +379,11 @@ export default {
           this.shelter = response.body['shelter Contact'].address1
           this.sheltercity = response.body['shelter Contact'].city
           this.shelterzip = response.body['shelter Contact'].zip
-        }, error => {
+          this.shelterAvail = false
+          this.addressToLatLong()
+        }).catch(error => {
           console.log(error)
+          this.shelterAvail = true
         })
     },
     addressToLatLong () {
@@ -331,7 +393,16 @@ export default {
 
           console.log(results[0].geometry.location.lat())
           console.log(results[0].geometry.location.lng())
+          
+          this.center.lat = results[0].geometry.location.lat()
+          this.center.lng = results[0].geometry.location.lng()
 
+          this.markers = [{
+            position: {lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()}
+          }]
+        } else {
+          console.log("No Address")
+          this.shelter = "Address N/A"
         }
       });
     }
