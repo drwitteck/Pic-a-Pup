@@ -10,6 +10,7 @@ import SignupPage from './components/auth/signup.vue'
 import SigninPage from './components/auth/signin.vue'
 import BreedPage from './components/dashboard/features/breed.vue'
 import ParkPage from './components/dashboard/features/park.vue'
+import testPage from './components/dashboard/features/test.vue'
 import NotFound from './components/GeneralViews/NotFoundPage.vue'
 
 Vue.use(VueRouter)
@@ -62,6 +63,10 @@ const routes = [
       {
         path: '/park',
         component: ParkPage
+      },
+      {
+        path: '/test',
+        component: testPage
       }
     ]
   },
