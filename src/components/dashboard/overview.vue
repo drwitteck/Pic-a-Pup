@@ -10,9 +10,11 @@
             justify-center
             class="white--text"
           >
-            <img src="../pictures/pap.png" alt="Vuetify.js" height="200">
-            <h1 class="white--text mb-2 display-1 text-xs-center">TITLE HERE</h1>
-            <div class="subheading mb-3 text-xs-center">SHORT DESCRIPTION HERE</div>
+            <!-- <img src="../pictures/pap.png" alt="Vuetify.js" height="200"> -->
+            <div>
+            <h1 class="blue--text mb-2 display-1 text-xs-center">Overview</h1>
+            <!-- <div class="subheading mb-3 text-xs-center">Dog lovers dream, providing a simple and fun interface to change the way its users search, inform themselves, and begin the process of adopting that perfect forever friend.</div> -->
+            </div>
           </v-layout>
         </v-parallax>
       </section>
@@ -26,7 +28,7 @@
         >
           <v-flex xs12 sm4 class="my-3">
             <div class="text-xs-center">
-              <h2 class="headline">Overview</h2>
+              <h2 class="headline">Features</h2>
               <span class="subheading">
                 See what you could do, Pic-a-Fam!
               </span>
@@ -38,24 +40,24 @@
                 <v-flex xs12 md4>
                   <v-card class="elevation-0 transparent">
                     <v-card-text class="text-xs-center">
-                      <v-icon x-large class="blue--text text--lighten-2">color_lens</v-icon>
+                      <v-icon x-large class="blue--text text--lighten-2">pets</v-icon>
                     </v-card-text>
                     <v-card-title primary-title class="layout justify-center">
                       <div class="headline text-xs-center">Pic-a-Breed</div>
                     </v-card-title>
                     <v-card-text>
-                      Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare. 
-                      Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. 
-                      Nullam in aliquet odio. Aliquam eu est vitae tellus bibendum tincidunt. Suspendisse potenti. 
+                      This feature will allow you to upload an image of a particular dog of interest, 
+                      allow us to determine its breed, give you information about the breed, and we'll 
+                      even find the availability of the breed at local animal shelters. What are you waiting for Pic-a-Fam? 
                     </v-card-text>
                     <v-card-actions class="layout justify-center">
                         <v-btn
                             class="blue lighten-2 mt-5"
                             dark
                             large
-                            href="/pre-made-themes"
+                            router-link to="/breed"
                             >
-                            GitHub
+                            Get Started
                         </v-btn>
                     </v-card-actions>
                   </v-card>
@@ -63,24 +65,23 @@
                 <v-flex xs12 md4>
                   <v-card class="elevation-0 transparent">
                     <v-card-text class="text-xs-center">
-                      <v-icon x-large class="blue--text text--lighten-2">flash_on</v-icon>
+                      <v-icon x-large class="blue--text text--lighten-2">local_florist</v-icon>
                     </v-card-text>
                     <v-card-title primary-title class="layout justify-center">
                       <div class="headline">Pic-a-Park</div>
                     </v-card-title>
                     <v-card-text>
-                      Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare. 
-                      Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. 
-                      Nullam in aliquet odio. Aliquam eu est vitae tellus bibendum tincidunt. Suspendisse potenti. 
+                      Interested in looking for a dog park near you? We have that information for you! 
+                      Place a location you'll be around and we'll show you the nearest dog park(s). 
                     </v-card-text>
                     <v-card-actions class="layout justify-center">
                         <v-btn
                             class="blue lighten-2 mt-5"
                             dark
                             large
-                            href="/pre-made-themes"
+                            router-link to="/park"
                             >
-                            GitHub
+                            Find Parks
                         </v-btn>
                     </v-card-actions>
                   </v-card>
@@ -96,16 +97,16 @@
                     <v-card-text>
                       Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare. 
                       Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. 
-                      Nullam in aliquet odio. Aliquam eu est vitae tellus bibendum tincidunt. Suspendisse potenti. 
+                      Nullam in aliquet odio. Aliquam eu est vitae tellus bibendum tincidunt.
                     </v-card-text>
                     <v-card-actions class="layout justify-center">
                         <v-btn
                             class="blue lighten-2 mt-5"
                             dark
                             large
-                            href="/pre-made-themes"
+                            
                             >
-                            GitHub
+                            Placeholder
                         </v-btn>
                     </v-card-actions>
                   </v-card>
