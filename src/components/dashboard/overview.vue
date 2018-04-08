@@ -207,15 +207,15 @@
 <script>
 export default {
   data () {
-      return {
-        center: {lat: 39.9818, lng: -75.1531},
-        markers: [{
-          position: {lat: 39.9818, lng: -75.1531}
-        }, {
-          position: {lat: 11.0, lng: 11.0}
-        }]
-      }
+    return {
+      center: {lat: 39.9818, lng: -75.1531},
+      markers: [{
+        position: {lat: 39.9818, lng: -75.1531}
+      }, {
+        position: {lat: 11.0, lng: 11.0}
+      }]
     }
+  }
 }
 </script>
 
