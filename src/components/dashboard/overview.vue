@@ -44,9 +44,9 @@
                       <div class="headline text-xs-center">Pic-a-Breed</div>
                     </v-card-title>
                     <v-card-text>
-                      Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare. 
-                      Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. 
-                      Nullam in aliquet odio. Aliquam eu est vitae tellus bibendum tincidunt. Suspendisse potenti. 
+                      Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare.
+                      Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+                      Nullam in aliquet odio. Aliquam eu est vitae tellus bibendum tincidunt. Suspendisse potenti.
                     </v-card-text>
                     <v-card-actions class="layout justify-center">
                         <v-btn
@@ -69,9 +69,9 @@
                       <div class="headline">Pic-a-Park</div>
                     </v-card-title>
                     <v-card-text>
-                      Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare. 
-                      Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. 
-                      Nullam in aliquet odio. Aliquam eu est vitae tellus bibendum tincidunt. Suspendisse potenti. 
+                      Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare.
+                      Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+                      Nullam in aliquet odio. Aliquam eu est vitae tellus bibendum tincidunt. Suspendisse potenti.
                     </v-card-text>
                     <v-card-actions class="layout justify-center">
                         <v-btn
@@ -94,9 +94,9 @@
                       <div class="headline text-xs-center">Pic-a-Wah</div>
                     </v-card-title>
                     <v-card-text>
-                      Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare. 
-                      Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. 
-                      Nullam in aliquet odio. Aliquam eu est vitae tellus bibendum tincidunt. Suspendisse potenti. 
+                      Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare.
+                      Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+                      Nullam in aliquet odio. Aliquam eu est vitae tellus bibendum tincidunt. Suspendisse potenti.
                     </v-card-text>
                     <v-card-actions class="layout justify-center">
                         <v-btn
@@ -206,15 +206,15 @@
 <script>
 export default {
   data () {
-      return {
-        center: {lat: 39.9818, lng: -75.1531},
-        markers: [{
-          position: {lat: 39.9818, lng: -75.1531}
-        }, {
-          position: {lat: 11.0, lng: 11.0}
-        }]
-      }
+    return {
+      center: {lat: 39.9818, lng: -75.1531},
+      markers: [{
+        position: {lat: 39.9818, lng: -75.1531}
+      }, {
+        position: {lat: 11.0, lng: 11.0}
+      }]
     }
+  }
 }
 </script>
 
