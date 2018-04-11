@@ -21,7 +21,7 @@
     <v-layout row wrap>
       <v-flex xs4 offset-sm1>
         <div class="input-group input-group--dirty theme--dark input-group--text-field primary--text">
-          <label>Enter a city</label>
+          <label>Enter an address</label>
           <div class="input-group__input">
             <GmapAutocomplete @place_changed="setPlace"></GmapAutocomplete>
             </div>
@@ -30,21 +30,21 @@
         </div>
       </v-flex>
       <v-flex xs4>
-        <v-btn
+        <!-- <v-btn
             class="blue lighten-2"
             dark
             large
             @click="usePlace"
             >
             Find
-        </v-btn>
+        </v-btn> -->
         <v-btn
             class="blue lighten-2"
             dark
             large
             @click="searchForParks"
             >
-            Parks
+            Find Parks
         </v-btn>
       </v-flex>
     </v-layout>
@@ -56,6 +56,7 @@
       <GmapMarker v-for="(marker, index) in markers"
         :key="index"
         :position="marker.position"
+        :clickable="true" @click="toggleInfoWindow(marker, index)"
         />
       <GmapMarker
         v-if="this.place"
@@ -65,6 +66,12 @@
           lng: this.place.geometry.location.lng(),
         }"
         />
+      <gmap-info-window id="info" :options="infoOptions" :position="infoWindowPos" :opened="infoWinOpen" @closeclick="infoWinOpen=false">
+        <div style="color:black">
+          {{infoContent}}
+        </div>
+      </gmap-info-window>
+        
     </GmapMap>
 
     <div id="map"></div>
@@ -83,6 +90,20 @@ export default {
       place: null,
       currentPlaceLat: '',
       currentPlaceLng: '',
+      infoContent: '',
+      infoWindowPos: {
+        lat: 0,
+        lng: 0
+      },
+      infoWinOpen: false,
+      currentMidx: null,
+          //optional: offset infowindow so it visually sits nicely on top of our marker
+      infoOptions: {
+        pixelOffset: {
+          width: 0,
+          height: -35
+        }
+      },
       country: [{ text: "US" }, { text: "Hi" }, { text: "Hi" }, { text: "HI" }]
     };
   },
@@ -91,6 +112,7 @@ export default {
       this.place = place;
     },
     usePlace(place) {
+      this.markers = []
       if (this.place) {
         (this.center.lat = this.place.geometry.location.lat()),
           (this.center.lng = this.place.geometry.location.lng()),
@@ -98,36 +120,82 @@ export default {
             position: {
               lat: this.place.geometry.location.lat(),
               lng: this.place.geometry.location.lng()
-            }
+            },
+            infoText: 'Marker 1sdflkjsdoifjsoidfj'
           });
       }
     },
+    toggleInfoWindow: function(marker, idx) {
+      this.infoWindowPos = marker.position;
+      this.infoContent = marker.infoText;
+      //check if its the same marker that was selected if yes toggle
+      if (this.currentMidx == idx) {
+        this.infoWinOpen = !this.infoWinOpen;
+      }
+      //if different marker set infowindow to open and reset current marker index
+      else {
+        this.infoWinOpen = true;
+        this.currentMidx = idx;
+      }
+    },
     searchForParks() {
+      this.usePlace(this.place)
       this.map = new google.maps.Map(document.getElementById('map'), {
           center: { lat: 39.9818, lng: -75.1531 },
           zoom: 15
       });
       var service = new google.maps.places.PlacesService(this.map);
-      service.nearbySearch(
+      var infowindow = new google.maps.InfoWindow();
+      // service.nearbySearch(
+      //   {
+      //     location: this.center,
+      //     radius: 500,
+      //     type: ["park"]
+      //   }, (results, status) => {
+      //   if (status === 'OK') {
+      //     for (var i = 0; i < results.length; i++) {
+      //       // this.createMarker(results[i]);
+      //       console.log(results[i].geometry.location.lat());
+      //       console.log(results[i].geometry.location.lng());
+      //       this.markers.push({
+      //         position: {
+      //           lat: results[i].geometry.location.lat(),
+      //           lng: results[i].geometry.location.lng()
+      //         }
+      //       });
+      //     }
+      //   } else {
+      //     console.log("No Parks In this range!")
+      //   }
+      // });
+
+      // Testing Dog Park search Query query Dog Park and remove type or leave it type park and query dog...
+      service.textSearch(
         {
           location: this.center,
-          radius: 500,
-          type: ["park"]
+          radius: 16000,
+          query: 'Dog',
+          type: 'park'
         }, (results, status) => {
         if (status === 'OK') {
           for (var i = 0; i < results.length; i++) {
-            // this.createMarker(results[i]);
-            console.log(results[i].geometry.location.lat());
-            console.log(results[i].geometry.location.lng());
+            var photos = results[i].photos;
+            if (!photos) {
+              return;
+            }
+
+            console.log(results[i]);
             this.markers.push({
               position: {
                 lat: results[i].geometry.location.lat(),
-                lng: results[i].geometry.location.lng()
-              }
+                lng: results[i].geometry.location.lng(),
+                icon: photos[0].getUrl({'maxWidth': 35, 'maxHeight': 35})
+              },
+              infoText: photos[0].getUrl({'maxWidth': 35, 'maxHeight': 35})
             });
           }
         } else {
-          console.log("Not Ok")
+          console.log("No Parks In this range!")
         }
       });
     }
