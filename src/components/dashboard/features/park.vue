@@ -66,10 +66,21 @@
           lng: this.place.geometry.location.lng(),
         }"
         />
-      <gmap-info-window id="info" :options="infoOptions" :position="infoWindowPos" :opened="infoWinOpen" @closeclick="infoWinOpen=false">
-        <div style="color:black">
-          {{infoContent}}
-        </div>
+      <gmap-info-window :options="infoOptions" :position="infoWindowPos" :opened="infoWinOpen" @closeclick="infoWinOpen=false">
+        
+              <v-card>
+                <v-card-media style="margin:0" src="https://i.ytimg.com/vi/SfLV8hD7zX4/maxresdefault.jpg" height="5vh">
+                </v-card-media>
+                <v-card-title primary-title>
+                  <div>
+                    <h3 class="headline mb-0">Kangaroo Valley Safari</h3>
+                    <div>{{infoContent}}</div>
+                  </div>
+                </v-card-title>
+                <v-card-actions>
+                </v-card-actions>
+              </v-card>
+          
       </gmap-info-window>
         
     </GmapMap>
