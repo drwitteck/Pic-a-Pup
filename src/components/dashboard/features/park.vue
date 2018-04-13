@@ -52,7 +52,7 @@
     
     <br/>
 
-    <GmapMap style="width: 70vw; height: 30vw; margin: auto;" :zoom="16" :center="center">
+    <GmapMap style="width: 70vw; height: 30vw; margin: auto;" :zoom="13" :center="center">
       <GmapMarker v-for="(marker, index) in markers"
         :key="index"
         :position="marker.position"
@@ -68,13 +68,15 @@
         />
       <gmap-info-window :options="infoOptions" :position="infoWindowPos" :opened="infoWinOpen" @closeclick="infoWinOpen=false">
         
-              <v-card>
-                <v-card-media style="margin:0" src="https://i.ytimg.com/vi/SfLV8hD7zX4/maxresdefault.jpg" height="5vh">
+              <v-card light>
+                <v-card-media style="margin:0" :src="snippet" height="5vh">
                 </v-card-media>
                 <v-card-title primary-title>
                   <div>
-                    <h3 class="headline mb-0">Kangaroo Valley Safari</h3>
-                    <div>{{infoContent}}</div>
+                    <h3 class="headline mb-0">{{name}}</h3>
+                    <div>
+                      {{infoContent}}
+                    </div>
                   </div>
                 </v-card-title>
                 <v-card-actions>
@@ -96,12 +98,14 @@ export default {
   data() {
     return {
       center: { lat: 39.9818, lng: -75.1531 },
+      snippet:'',
       markers: [],
       map: '',
       place: null,
       currentPlaceLat: '',
       currentPlaceLng: '',
       infoContent: '',
+      name: '',
       infoWindowPos: {
         lat: 0,
         lng: 0
@@ -132,13 +136,15 @@ export default {
               lat: this.place.geometry.location.lat(),
               lng: this.place.geometry.location.lng()
             },
-            infoText: 'Marker 1sdflkjsdoifjsoidfj'
+            infoText: this.place.name
           });
       }
     },
     toggleInfoWindow: function(marker, idx) {
       this.infoWindowPos = marker.position;
       this.infoContent = marker.infoText;
+      this.name = marker.name;
+      this.snippet = marker.snippet;
       //check if its the same marker that was selected if yes toggle
       if (this.currentMidx == idx) {
         this.infoWinOpen = !this.infoWinOpen;
@@ -199,10 +205,11 @@ export default {
             this.markers.push({
               position: {
                 lat: results[i].geometry.location.lat(),
-                lng: results[i].geometry.location.lng(),
-                icon: photos[0].getUrl({'maxWidth': 35, 'maxHeight': 35})
+                lng: results[i].geometry.location.lng()
               },
-              infoText: photos[0].getUrl({'maxWidth': 35, 'maxHeight': 35})
+              infoText: results[i].formatted_address,
+              name: results[i].name,
+              snippet: photos[0].getUrl({'maxHeight': 400})
             });
           }
         } else {
