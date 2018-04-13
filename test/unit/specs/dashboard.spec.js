@@ -21,10 +21,10 @@ describe('DashboardPage.vue', () => {
     const Constructor = Vue.extend(DashboardPage)
     const comp = new Constructor({ router
     }).$mount()
-    expect(comp.valid).to.equal(true)
+    expect(comp).to.not.equal(null)
     const button = comp.$el.querySelector('.btn__content')
     const clickEvent = new window.Event('click')
-    button.dispatchEvent(clickEvent);
+    button.dispatchEvent(clickEvent)
     comp._watcher.run()
 
     const vm = new Vue({
@@ -32,7 +32,7 @@ describe('DashboardPage.vue', () => {
       router: router,
       render: h => h('router-view')
     })
-    
+
     router.push({name: '/dashboard'})
 
     Vue.nextTick(() => {
@@ -41,12 +41,13 @@ describe('DashboardPage.vue', () => {
     })
     done()
   })
+
   it(`Pic-a-Breed link under navigation drawer should go to /breed`, done => {
     const Constructor = Vue.extend(DashboardPage)
 
     const comp = new Constructor({ router
     }).$mount()
-    expect(comp.valid).to.equal(true)
+    expect(comp).to.not.equal(null)
     const button = comp.$el.querySelector('.btn__content')
 
     const clickEvent = new window.Event('click')
@@ -58,7 +59,7 @@ describe('DashboardPage.vue', () => {
       router: router,
       render: h => h('router-view')
     })
-    
+
     router.push({name: '/breed'})
 
     Vue.nextTick(() => {
@@ -67,12 +68,13 @@ describe('DashboardPage.vue', () => {
     })
     done()
   })
+
   it(`Sign Out button should sign you out and return you to /login`, done => {
     const Constructor = Vue.extend(DashboardPage)
 
     const comp = new Constructor({ router
     }).$mount()
-    expect(comp.valid).to.equal(true)
+    expect(comp).to.not.equal(null)
     const button = comp.$el.querySelector('.btn__content')
 
     const clickEvent = new window.Event('click')
@@ -84,7 +86,7 @@ describe('DashboardPage.vue', () => {
       router: router,
       render: h => h('router-view')
     })
-    
+
     router.push({name: '/signin'})
 
     Vue.nextTick(() => {

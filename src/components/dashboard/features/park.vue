@@ -49,7 +49,7 @@
       </v-flex>
     </v-layout>
     <div>
-    
+
     <br/>
 
     <GmapMap style="width: 70vw; height: 30vw; margin: auto;" :zoom="13" :center="center">
@@ -95,7 +95,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       center: { lat: 39.9818, lng: -75.1531 },
       snippet:'',
@@ -123,8 +123,8 @@ export default {
     };
   },
   methods: {
-    setPlace(place) {
-      this.place = place;
+    setPlace (place) {
+      this.place = place
     },
     usePlace(place) {
       this.markers = []
@@ -218,7 +218,7 @@ export default {
       });
     }
   }
-};
+}
 </script>
 
 <style scoped>
