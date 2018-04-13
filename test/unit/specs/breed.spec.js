@@ -73,14 +73,7 @@ describe('BreedPage.vue', () => {
     */
   })
 
-  it(`post request made`, done => {
-    const Constructor = Vue.extend(BreedPage)
-
-    const comp = new Constructor({ BreedPage
-    }).$mount()
-    done()
-  })
-  it(`breed is displayed`, done => {
+  it(`breed is displayed and post request made`, done => {
     const Constructor = Vue.extend(BreedPage)
 
     const comp = new Constructor({
