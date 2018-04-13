@@ -89,6 +89,7 @@ export default {
   methods: {
     setPlace (place) {
       this.place = place
+      console.log(this.place)
     },
     usePlace (place) {
       if (this.place) {

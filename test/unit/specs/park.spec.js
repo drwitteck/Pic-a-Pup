@@ -65,6 +65,10 @@ describe('Park.vue', () => {
     const comp = new Constructor({
       router
     }).$mount()
+    expect(comp.place).to.be.null
+    comp.setPlace('stuff')
+    expect(comp.place).to.include('stuff')
+
     done()
   })
   it(`use place`, done => {
@@ -72,6 +76,20 @@ describe('Park.vue', () => {
     const comp = new Constructor({
       router
     }).$mount()
+
+    var defaultPlace = {
+      geometry: {
+        location: {
+          lat: function () {
+            return 39.980116
+          },
+          lng: function () {
+            return -75.158541
+          }
+        }
+      }
+    }
+
     done()
   })
 
