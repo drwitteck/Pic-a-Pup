@@ -49,7 +49,7 @@
       </v-flex>
     </v-layout>
     <div>
-    
+
     <br/>
 
     <GmapMap style="width: 70vw; height: 30vw; margin: auto;" :zoom="16" :center="center">
@@ -75,7 +75,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       center: { lat: 39.9818, lng: -75.1531 },
       markers: [],
@@ -83,56 +83,56 @@ export default {
       place: null,
       currentPlaceLat: '',
       currentPlaceLng: '',
-      country: [{ text: "US" }, { text: "Hi" }, { text: "Hi" }, { text: "HI" }]
-    };
+      country: [{ text: 'US' }, { text: 'Hi' }, { text: 'Hi' }, { text: 'HI' }]
+    }
   },
   methods: {
-    setPlace(place) {
-      this.place = place;
+    setPlace (place) {
+      this.place = place
     },
-    usePlace(place) {
+    usePlace (place) {
       if (this.place) {
         (this.center.lat = this.place.geometry.location.lat()),
-          (this.center.lng = this.place.geometry.location.lng()),
-          this.markers.push({
-            position: {
-              lat: this.place.geometry.location.lat(),
-              lng: this.place.geometry.location.lng()
-            }
-          });
+        (this.center.lng = this.place.geometry.location.lng()),
+        this.markers.push({
+          position: {
+            lat: this.place.geometry.location.lat(),
+            lng: this.place.geometry.location.lng()
+          }
+        })
       }
     },
-    searchForParks() {
+    searchForParks () {
       this.map = new google.maps.Map(document.getElementById('map'), {
-          center: { lat: 39.9818, lng: -75.1531 },
-          zoom: 15
-      });
-      var service = new google.maps.places.PlacesService(this.map);
+        center: { lat: 39.9818, lng: -75.1531 },
+        zoom: 15
+      })
+      var service = new google.maps.places.PlacesService(this.map)
       service.nearbySearch(
         {
           location: this.center,
           radius: 500,
-          type: ["park"]
+          type: ['park']
         }, (results, status) => {
-        if (status === 'OK') {
-          for (var i = 0; i < results.length; i++) {
+          if (status === 'OK') {
+            for (var i = 0; i < results.length; i++) {
             // this.createMarker(results[i]);
-            console.log(results[i].geometry.location.lat());
-            console.log(results[i].geometry.location.lng());
-            this.markers.push({
-              position: {
-                lat: results[i].geometry.location.lat(),
-                lng: results[i].geometry.location.lng()
-              }
-            });
+              console.log(results[i].geometry.location.lat())
+              console.log(results[i].geometry.location.lng())
+              this.markers.push({
+                position: {
+                  lat: results[i].geometry.location.lat(),
+                  lng: results[i].geometry.location.lng()
+                }
+              })
+            }
+          } else {
+            console.log('Not Ok')
           }
-        } else {
-          console.log("Not Ok")
-        }
-      });
+        })
     }
   }
-};
+}
 </script>
 
 <style scoped>
