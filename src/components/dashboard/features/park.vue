@@ -67,7 +67,7 @@
         }"
         />
       <gmap-info-window :options="infoOptions" :position="infoWindowPos" :opened="infoWinOpen" @closeclick="infoWinOpen=false">
-        
+
               <v-card light>
                 <v-card-media style="margin:0" :src="snippet" height="5vh">
                 </v-card-media>
@@ -82,9 +82,9 @@
                 <v-card-actions>
                 </v-card-actions>
               </v-card>
-          
+
       </gmap-info-window>
-        
+
     </GmapMap>
 
     <div id="map"></div>
@@ -98,7 +98,7 @@ export default {
   data () {
     return {
       center: { lat: 39.9818, lng: -75.1531 },
-      snippet:'',
+      snippet: '',
       markers: [],
       map: '',
       place: null,
@@ -112,58 +112,58 @@ export default {
       },
       infoWinOpen: false,
       currentMidx: null,
-          //optional: offset infowindow so it visually sits nicely on top of our marker
+      // optional: offset infowindow so it visually sits nicely on top of our marker
       infoOptions: {
         pixelOffset: {
           width: 0,
           height: -35
         }
       },
-      country: [{ text: "US" }, { text: "Hi" }, { text: "Hi" }, { text: "HI" }]
-    };
+      country: [{ text: 'US' }, { text: 'Hi' }, { text: 'Hi' }, { text: 'HI' }]
+    }
   },
   methods: {
     setPlace (place) {
       this.place = place
       console.log(this.place)
     },
-    usePlace(place) {
+    usePlace (place) {
       this.markers = []
       if (this.place) {
         (this.center.lat = this.place.geometry.location.lat()),
-          (this.center.lng = this.place.geometry.location.lng()),
-          this.markers.push({
-            position: {
-              lat: this.place.geometry.location.lat(),
-              lng: this.place.geometry.location.lng()
-            },
-            infoText: this.place.name
-          });
+        (this.center.lng = this.place.geometry.location.lng()),
+        this.markers.push({
+          position: {
+            lat: this.place.geometry.location.lat(),
+            lng: this.place.geometry.location.lng()
+          },
+          infoText: this.place.name
+        })
       }
     },
-    toggleInfoWindow: function(marker, idx) {
-      this.infoWindowPos = marker.position;
-      this.infoContent = marker.infoText;
-      this.name = marker.name;
-      this.snippet = marker.snippet;
-      //check if its the same marker that was selected if yes toggle
+    toggleInfoWindow: function (marker, idx) {
+      this.infoWindowPos = marker.position
+      this.infoContent = marker.infoText
+      this.name = marker.name
+      this.snippet = marker.snippet
+      // check if its the same marker that was selected if yes toggle
       if (this.currentMidx == idx) {
-        this.infoWinOpen = !this.infoWinOpen;
+        this.infoWinOpen = !this.infoWinOpen
       }
-      //if different marker set infowindow to open and reset current marker index
+      // if different marker set infowindow to open and reset current marker index
       else {
-        this.infoWinOpen = true;
-        this.currentMidx = idx;
+        this.infoWinOpen = true
+        this.currentMidx = idx
       }
     },
-    searchForParks() {
+    searchForParks () {
       this.usePlace(this.place)
       this.map = new google.maps.Map(document.getElementById('map'), {
-          center: { lat: 39.9818, lng: -75.1531 },
-          zoom: 15
-      });
-      var service = new google.maps.places.PlacesService(this.map);
-      var infowindow = new google.maps.InfoWindow();
+        center: { lat: 39.9818, lng: -75.1531 },
+        zoom: 15
+      })
+      var service = new google.maps.places.PlacesService(this.map)
+      var infowindow = new google.maps.InfoWindow()
       // service.nearbySearch(
       //   {
       //     location: this.center,
@@ -195,28 +195,28 @@ export default {
           query: 'Dog',
           type: 'park'
         }, (results, status) => {
-        if (status === 'OK') {
-          for (var i = 0; i < results.length; i++) {
-            var photos = results[i].photos;
-            if (!photos) {
-              return;
-            }
+          if (status === 'OK') {
+            for (var i = 0; i < results.length; i++) {
+              var photos = results[i].photos
+              if (!photos) {
+                return
+              }
 
-            console.log(results[i]);
-            this.markers.push({
-              position: {
-                lat: results[i].geometry.location.lat(),
-                lng: results[i].geometry.location.lng()
-              },
-              infoText: results[i].formatted_address,
-              name: results[i].name,
-              snippet: photos[0].getUrl({'maxHeight': 400})
-            });
+              console.log(results[i])
+              this.markers.push({
+                position: {
+                  lat: results[i].geometry.location.lat(),
+                  lng: results[i].geometry.location.lng()
+                },
+                infoText: results[i].formatted_address,
+                name: results[i].name,
+                snippet: photos[0].getUrl({'maxHeight': 400})
+              })
+            }
+          } else {
+            console.log('No Parks In this range!')
           }
-        } else {
-          console.log("No Parks In this range!")
-        }
-      });
+        })
     }
   }
 }
