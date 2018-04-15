@@ -18,6 +18,60 @@
         <v-divider></v-divider>
         <!-- <h1>View Recent Posts!</h1> -->
         <!-- Possibly going to be a 'recent posted sort of deal' -->
+
+        <section>
+          <v-layout
+            column
+            wrap
+            class="my-5"
+            align-center
+          >
+            <v-flex xs12 sm4 class="my-3">
+              <div class="text-xs-center">
+                <h2>Photo Guidelines</h2>
+                <span class="subheading">
+                  Quick Simple Steps To Get The Best Results
+                </span>
+              </div>
+            </v-flex>
+            <v-flex xs12>
+              <v-container grid-list-xl>
+                <v-layout row wrap align-center>
+                  <v-flex xs12 md4>
+                    <v-card class="elevation-0 transparent">
+                      <v-card-title primary-title class="layout justify-center">
+                        <div class="headline text-xs-center">Step 1</div>
+                      </v-card-title>
+                      <v-card-text>
+                        Find a dog image! Obtain one from the internet or capture the image with any device and upload it to your computer
+                      </v-card-text>
+                    </v-card>
+                  </v-flex>
+                  <v-flex xs12 md4>
+                    <v-card class="elevation-0 transparent">
+                      <v-card-title primary-title class="layout justify-center">
+                        <div class="headline">Step 2</div>
+                      </v-card-title>
+                      <v-card-text>
+                        The image should be full-faced view, good lighting, and not in fog. If the image does not meet the following requirements, the result may be obscured.
+                      </v-card-text>
+                    </v-card>
+                  </v-flex>
+                  <v-flex xs12 md4>
+                    <v-card class="elevation-0 transparent">
+                      <v-card-title primary-title class="layout justify-center">
+                        <div class="headline text-xs-center">Step 3</div>
+                      </v-card-title>
+                      <v-card-text>
+                        Go to the area above, drag and drop your image there or click in the area to search for your image within your filesystem.
+                      </v-card-text>
+                    </v-card>
+                  </v-flex>
+                </v-layout>
+              </v-container>
+            </v-flex>
+          </v-layout>
+        </section>
       </form>
       <!--SUCCESS-->
       <div v-if="isSuccess">
@@ -55,38 +109,43 @@
                       dark
                     />
                   </v-flex>
-                  <!-- <span class="zipcode">Zipcode: <input type="text" v-model="zipcode" placeholder="19111"></span> -->
                 </div>
+
                 <div v-if="realBreed">
-                  <div class="headline">{{ realBreed }}</div>
-                  <br>
-                  <span v-if="breedInfo" class="white--text">{{ breedInfo }}</span>
+                    <div class="headline">{{ realBreed }}</div>
+                    <v-progress-circular
+                      :size="100"
+                      :width="15"
+                      :rotate="-90"
+                      :value= breedProb
+                      color="primary"
+                    >
+                    {{ breedProb }}%
+                    </v-progress-circular>
                 </div>
               </v-card-title>
               <v-card-actions v-if="realBreed">
                 <!-- <v-btn flat color="white" @click="addressToLatLong">Shelter</v-btn> -->
                 <v-spacer></v-spacer>
+                  <v-tooltip right>
+                    <v-btn icon @click.native="show = !show" slot="activator">
+                      <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
+                    </v-btn>
+                    <span>Breed Info</span>
+                  </v-tooltip>
               </v-card-actions>
               <v-card-actions v-if="!realBreed">
                 <v-btn flat color="cyan" @click="sendImageBackend()">Learn More</v-btn>
-                <v-btn flat color="white">Explore</v-btn>
-
-                <!-- <p v-if="zipcode">Your zipcode: {{ zipcode }}</p> -->
-                <!-- <button v-on:click="sendImageBackend()">Submit To Backend</button> -->
+                <v-btn flat color="white">Share</v-btn>
                 <v-spacer></v-spacer>
-                <v-btn icon @click.native="show = !show">
-                  <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
-                </v-btn>
               </v-card-actions>
-              <v-slide-y-transition>
+              <v-slide-x-transition>
                 <v-card-text v-show="show">
-                Lorem Ipsum
+                  <span v-if="breedInfo" class="white--text">{{ breedInfo }}</span>
                 </v-card-text>
-              </v-slide-y-transition>
+              </v-slide-x-transition>
             </v-card>
             <br>
-            <v-divider></v-divider>
-
             <v-btn
               href="javascript:void(0)"
               color="blue-grey"
@@ -96,10 +155,9 @@
               Upload Another Pup
               <v-icon right dark>cloud_upload</v-icon>
             </v-btn>
+            
           <!-- Shelter? -->
-          <v-spacer></v-spacer>
           </v-flex>
-          <v-spacer></v-spacer>
           <v-layout v-if="shelter || sheltercity">
             <v-container grid-list-xl>
               <v-layout row wrap justify-center class="my-5">
@@ -129,7 +187,7 @@
                 <v-flex xs12 sm5 offset-sm1>
                   <v-card class="elevation-0 transparent">
                     <v-card-title primary-title class="layout justify-center">
-                      <h1>Shelter Information</h1>
+                      <h1>Shelter<br> Information</h1>
                     </v-card-title>
                     <v-list class="transparent">
                       <v-list-tile>
@@ -159,6 +217,15 @@
                     </v-list>
                   </v-card>
                 </v-flex>
+                <v-btn
+                  href="javascript:void(0)"
+                  color="blue-grey"
+                  class="white--text"
+                  @click="sendImageBackend()"
+                >
+                  View Another Shelter
+                  <v-icon right dark>search</v-icon>
+                </v-btn>
               </v-layout>
             </v-container>
           </v-layout>
@@ -248,6 +315,7 @@ export default {
       zipcode: "",
       realBreed: "",
       breedInfo: "",
+      breedProb:"",
       shelter: "",
       sheltercity: "",
       shelterzip: "",
@@ -288,6 +356,7 @@ export default {
       this.zipcode = ''
       this.realBreed = ''
       this.breedInfo = ''
+      this.breedProb = ''
       this.shelter = ''
       this.sheltercity = ''
       this.shelterzip = ''
@@ -376,6 +445,7 @@ export default {
           console.log(response.body.age)
           this.realBreed = response.body.breed
           this.breedInfo = response.body.breed_info
+          this.breedProb = Math.round(response.body.prob * 100)
           this.shelter = response.body['shelter Contact'].address1
           this.sheltercity = response.body['shelter Contact'].city
           this.shelterzip = response.body['shelter Contact'].zip
@@ -425,6 +495,9 @@ h1 {
   text-align: center;
 }
 
+.card__title {
+  text-align: center;
+}
 .dropbox {
   background-size: contain;
   margin: auto;

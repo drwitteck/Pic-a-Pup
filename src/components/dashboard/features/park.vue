@@ -2,22 +2,6 @@
 <template>
   <div id="park">
     <h1>Parks</h1>
-    <!-- <gmap-map
-      id="map"
-      :center="center"
-      :zoom="16"
-      style="width: 80vw; height: 30vw; margin: auto;"
-    >
-      <gmap-marker
-        :key="index"
-        v-for="(m, index) in markers"
-        :position="m.position"
-        :clickable="true"
-        :draggable="true"
-        @click="center=m.position"
-      ></gmap-marker>
-    </gmap-map> -->
-
     <v-layout row wrap>
       <v-flex xs4 offset-sm1>
         <div class="input-group input-group--dirty theme--dark input-group--text-field primary--text">
@@ -49,47 +33,60 @@
       </v-flex>
     </v-layout>
     <div>
-
-    <br/>
-
-    <GmapMap style="width: 70vw; height: 30vw; margin: auto;" :zoom="13" :center="center">
-      <GmapMarker v-for="(marker, index) in markers"
-        :key="index"
-        :position="marker.position"
-        :clickable="true" @click="toggleInfoWindow(marker, index)"
-        />
-      <GmapMarker
-        v-if="this.place"
-        label="★"
-        :position="{
-          lat: this.place.geometry.location.lat(),
-          lng: this.place.geometry.location.lng(),
-        }"
-        />
-      <gmap-info-window :options="infoOptions" :position="infoWindowPos" :opened="infoWinOpen" @closeclick="infoWinOpen=false">
-
-              <v-card light>
-                <v-card-media style="margin:0" :src="snippet" height="5vh">
-                </v-card-media>
-                <v-card-title primary-title>
-                  <div>
-                    <h3 class="headline mb-0">{{name}}</h3>
+      <v-layout row wrap>
+          <br/>
+          <v-flex xs6 offset-sm1>
+            <GmapMap style="width: 37vw; height: 30vw;" :zoom="13" :center="center">
+              <GmapMarker v-for="(marker, index) in markers"
+                :key="index"
+                :position="marker.position"
+                :clickable="true" @click="toggleInfoWindow(marker, index)"
+                />
+              <GmapMarker
+                v-if="this.place"
+                label="★"
+                :position="{
+                  lat: this.place.geometry.location.lat(),
+                  lng: this.place.geometry.location.lng(),
+                }"
+                />
+              <gmap-info-window :options="infoOptions" :position="infoWindowPos" :opened="infoWinOpen" @closeclick="infoWinOpen=false" >
+                <v-card light style="padding:0">
+                  <v-card-media :src="snippet" height="10vh">
+                  </v-card-media>
+                  <v-card-title primary-title>
                     <div>
-                      {{infoContent}}
+                      <h3 class="headline mb-0">{{name}}</h3>
+                      <div>
+                        {{infoContent}}
+                      </div>
                     </div>
-                  </div>
-                </v-card-title>
-                <v-card-actions>
-                </v-card-actions>
+                  </v-card-title>
+                </v-card>
+              </gmap-info-window>
+              </GmapMap>
+              <div id="map"></div>
+            </v-flex>
+
+            <v-flex xs4>
+              <v-card style="max-height: 30vw" class="scroll-y">
+                <v-list two-line subheader>
+                  <v-subheader inset>Locations &nbsp;&nbsp; <v-icon>map</v-icon></v-subheader>
+                  <v-list-tile avatar v-for="marker in markers" :key="marker.name" @click="infoWinOpen=false; toggleInfoWindow(marker);">
+                    <v-list-tile-avatar>
+                      <v-icon>pin_drop</v-icon>
+                    </v-list-tile-avatar>
+                    <v-list-tile-content>
+                      <v-list-tile-title>{{marker.name}}</v-list-tile-title>
+                      <v-list-tile-sub-title>{{marker.infoText}}</v-list-tile-sub-title>
+                    </v-list-tile-content>
+                  </v-list-tile>
+                </v-list>
               </v-card>
-
-      </gmap-info-window>
-
-    </GmapMap>
-
-    <div id="map"></div>
-  </div>
-
+          </v-flex>
+        </v-layout>
+      </div>
+      
   </div>
 </template>
 
@@ -97,6 +94,9 @@
 export default {
   data () {
     return {
+      images: {
+        dogIcon: require('./DogIcon.png')
+      },
       center: { lat: 39.9818, lng: -75.1531 },
       snippet: '',
       markers: [],
@@ -138,7 +138,8 @@ export default {
             lng: this.place.geometry.location.lng()
           },
           infoText: this.place.name
-        })
+        }),
+        this.markers = []
       }
     },
     toggleInfoWindow: function (marker, idx) {
@@ -164,6 +165,7 @@ export default {
       })
       var service = new google.maps.places.PlacesService(this.map)
       var infowindow = new google.maps.InfoWindow()
+      var image = 'DogIcon.png'
       // service.nearbySearch(
       //   {
       //     location: this.center,
@@ -208,6 +210,10 @@ export default {
                   lat: results[i].geometry.location.lat(),
                   lng: results[i].geometry.location.lng()
                 },
+                icon: {
+                  url: this.images.dogIcon,
+                  scaledSize: new google.maps.Size(48, 48)
+                  },
                 infoText: results[i].formatted_address,
                 name: results[i].name,
                 snippet: photos[0].getUrl({'maxHeight': 400})
