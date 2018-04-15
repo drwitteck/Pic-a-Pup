@@ -49,47 +49,62 @@
       </v-flex>
     </v-layout>
     <div>
-
-    <br/>
-
-    <GmapMap style="width: 70vw; height: 30vw; margin: auto;" :zoom="13" :center="center">
-      <GmapMarker v-for="(marker, index) in markers"
-        :key="index"
-        :position="marker.position"
-        :clickable="true" @click="toggleInfoWindow(marker, index)"
-        />
-      <GmapMarker
-        v-if="this.place"
-        label="★"
-        :position="{
-          lat: this.place.geometry.location.lat(),
-          lng: this.place.geometry.location.lng(),
-        }"
-        />
-      <gmap-info-window :options="infoOptions" :position="infoWindowPos" :opened="infoWinOpen" @closeclick="infoWinOpen=false">
-
-              <v-card light>
-                <v-card-media style="margin:0" :src="snippet" height="5vh">
-                </v-card-media>
-                <v-card-title primary-title>
-                  <div>
-                    <h3 class="headline mb-0">{{name}}</h3>
+      <v-layout row wrap>
+          <br/>
+          <v-flex xs6 offset-sm1>
+            <GmapMap style="width: 37vw; height: 30vw;" :zoom="13" :center="center">
+              <GmapMarker v-for="(marker, index) in markers"
+                :key="index"
+                :position="marker.position"
+                :clickable="true" @click="toggleInfoWindow(marker, index)"
+                />
+              <GmapMarker
+                v-if="this.place"
+                label="★"
+                :position="{
+                  lat: this.place.geometry.location.lat(),
+                  lng: this.place.geometry.location.lng(),
+                }"
+                />
+              <gmap-info-window :options="infoOptions" :position="infoWindowPos" :opened="infoWinOpen" @closeclick="infoWinOpen=false">
+                <v-card light>
+                  <v-card-media style="margin:0" :src="snippet" height="5vh">
+                  </v-card-media>
+                  <v-card-title primary-title>
                     <div>
-                      {{infoContent}}
+                      <h3 class="headline mb-0">{{name}}</h3>
+                      <div>
+                        {{infoContent}}
+                      </div>
                     </div>
-                  </div>
-                </v-card-title>
-                <v-card-actions>
-                </v-card-actions>
+                  </v-card-title>
+                  <v-card-actions>
+                  </v-card-actions>
+                </v-card>
+              </gmap-info-window>
+              </GmapMap>
+              <div id="map"></div>
+            </v-flex>
+
+            <v-flex xs4>
+              <v-card>
+                <v-list two-line subheader>
+                  <v-subheader inset>Locations</v-subheader>
+                  <v-list-tile avatar v-for="marker in markers" :key="marker.name" @click="toggleInfoWindow(marker, index)">
+                    <v-list-tile-avatar>
+                      <v-icon>map</v-icon>
+                    </v-list-tile-avatar>
+                    <v-list-tile-content>
+                      <v-list-tile-title>{{marker.name}}</v-list-tile-title>
+                      <v-list-tile-sub-title>{{marker.infoText}}</v-list-tile-sub-title>
+                    </v-list-tile-content>
+                  </v-list-tile>
+                </v-list>
               </v-card>
-
-      </gmap-info-window>
-
-    </GmapMap>
-
-    <div id="map"></div>
-  </div>
-
+          </v-flex>
+        </v-layout>
+      </div>
+      
   </div>
 </template>
 
@@ -138,7 +153,8 @@ export default {
             lng: this.place.geometry.location.lng()
           },
           infoText: this.place.name
-        })
+        }),
+        this.markers = []
       }
     },
     toggleInfoWindow: function (marker, idx) {
@@ -164,6 +180,7 @@ export default {
       })
       var service = new google.maps.places.PlacesService(this.map)
       var infowindow = new google.maps.InfoWindow()
+      var image = '../assets/DogIcon.png'
       // service.nearbySearch(
       //   {
       //     location: this.center,
@@ -208,6 +225,7 @@ export default {
                   lat: results[i].geometry.location.lat(),
                   lng: results[i].geometry.location.lng()
                 },
+                icon: image,
                 infoText: results[i].formatted_address,
                 name: results[i].name,
                 snippet: photos[0].getUrl({'maxHeight': 400})
