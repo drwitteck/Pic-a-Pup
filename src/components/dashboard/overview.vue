@@ -3,7 +3,7 @@
    <v-app dark>
     <v-content style="margin:0; padding:0">
       <section>
-        <v-parallax src="https://wallpapercave.com/wp/IrMqrhR.jpg" height="600">
+        <v-parallax src="https://wallpapercave.com/wp/IrMqrhR.jpg" height="500">
           <v-layout
             column
             align-center

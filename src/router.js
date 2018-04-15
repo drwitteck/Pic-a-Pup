@@ -12,6 +12,7 @@ import BreedPage from './components/dashboard/features/breed.vue'
 import ParkPage from './components/dashboard/features/park.vue'
 import testPage from './components/dashboard/features/test.vue'
 import NotFound from './components/GeneralViews/NotFoundPage.vue'
+import ProfilePage from './components/profile/profile.vue'
 
 Vue.use(VueRouter)
 
@@ -63,6 +64,10 @@ const routes = [
       {
         path: '/park',
         component: ParkPage
+      },
+      {
+        path: '/profile',
+        component: ProfilePage
       },
       {
         path: '/test',

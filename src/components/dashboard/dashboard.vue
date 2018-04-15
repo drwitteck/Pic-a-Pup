@@ -47,6 +47,15 @@
           </v-list-tile-content>
         </v-list-tile>
         <!-- Link 2 -->
+        <v-list-tile router-link to="/profile">
+          <v-list-tile-action>
+            <v-icon>person</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Profile</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <!-- Link 3 -->
         <v-list-tile router-link to="/breed">
           <v-list-tile-action>
             <v-icon>pets</v-icon>
@@ -55,15 +64,6 @@
             <v-list-tile-title>Pic-a-Breed</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <!-- Link 3 -->
-        <!-- <v-list-tile @click="onLogout">
-          <v-list-tile-action>
-            <v-icon>power_settings_new</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>Sign Out</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile> -->
         <!-- Link 4 -->
         <v-list-tile router-link to="/park">
           <v-list-tile-action>
