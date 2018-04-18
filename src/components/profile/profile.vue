@@ -27,6 +27,8 @@
               <img src="https://cis.temple.edu/sites/default/files/styles/portrait-large/public/user_pictures/picture-767-1518386325.jpg?itok=AsYTIEq5" alt="avatar">
             </v-avatar>
           </v-flex>
+                      <h1 class="headline" style="font-weight: bold;">Charles Wang</h1>
+
           </v-layout>
         </v-parallax>
       </section>

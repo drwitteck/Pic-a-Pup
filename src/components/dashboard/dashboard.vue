@@ -73,6 +73,15 @@
             <v-list-tile-title>Pic-a-Park</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+        <!-- Link 5 -->
+        <v-list-tile router-link to="/services">
+          <v-list-tile-action>
+            <v-icon>content_paste</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Pic-a-Services</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
         <!-- Testing Station -->
         <v-list-tile router-link to="/test">
           <v-list-tile-action>
