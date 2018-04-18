@@ -65,13 +65,14 @@
                 </v-card>
               </gmap-info-window>
               </GmapMap>
-              <div id="map"></div>
+              <div id="map" style="display:none"></div>
             </v-flex>
 
             <v-flex xs4>
               <v-card style="max-height: 30vw" class="scroll-y">
                 <v-list two-line subheader>
-                  <v-subheader inset>Locations &nbsp;&nbsp; <v-icon>map</v-icon></v-subheader>
+                  <v-subheader inset style="font-weight:bold; font-size: 3vh; color:white">~ Locations &nbsp;<v-icon>map</v-icon>&nbsp;~</v-subheader>
+                  <v-divider></v-divider>
                   <v-list-tile avatar v-for="marker in markers" :key="marker.name" @click="infoWinOpen=false; toggleInfoWindow(marker);">
                     <v-list-tile-avatar>
                       <v-icon>pin_drop</v-icon>
@@ -163,7 +164,9 @@ export default {
         center: { lat: 39.9818, lng: -75.1531 },
         zoom: 15
       })
+      if(this.map != ''){
       var service = new google.maps.places.PlacesService(this.map)
+      }
       var infowindow = new google.maps.InfoWindow()
       var image = 'DogIcon.png'
       // service.nearbySearch(

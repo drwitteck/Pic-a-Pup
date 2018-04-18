@@ -89,10 +89,10 @@
                 <v-flex xs12 md4>
                   <v-card class="elevation-0 transparent">
                     <v-card-text class="text-xs-center">
-                      <v-icon x-large class="blue--text text--lighten-2">build</v-icon>
+                      <v-icon x-large class="blue--text text--lighten-2">content_paste</v-icon>
                     </v-card-text>
                     <v-card-title primary-title class="layout justify-center">
-                      <div class="headline text-xs-center">Pic-a-Wah</div>
+                      <div class="headline text-xs-center">Pic-a-Services</div>
                     </v-card-title>
                     <v-card-text>
                       Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare. 
@@ -106,7 +106,7 @@
                             large
                             
                             >
-                            Placeholder
+                            View Services
                         </v-btn>
                     </v-card-actions>
                   </v-card>

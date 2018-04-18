@@ -127,16 +127,29 @@
               <v-card-actions v-if="realBreed">
                 <!-- <v-btn flat color="white" @click="addressToLatLong">Shelter</v-btn> -->
                 <v-spacer></v-spacer>
-                  <v-tooltip right>
-                    <v-btn icon @click.native="show = !show" slot="activator">
-                      <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
-                    </v-btn>
-                    <span>Breed Info</span>
-                  </v-tooltip>
+                <v-layout row justify-center>
+                  <v-dialog v-model="dialog" persistent max-width="290">
+                    <v-btn flat color="cyan" dark slot="activator" @click="writeImageResult()">Post to Social Feed</v-btn>
+                    <v-card>
+                      <v-card-title class="headline">Posted to Feed</v-card-title>
+                      <v-card-text>Cool, you just posted your result for others to see! Want to see what others have posted?</v-card-text>
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="green darken-1" flat @click.native="dialog = false" router-link to="/profile">Yay</v-btn>
+                        <v-btn color="red darken-1" flat @click.native="dialog = false">Nah</v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
+                </v-layout>
+                <v-tooltip right>
+                  <v-btn icon @click.native="show = !show" slot="activator">
+                    <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
+                  </v-btn>
+                  <span>Breed Info</span>
+                </v-tooltip>
               </v-card-actions>
               <v-card-actions v-if="!realBreed">
                 <v-btn flat color="cyan" @click="sendImageBackend()">Learn More</v-btn>
-                <v-btn flat color="white">Share</v-btn>
                 <v-spacer></v-spacer>
               </v-card-actions>
               <v-slide-x-transition>
@@ -281,6 +294,7 @@
 // import { upload } from './file-upload.service';   // real service
 import { wait } from "./utils";
 import { fbStorage } from "../../../main";
+import { fbDatabase } from "../../../main";
 import axios from "axios";
 import VueResources from "vue-resource";
 
@@ -299,6 +313,7 @@ export default {
   name: "app",
   data() {
     return {
+      dialog: false,
       center: {
         lat: 39.9818, 
         lng: -75.1531
@@ -313,6 +328,7 @@ export default {
       item_url: "",
       downloadURL: "",
       zipcode: "",
+      backendResponse: "",
       realBreed: "",
       breedInfo: "",
       breedProb:"",
@@ -354,6 +370,7 @@ export default {
       this.item_url = ''
       this.downloadURL = ''
       this.zipcode = ''
+      this.backendResponse = ''
       this.realBreed = ''
       this.breedInfo = ''
       this.breedProb = ''
@@ -424,6 +441,16 @@ export default {
         this.currentStatus = STATUS_SUCCESS;
       }
     },
+    writeImageResult() {
+      fbDatabase
+        .ref('WebImageResult/' + this.$store.state.userId)
+        .set({
+          breed: this.realBreed,
+          breedInfo: this.breedInfo,
+          probability: this.breedProb,
+          imageURL: this.downloadUrl
+        });
+    },
     sendImageBackend1() {
       axios
         .post("http://httpbin.org/post", {
@@ -441,8 +468,9 @@ export default {
         url: this.downloadUrl
       })
         .then(response => {
-          console.log(response)
+          console.log(response.body)
           console.log(response.body.age)
+          this.backendResponse = response.body
           this.realBreed = response.body.breed
           this.breedInfo = response.body.breed_info
           this.breedProb = Math.round(response.body.prob * 100)
@@ -453,6 +481,8 @@ export default {
           this.addressToLatLong()
         }).catch(error => {
           console.log(error)
+          this.realBreed = "Model Cannot Identify the Breed"
+          this.breedInfo = "You sure this ain't a CAT?! Upload again or another image."
           this.shelterAvail = true
         })
     },
@@ -496,7 +526,7 @@ h1 {
 }
 
 .card__title {
-  text-align: center;
+  // text-align: center;
 }
 .dropbox {
   background-size: contain;

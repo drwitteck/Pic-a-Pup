@@ -20,4 +20,11 @@ html {
   background-size: cover;
   background-repeat: no-repeat;
 }
+.headline {
+  background: linear-gradient(#d660d2, #1e8196);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+}
 </style>

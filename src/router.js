@@ -10,6 +10,7 @@ import SignupPage from './components/auth/signup.vue'
 import SigninPage from './components/auth/signin.vue'
 import BreedPage from './components/dashboard/features/breed.vue'
 import ParkPage from './components/dashboard/features/park.vue'
+import ServicesPage from './components/dashboard/features/services.vue'
 import testPage from './components/dashboard/features/test.vue'
 import NotFound from './components/GeneralViews/NotFoundPage.vue'
 import ProfilePage from './components/profile/profile.vue'
@@ -68,6 +69,10 @@ const routes = [
       {
         path: '/profile',
         component: ProfilePage
+      },
+      {
+        path: '/services',
+        component: ServicesPage
       },
       {
         path: '/test',

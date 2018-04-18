@@ -35,6 +35,7 @@ var config = {
 
 let fbApp = firebase.initializeApp(config)
 let fbStorage = fbApp.storage()
+let fbDatabase = fbApp.database()
 
 axios.defaults.baseURL = 'https://pic-a-pup.firebaseio.com'
 // axios.defaults.headers.common['Authorization'] = 'fasfdsa'
@@ -59,4 +60,4 @@ let pipapupApp = new Vue({
   render: h => h(App)
 })
 
-export { pipapupApp, fbStorage }
+export { pipapupApp, fbStorage, fbDatabase }
