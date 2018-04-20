@@ -443,12 +443,11 @@ export default {
     },
     writeImageResult() {
       fbDatabase
-        .ref('WebImageResult/' + this.$store.state.userId)
+        .ref('FeedDogSearchResult/' + this.$store.state.userId)
         .set({
           breed: this.realBreed,
-          breedInfo: this.breedInfo,
-          probability: this.breedProb,
-          imageURL: this.downloadUrl
+          dogImageSent: this.downloadUrl,
+          probability: this.breedProb
         });
     },
     sendImageBackend1() {
