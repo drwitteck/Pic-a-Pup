@@ -4,8 +4,25 @@
     <h1>Profile Info</h1>
     <p>Edit profile Information below</p>
     <button v-on:click="submitInfo()">Save Info </button>
+
     <p v-if="name">Your name: {{ name }}</p>
     <input type="text" v-model="name" placeholder="Name">
+
+    <p v-if="email">Your email: {{ email }}</p>
+    <input type="text" v-model="email" placeholder="email">
+
+    <p v-if="phoneNumber">Your Phone Number: {{ phoneNumber }}</p>
+    <input type="text" v-model="phoneNumber" placeholder="phoneNumber">
+
+    <p v-if="country">Your country: {{ country }}</p>
+    <input type="text" v-model="country" placeholder="country">
+
+    <p v-if="state">Your state: {{ state }}</p>
+    <input type="text" v-model="state" placeholder="state">
+
+    <p v-if="city">Your City: {{ city }}</p>
+    <input type="text" v-model="city" placeholder="city">
+
     <p v-if="zipcode">Your zipcode: {{ zipcode }}</p>
     <input type="text" v-model="zipcode" placeholder="zipcode">
     <br>
@@ -70,6 +87,14 @@ export default {
   },
   data () {
     return {
+      profilepicture: '',
+      name: '',
+      zipcode: '',
+      email: '',
+      phoneNumber: '',
+      country: '',
+      state: '',
+      city: '',
       checkedServices: [],
       userProvideServices: '',
       provideServices: {
@@ -83,9 +108,6 @@ export default {
         trainer: false,
         sitter: false
       },
-      profilepicture: '',
-      name: '',
-      zipcode: '',
       availableTimes: {
         generalWeek: {
           monday: {
@@ -140,7 +162,12 @@ export default {
       axios.put('/webUsers/' + this.$store.state.userId + '/info.json' + '?auth=' + this.$store.state.idToken, {
         // image: this.downloadUrl,
         name: this.name,
-        zipcode: this.zipcode
+        zipcode: this.zipcode,
+        email: this.email,
+        phoneNumber: this.phoneNumber,
+        country: this.country,
+        state: this.state,
+        city: this.city,
       })
       axios.put('/webUsers/' + this.$store.state.userId + '/services/userOptions.json' + '?auth=' + this.$store.state.idToken, {
         // image: this.downloadUrl,
