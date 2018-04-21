@@ -126,8 +126,7 @@
               </v-card-title>
               <v-card-actions v-if="realBreed">
                 <!-- <v-btn flat color="white" @click="addressToLatLong">Shelter</v-btn> -->
-                <v-spacer></v-spacer>
-                <v-layout row justify-center>
+                <v-layout row>
                   <v-dialog v-model="dialog" persistent max-width="290">
                     <v-btn flat color="cyan" dark slot="activator" @click="writeImageResult()">Post to Social Feed</v-btn>
                     <v-card>
@@ -225,6 +224,22 @@
                         </v-list-tile-action>
                         <v-list-tile-content>
                           <v-list-tile-title>Zip: {{ shelterzip }}</v-list-tile-title>
+                        </v-list-tile-content>
+                      </v-list-tile>
+                      <v-list-tile>
+                        <v-list-tile-action>
+                          <v-icon class="blue--text text--lighten-2">mail</v-icon>
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                          <v-list-tile-title>Zip: {{ shelteremail }}</v-list-tile-title>
+                        </v-list-tile-content>
+                      </v-list-tile>
+                      <v-list-tile>
+                        <v-list-tile-action>
+                          <v-icon class="blue--text text--lighten-2">phone</v-icon>
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                          <v-list-tile-title>Zip: {{ shelterphone }}</v-list-tile-title>
                         </v-list-tile-content>
                       </v-list-tile>
                     </v-list>
@@ -335,6 +350,8 @@ export default {
       shelter: "",
       sheltercity: "",
       shelterzip: "",
+      shelteremail: "",
+      shelterphone: "",
       shelterAvail: "",
       show: false
     };
@@ -377,6 +394,8 @@ export default {
       this.shelter = ''
       this.sheltercity = ''
       this.shelterzip = ''
+      this.shelteremail = ''
+      this.shelterphone = ''
       this.shelterAvail = ''
       this.show = false
     },
@@ -502,6 +521,7 @@ export default {
         } else {
           console.log("No Address")
           this.shelter = "Address N/A"
+
         }
       });
     }
