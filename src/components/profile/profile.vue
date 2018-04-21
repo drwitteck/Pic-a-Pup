@@ -42,121 +42,29 @@
         >
           <v-flex xs12 sm4 class="my-3">
             <div class="text-xs-center">
-              <h2 class="headline">Your Recent Pic-a-Breed Posts</h2>
+              <h2 class="headline">Recent Pic-a-Breed Posts</h2>
             </div>
           </v-flex>
           <v-flex xs12>
             <v-container grid-list-xl>
               <v-layout row wrap align-center>
-                <v-flex xs12 md4>
-                  <v-card color="cyan darken-1" class="white--text">
-                    <v-container fluid grid-list-lg>
-                      <v-layout row>
-                        <v-flex xs7>
-                          <div>
-                            <div class="headline">German Sheppard</div>
-                            <div>Probability: 100%</div>
-                          </div>
-                          <v-card-actions>
-                      <v-btn flat dark>View Now</v-btn>
-                    </v-card-actions>
-                        </v-flex>
-                        <v-flex xs5>
-                          <v-card-media
-                            src="http://cdn.akc.org/content/article-body-image/housetrain_adult_dog_hero.jpg"
-                            height="125px"
-                            contain
-                          ></v-card-media>
-                        </v-flex>
-                      </v-layout>
-                    </v-container>
-                  </v-card>
-                </v-flex>
-                <v-flex xs12 md4>
-                  <v-card color="cyan darken-1" class="white--text">
-                    <v-container fluid grid-list-lg>
-                      <v-layout row>
-                        <v-flex xs7>
-                          <div>
-                            <div class="headline">German Sheppard</div>
-                            <div>Probability: 100%</div>
-                          </div>
-                          <v-card-actions>
-                      <v-btn flat dark>View Now</v-btn>
-                    </v-card-actions>
-                        </v-flex>
-                        <v-flex xs5>
-                          <v-card-media
-                            src="http://cdn.akc.org/content/article-body-image/housetrain_adult_dog_hero.jpg"
-                            height="125px"
-                            contain
-                          ></v-card-media>
-                        </v-flex>
-                      </v-layout>
-                    </v-container>
-                  </v-card>
-                </v-flex>
-                <v-flex xs12 md4>
-                  <v-card color="cyan darken-1" class="white--text">
-                    <v-container fluid grid-list-lg>
-                      <v-layout row>
-                        <v-flex xs7>
-                          <div>
-                            <div class="headline">German Sheppard</div>
-                            <div>Probability: 100%</div>
-                          </div>
-                          <v-card-actions>
-                      <v-btn flat dark>View Now</v-btn>
-                    </v-card-actions>
-                        </v-flex>
-                        <v-flex xs5>
-                          <v-card-media
-                            src="http://cdn.akc.org/content/article-body-image/housetrain_adult_dog_hero.jpg"
-                            height="125px"
-                            contain
-                          ></v-card-media>
-                        </v-flex>
-                      </v-layout>
-                    </v-container>
-                  </v-card>
-                </v-flex>
-              </v-layout>
-            </v-container>
-          </v-flex>
-        </v-layout>
-      </section>
 
-      <section>
-        <v-layout
-          column
-          wrap
-          class="my-5"
-          align-center
-        >
-          <v-flex xs12 sm4 class="my-3">
-            <div class="text-xs-center">
-              <h2 class="headline">Others Recent Pic-a-Breed Posts</h2>
-            </div>
-          </v-flex>
-          <v-flex xs12>
-            <v-container grid-list-xl>
-              <v-layout row wrap align-center>
-                <v-flex xs12 md4>
-                  <v-card color="cyan darken-1" class="white--text">
-                    <v-container fluid grid-list-lg>
+                <v-flex xs12 md4 v-for="post in posts.slice(0+(page-1)*6, 6+(page-1)*6)" :key="post.user">
+                  <v-card style="border-radius:5px; background: linear-gradient(45deg, #551053, #1e8196);" class="white--text" >
+                    <v-container fluid grid-list-lg >
                       <v-layout row>
                         <v-flex xs7>
                           <div>
-                            <div class="headline">German Sheppard</div>
-                            <div>Probability: 100%</div>
+                            <div class="headline"> {{ post.breed }} </div>
+                            <div>Probability: {{ post.probability }}</div>
                           </div>
                           <v-card-actions>
-                      <v-btn flat dark>View Now</v-btn>
-                    </v-card-actions>
+                      <!-- <v-btn flat dark>View Now</v-btn> -->
+                          </v-card-actions>
                         </v-flex>
                         <v-flex xs5>
                           <v-card-media
-                            src="http://cdn.akc.org/content/article-body-image/housetrain_adult_dog_hero.jpg"
+                            :src="post.dogImageSent"
                             height="125px"
                             contain
                           ></v-card-media>
@@ -165,70 +73,46 @@
                     </v-container>
                   </v-card>
                 </v-flex>
-                <v-flex xs12 md4>
-                  <v-card color="cyan darken-1" class="white--text">
-                    <v-container fluid grid-list-lg>
-                      <v-layout row>
-                        <v-flex xs7>
-                          <div>
-                            <div class="headline">German Sheppard</div>
-                            <div>Probability: 100%</div>
-                          </div>
-                          <v-card-actions>
-                      <v-btn flat dark>View Now</v-btn>
-                    </v-card-actions>
-                        </v-flex>
-                        <v-flex xs5>
-                          <v-card-media
-                            src="http://cdn.akc.org/content/article-body-image/housetrain_adult_dog_hero.jpg"
-                            height="125px"
-                            contain
-                          ></v-card-media>
-                        </v-flex>
-                      </v-layout>
-                    </v-container>
-                  </v-card>
-                </v-flex>
-                <v-flex xs12 md4>
-                  <v-card color="cyan darken-1" class="white--text">
-                    <v-container fluid grid-list-lg>
-                      <v-layout row>
-                        <v-flex xs7>
-                          <div>
-                            <div class="headline">German Sheppard</div>
-                            <div>Probability: 100%</div>
-                          </div>
-                          <v-card-actions>
-                      <v-btn flat dark>View Now</v-btn>
-                    </v-card-actions>
-                        </v-flex>
-                        <v-flex xs5>
-                          <v-card-media
-                            src="http://cdn.akc.org/content/article-body-image/housetrain_adult_dog_hero.jpg"
-                            height="125px"
-                            contain
-                          ></v-card-media>
-                        </v-flex>
-                      </v-layout>
-                    </v-container>
-                  </v-card>
-                </v-flex>
+
               </v-layout>
             </v-container>
           </v-flex>
         </v-layout>
       </section>
+      <div class="text-xs-center">
+        <v-pagination :length="4" v-model="page"></v-pagination>
+      </div>
     </v-content>
   </v-app>
  </div>
 </template>
 
 <script>
+import { fbDatabase } from "../../main";
+
 export default {
-  data () {
-    return {
-      tile: false
-    }
+  data: () => ({
+    page: 1,
+    placeholder: '',
+    posts: [],
+    tile: false
+  }),
+  mounted(){
+    fbDatabase
+      .ref('FeedDogSearchResult/')
+      .once('value', (posts) => {
+      posts.forEach((post) => {
+        this.posts.push({
+          ref: post.ref,
+          user: this.$store.state.userId,
+          breed: post.child('breed').val(),
+          dogImageSent: post.child('dogImageSent').val(),
+          probability: Math.round(post.child('probability').val()*100) 
+        })
+      })
+    })
+  },
+  methods: {
   }
 }
 </script>
@@ -236,3 +120,4 @@ export default {
 <style>
 
 </style>
+      
