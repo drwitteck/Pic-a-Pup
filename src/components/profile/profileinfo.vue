@@ -1,50 +1,138 @@
 /* eslint-disable */
 <template>
   <div id="profileinfo">
-    <h1>Profile Info</h1>
-    <p>Edit profile Information below</p>
-    <button v-on:click="submitInfo()">Save Info </button>
+    <v-subheader style="font-weight:bold;font-size: 2vh">User Info</v-subheader>
+    <v-layout
+      align-center
+      justify-center
+    >
+      <v-flex
+        xs12
+        sm10
+        text-xs-center
+        align-center
+        justify-center
+      >
+        <v-list two-line subheader>
+          
+          <v-list-tile avatar>
+            <v-list-tile-content>
+              <v-text-field
+                label="Name"
+                v-model="name"
+                counter
+              ></v-text-field>
+            </v-list-tile-content>
+          </v-list-tile>
 
-    <p v-if="name">Your name: {{ name }}</p>
-    <input type="text" v-model="name" placeholder="Name">
+          <v-list-tile avatar>
+            <v-list-tile-content>
+              <v-text-field
+                label="E-mail"
+                v-model="email"
+                counter
+              ></v-text-field>
+            </v-list-tile-content>
+          </v-list-tile>
 
-    <p v-if="email">Your email: {{ email }}</p>
-    <input type="text" v-model="email" placeholder="email">
+          <v-list-tile avatar>
+            <v-list-tile-content>
+              <v-text-field
+                label="Phone Number"
+                v-model="phoneNumber"
+                counter
+              ></v-text-field>
+            </v-list-tile-content>
+          </v-list-tile>
 
-    <p v-if="phoneNumber">Your Phone Number: {{ phoneNumber }}</p>
-    <input type="text" v-model="phoneNumber" placeholder="phoneNumber">
+          <v-list-tile avatar>
+            <v-list-tile-content>
+              <v-text-field
+                label="Country"
+                v-model="country"
+                counter
+              ></v-text-field>
+            </v-list-tile-content>
+          </v-list-tile>
 
-    <p v-if="country">Your country: {{ country }}</p>
-    <input type="text" v-model="country" placeholder="country">
+          <v-list-tile avatar>
+            <v-list-tile-content>
+              <v-text-field
+                label="State"
+                v-model="state"
+                counter
+              ></v-text-field>
+            </v-list-tile-content>
+          </v-list-tile>
 
-    <p v-if="state">Your state: {{ state }}</p>
-    <input type="text" v-model="state" placeholder="state">
+          <v-list-tile avatar>
+            <v-list-tile-content>
+              <v-text-field
+                label="City"
+                v-model="city"
+                counter
+              ></v-text-field>
+            </v-list-tile-content>
+          </v-list-tile>
 
-    <p v-if="city">Your City: {{ city }}</p>
-    <input type="text" v-model="city" placeholder="city">
+          <v-list-tile avatar>
+            <v-list-tile-content>
+              <v-text-field
+                label="Zip Code"
+                v-model="zipcode"
+                counter
+              ></v-text-field>
+            </v-list-tile-content>
+          </v-list-tile>
 
-    <p v-if="zipcode">Your zipcode: {{ zipcode }}</p>
-    <input type="text" v-model="zipcode" placeholder="zipcode">
-    <br>
-    <input type="checkbox" id="userProvideServices" v-model="userProvideServices">
-    <label for="userProvideServices">Do you want to Provide Services: {{ userProvideServices ? 'yes' : 'no' }}</label>
+          <v-list-tile avatar>
+            <v-list-tile-content>
+              <v-btn
+                  style="background: linear-gradient(45deg, #551053, #1e8196);"
+                  color="blue"
+                  class="white--text"
+                  @click="submitInfo()"
+                >
+                  Save
+                  <v-icon right dark>cloud_upload</v-icon>
+                </v-btn>
+            </v-list-tile-content>
+          </v-list-tile>
 
-    <br>
 
-    <input type="checkbox" id="userWantServices" v-model="userWantServices">
-    <label for="userProvideServices">Do you want to Receive Services: {{ userWantServices ? 'yes' : 'no' }}</label>
+        </v-list>
+      </v-flex>
+    </v-layout>
 
-    <div id='provideServicesList' v-if="userProvideServices">
-      <input type="checkbox" id="pwalker" v-model="provideServices.walker">
-      <label for="pwalker">Dog Walker</label>
-      <input type="checkbox" id="ptrainer" v-model="provideServices.trainer">
-      <label for="ptrainer">Dog Trainer</label>
-      <input type="checkbox" id="psitter" v-model="provideServices.sitter">
-      <label for="psitter">Dog Sitter</label>
-      <br>
-    </div>
-    <br />
-    <br>
+    <v-divider></v-divider>
+
+    <v-list three-line subheader>
+      <v-subheader style="font-weight:bold;font-size: 2vh">Pic-a-Pup Services</v-subheader>
+      <v-list-tile avatar>
+        <v-list-tile-action>
+          <v-checkbox v-model="userProvideServices"></v-checkbox>
+        </v-list-tile-action>
+        <v-list-tile-content>
+          <v-list-tile-title>Provider</v-list-tile-title>
+          <v-list-tile-sub-title>What services can you provide?</v-list-tile-sub-title>
+          <div id='provideServicesList' v-if="userProvideServices">
+            <!-- <v-checkbox v-model="provideServices.walker">Dog Walker</v-checkbox>
+            <v-checkbox v-model="provideServices.trainer">Dog Trainer</v-checkbox>
+            <v-checkbox v-model="provideServices.sitter">Dog Sitter</v-checkbox> -->
+
+            <input type="checkbox" id="pwalker" v-model="provideServices.walker">
+            <label for="pwalker">Dog Walker</label>
+            <input type="checkbox" id="ptrainer" v-model="provideServices.trainer">
+            <label for="ptrainer">Dog Trainer</label>
+            <input type="checkbox" id="psitter" v-model="provideServices.sitter">
+            <label for="psitter">Dog Sitter</label>
+          </div>
+        </v-list-tile-content>
+      </v-list-tile>
+    </v-list>
+
+    <!-- <input type="checkbox" id="userWantServices" v-model="userWantServices">
+    <label for="userProvideServices">Do you want to Receive Services: {{ userWantServices ? 'yes' : 'no' }}</label> -->
     <div id='wantServicesList' v-if="userWantServices">
       <input type="checkbox" id="wwalker" v-model="wantServices.walker">
       <label for="wwalker">Dog Walker</label>
@@ -55,22 +143,24 @@
       <br>
     </div>
     <div id='timePicker' v-if="userProvideServices || userWantServices">
-    <myTime-picker day="Monday Start Time " fbPath="Monday/startTime" />
-    <myTime-picker day="Monday End Time " fbPath="Monday/endTime" />
-    <myTime-picker day="Tuesday Start Time " fbPath="Tuesday/startTime" />
-    <myTime-picker day="Tuesday End Time " fbPath="Tuesday/endTime" />
-    <myTime-picker day="Wednesday Start Time " fbPath="Wednesday/startTime" />
-    <myTime-picker day="Wednesday End Time " fbPath="Wednesday/endTime" />
-    <myTime-picker day="Thursday Start Time " fbPath="Thursday/startTime" />
-    <myTime-picker day="Thursday End Time " fbPath="Thursday/endTime" />
-    <myTime-picker day="Friday Start Time " fbPath="Friday/startTime" />
-    <myTime-picker day="Friday End Time " fbPath="Friday/endTime" />
-    <myTime-picker day="Saturday Start Time " fbPath="Saturday/startTime" />
-    <myTime-picker day="Saturday End Time " fbPath="Saturday/endTime" />
-    <myTime-picker day="Sunday Start Time " fbPath="Sunday/startTime" />
-    <myTime-picker day="Sunday End Time " fbPath="Sunday/endTime" />
+      <myTime-picker day="Monday Start Time " fbPath="Monday/startTime" />
+      <myTime-picker day="Monday End Time " fbPath="Monday/endTime" />
+      <myTime-picker day="Tuesday Start Time " fbPath="Tuesday/startTime" />
+      <myTime-picker day="Tuesday End Time " fbPath="Tuesday/endTime" />
+      <myTime-picker day="Wednesday Start Time " fbPath="Wednesday/startTime" />
+      <myTime-picker day="Wednesday End Time " fbPath="Wednesday/endTime" />
+      <myTime-picker day="Thursday Start Time " fbPath="Thursday/startTime" />
+      <myTime-picker day="Thursday End Time " fbPath="Thursday/endTime" />
+      <myTime-picker day="Friday Start Time " fbPath="Friday/startTime" />
+      <myTime-picker day="Friday End Time " fbPath="Friday/endTime" />
+      <myTime-picker day="Saturday Start Time " fbPath="Saturday/startTime" />
+      <myTime-picker day="Saturday End Time " fbPath="Saturday/endTime" />
+      <myTime-picker day="Sunday Start Time " fbPath="Sunday/startTime" />
+      <myTime-picker day="Sunday End Time " fbPath="Sunday/endTime" />
     </div>
-    </div>
+
+    
+  </div>
 </template>
 
 <script>
@@ -87,6 +177,9 @@ export default {
   },
   data () {
     return {
+      dialog: false,
+      sound: true,
+      widgets: false,
       profilepicture: '',
       name: '',
       zipcode: '',
@@ -151,7 +244,7 @@ export default {
         this.name = res.data.name
       })
       .catch(err => {
-        this.name = 'Please Enter Your Name'
+        this.name = ''
         console.log(err)
       })
   },
