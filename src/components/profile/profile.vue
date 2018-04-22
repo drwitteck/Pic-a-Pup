@@ -106,10 +106,7 @@
           </v-layout>
         </v-parallax>
       </section>
-      <!-- The stuffffffffff Put Info Here -->
-      <div id="info">
-        <profile-info />
-      </div>
+      
       <section>
         <v-layout
           column
