@@ -33,10 +33,10 @@
         </v-parallax>
       </section>
       <!-- The stuffffffffff Put Info Here -->
-      <div id="info">
+      <!-- <div id="info">
         <profile-info />
         <router-view></router-view>
-      </div>
+      </div> -->
       <section>
         <v-layout
           column
