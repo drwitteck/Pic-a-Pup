@@ -113,7 +113,8 @@
 
                 <div v-if="realBreed">
                     <div class="headline">{{ realBreed }}</div>
-                    <v-progress-circular
+                    <br>
+                    <!-- <v-progress-circular
                       :size="100"
                       :width="15"
                       :rotate="-90"
@@ -121,13 +122,14 @@
                       color="primary"
                     >
                     {{ breedProb }}%
-                    </v-progress-circular>
+                    </v-progress-circular> -->
+                    <p>Probability: {{ breedProb }}%</p>
+                    <v-progress-linear :value="breedProb" height="10" color="info"></v-progress-linear>
                 </div>
               </v-card-title>
               <v-card-actions v-if="realBreed">
                 <!-- <v-btn flat color="white" @click="addressToLatLong">Shelter</v-btn> -->
-                <v-spacer></v-spacer>
-                <v-layout row justify-center>
+                <v-layout row>
                   <v-dialog v-model="dialog" persistent max-width="290">
                     <v-btn flat color="cyan" dark slot="activator" @click="writeImageResult()">Post to Social Feed</v-btn>
                     <v-card>
@@ -225,6 +227,22 @@
                         </v-list-tile-action>
                         <v-list-tile-content>
                           <v-list-tile-title>Zip: {{ shelterzip }}</v-list-tile-title>
+                        </v-list-tile-content>
+                      </v-list-tile>
+                      <v-list-tile>
+                        <v-list-tile-action>
+                          <v-icon class="blue--text text--lighten-2">email</v-icon>
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                          <v-list-tile-title>E-Mail: {{ shelteremail }}</v-list-tile-title>
+                        </v-list-tile-content>
+                      </v-list-tile>
+                      <v-list-tile>
+                        <v-list-tile-action>
+                          <v-icon class="blue--text text--lighten-2">phone</v-icon>
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                          <v-list-tile-title>Phone: {{ shelterphone }}</v-list-tile-title>
                         </v-list-tile-content>
                       </v-list-tile>
                     </v-list>
@@ -335,6 +353,8 @@ export default {
       shelter: "",
       sheltercity: "",
       shelterzip: "",
+      shelteremail: "",
+      shelterphone: "",
       shelterAvail: "",
       show: false
     };
@@ -377,7 +397,9 @@ export default {
       this.shelter = ''
       this.sheltercity = ''
       this.shelterzip = ''
-      this.shelterAvail = ''
+      this.shelteremail = '',
+      this.shelterphone = '',
+      this.shelterAvail = '',
       this.show = false
     },
     save(formData) {
@@ -443,11 +465,12 @@ export default {
     },
     writeImageResult() {
       fbDatabase
-        .ref('FeedDogSearchResult/' + this.$store.state.userId)
-        .set({
+        .ref('FeedDogSearchResult/')
+        .child('/')
+        .push({
           breed: this.realBreed,
           dogImageSent: this.downloadUrl,
-          probability: this.breedProb
+          probability: (this.breedProb / 100)
         });
     },
     sendImageBackend1() {
@@ -467,21 +490,28 @@ export default {
         url: this.downloadUrl
       })
         .then(response => {
-          console.log(response.body)
-          console.log(response.body.age)
+          console.log(response)
           this.backendResponse = response.body
           this.realBreed = response.body.breed
           this.breedInfo = response.body.breed_info
           this.breedProb = Math.round(response.body.prob * 100)
-          this.shelter = response.body['shelter Contact'].address1
-          this.sheltercity = response.body['shelter Contact'].city
-          this.shelterzip = response.body['shelter Contact'].zip
+          this.shelter = response.body.shelter_contact.address1
+          this.sheltercity = response.body.shelter_contact.city
+          this.shelterzip = response.body.shelter_contact.zip
+          this.shelteremail = response.body.shelter_contact.email
+          this.shelterphone = response.body.shelter_contact.phone
           this.shelterAvail = false
           this.addressToLatLong()
         }).catch(error => {
-          console.log(error)
-          this.realBreed = "Model Cannot Identify the Breed"
-          this.breedInfo = "You sure this ain't a CAT?! Upload again or another image."
+          if(this.backendResponse.model_error) {
+            console.log("here I am")
+            this.realBreed = "Model Cannot Identify the Breed"
+            this.breedInfo = "You sure this ain't a CAT?! Upload again or another image."
+            this.breedProb = 0
+          } else {
+            console.log("no error")
+          }
+          console.log("Image Backend" + error)
           this.shelterAvail = true
         })
     },
@@ -570,8 +600,4 @@ h1 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-// .zipcode {
-//   background: linear-gradient(45deg, #551053, #1e8196);
-//   border-radius: 10px;
-// }
 </style>
