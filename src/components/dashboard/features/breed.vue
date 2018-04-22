@@ -465,8 +465,8 @@ export default {
     },
     writeImageResult() {
       fbDatabase
-        .ref('FeedDogSearchResult/' + this.$store.state.userId)
-        .set({
+        .ref('FeedDogSearchResult/')
+        .push({
           breed: this.realBreed,
           dogImageSent: this.downloadUrl,
           probability: (this.breedProb / 100)
