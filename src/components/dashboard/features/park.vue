@@ -1,7 +1,7 @@
 /* eslint-disable */
 <template>
   <div id="park">
-    <h1>Parks</h1>
+    <h1>Pic-a-Park</h1>
     <v-layout row wrap>
       <v-flex xs4 offset-sm1>
         <div class="input-group input-group--dirty theme--dark input-group--text-field primary--text">
