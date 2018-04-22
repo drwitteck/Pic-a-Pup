@@ -14,7 +14,7 @@
         justify-center
       >
         <v-list two-line subheader>
-
+          
           <v-list-tile avatar>
             <v-list-tile-content>
               <v-text-field
@@ -99,6 +99,7 @@
             </v-list-tile-content>
           </v-list-tile>
 
+
         </v-list>
       </v-flex>
     </v-layout>
@@ -112,13 +113,9 @@
           <v-checkbox v-model="userProvideServices"></v-checkbox>
         </v-list-tile-action>
         <v-list-tile-content>
-          <!-- this part doesnt work for the provide, check boxes arent showing up -->
           <v-list-tile-title>Provider</v-list-tile-title>
           <v-list-tile-sub-title>What services can you provide?</v-list-tile-sub-title>
           <div id='provideServicesList' v-if="userProvideServices">
-             <v-checkbox v-model="provideServices.walker">Dog Walker</v-checkbox>
-            <v-checkbox v-model="provideServices.trainer">Dog Trainer</v-checkbox>
-            <v-checkbox v-model="provideServices.sitter">Dog Sitter</v-checkbox>
             <input type="checkbox" id="pwalker" v-model="provideServices.walker">
             <label for="pwalker">Dog Walker</label>
             <input type="checkbox" id="ptrainer" v-model="provideServices.trainer">
@@ -130,9 +127,8 @@
       </v-list-tile>
     </v-list>
 
-    <!---this part works for the receive --->
-     <input type="checkbox" id="userWantServices" v-model="userWantServices">
-    <label >Do you want to Receive Services: {{ userWantServices ? 'yes' : 'no' }}</label>
+    <!-- <input type="checkbox" id="userWantServices" v-model="userWantServices">
+    <label for="userProvideServices">Do you want to Receive Services: {{ userWantServices ? 'yes' : 'no' }}</label> -->
     <div id='wantServicesList' v-if="userWantServices">
       <input type="checkbox" id="wwalker" v-model="wantServices.walker">
       <label for="wwalker">Dog Walker</label>
@@ -158,6 +154,8 @@
       <myTime-picker day="Sunday Start Time " fbPath="Sunday/startTime" />
       <myTime-picker day="Sunday End Time " fbPath="Sunday/endTime" />
     </div>
+
+    
   </div>
 </template>
 
@@ -258,7 +256,7 @@ export default {
         phoneNumber: this.phoneNumber,
         country: this.country,
         state: this.state,
-        city: this.city
+        city: this.city,
       })
       axios.put('/webUsers/' + this.$store.state.userId + '/services/userOptions.json' + '?auth=' + this.$store.state.idToken, {
         // image: this.downloadUrl,
