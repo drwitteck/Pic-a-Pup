@@ -80,7 +80,7 @@
         </v-layout>
       </section>
       <div class="text-xs-center">
-        <v-pagination :length="4" v-model="page"></v-pagination>
+        <v-pagination :length="6" v-model="page"></v-pagination>
       </div>
     </v-content>
   </v-app>
@@ -110,6 +110,7 @@ export default {
           probability: Math.round(post.child('probability').val()*100) 
         })
       })
+      this.posts.reverse()
     })
   },
   methods: {
