@@ -27,7 +27,7 @@
                 <img src="https://cis.temple.edu/sites/default/files/styles/portrait-large/public/user_pictures/picture-767-1518386325.jpg?itok=AsYTIEq5" alt="avatar">
               </v-avatar>
             </v-flex>
-            <v-flex 
+            <v-flex
               xs12
               text-xs-center
               layout
@@ -107,9 +107,9 @@
         </v-parallax>
       </section>
       <!-- The stuffffffffff Put Info Here -->
-      <!-- <div id="info">
+      <div id="info">
         <profile-info />
-      </div> -->
+      </div>
       <section>
         <v-layout
           column
@@ -194,7 +194,7 @@ export default {
           user: this.$store.state.userId,
           breed: post.child('breed').val(),
           dogImageSent: post.child('dogImageSent').val(),
-          probability: Math.round(post.child('probability').val()*100) 
+          probability: Math.round(post.child('probability').val()*100)
         })
       })
       this.posts.reverse()
@@ -208,4 +208,3 @@ export default {
 <style>
 
 </style>
-      
