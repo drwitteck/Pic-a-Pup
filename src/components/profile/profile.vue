@@ -32,7 +32,11 @@
           </v-layout>
         </v-parallax>
       </section>
-
+      <!-- The stuffffffffff Put Info Here -->
+      <div id="info">
+        <profile-info />
+        <router-view></router-view>
+      </div>
       <section>
         <v-layout
           column
@@ -88,9 +92,15 @@
 </template>
 
 <script>
+
 import { fbDatabase } from "../../main";
+import Info from './src/../profileinfo.vue'
 
 export default {
+  name: 'info',
+  components: {
+    'profile-info': Info
+  },
   data: () => ({
     page: 1,
     placeholder: '',
