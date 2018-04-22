@@ -466,6 +466,7 @@ export default {
     writeImageResult() {
       fbDatabase
         .ref('FeedDogSearchResult/')
+        .child('/')
         .push({
           breed: this.realBreed,
           dogImageSent: this.downloadUrl,
