@@ -487,7 +487,7 @@ export default {
           this.backendResponse = response.body
           this.realBreed = response.body.breed
           this.breedInfo = response.body.breed_info
-          this.breedProb = Math.round(response.body.prob * 100)
+          this.breedProb = response.body.prob * 100
           this.shelter = response.body.shelter_contact.address1
           this.sheltercity = response.body.shelter_contact.city
           this.shelterzip = response.body.shelter_contact.zip
