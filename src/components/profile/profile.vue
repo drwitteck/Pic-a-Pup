@@ -3,7 +3,7 @@
    <v-app dark>
     <v-content style="margin:0; padding:0">
       <section>
-        <v-parallax src="https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/EvVhCC0deijtsl1b4/videoblocks-programming-code-background-abstract-seamless-loop-animation_bklmxmhjw_thumbnail-full01.png" height="300">
+        <v-parallax src="https://s3.envato.com/files/42195050/White%20Dog%20on%20a%20Stone%20at%20Sea%20preview%20image.jpg" height="300">
           <v-layout
             column
             align-center
