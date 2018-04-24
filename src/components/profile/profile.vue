@@ -130,7 +130,7 @@
                         <v-flex xs7>
                           <div>
                             <div class="headline"> {{ post.breed }} </div>
-                            <div>Probability: {{ post.probability }}</div>
+                            <div>Probability: {{ post.probability }}%</div>
                           </div>
                           <v-card-actions>
                       <!-- <v-btn flat dark>View Now</v-btn> -->
@@ -191,7 +191,7 @@ export default {
           user: this.$store.state.userId,
           breed: post.child('breed').val(),
           dogImageSent: post.child('dogImageSent').val(),
-          probability: Math.round(post.child('probability').val()*100)
+          probability: (Math.floor(100*post.child('probability').val() * Math.pow(10, 2)) / Math.pow(10, 2)).toFixed(2)     
         })
       })
       this.posts.reverse()
