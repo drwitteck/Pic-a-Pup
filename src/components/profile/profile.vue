@@ -3,7 +3,7 @@
    <v-app dark>
     <v-content style="margin:0; padding:0">
       <section>
-        <v-parallax src="https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/EvVhCC0deijtsl1b4/videoblocks-programming-code-background-abstract-seamless-loop-animation_bklmxmhjw_thumbnail-full01.png" height="300">
+        <v-parallax src="https://s3.envato.com/files/42195050/White%20Dog%20on%20a%20Stone%20at%20Sea%20preview%20image.jpg" height="300">
           <v-layout
             column
             align-center
@@ -130,7 +130,7 @@
                         <v-flex xs7>
                           <div>
                             <div class="headline"> {{ post.breed }} </div>
-                            <div>Probability: {{ post.probability }}</div>
+                            <div>Probability: {{ post.probability }}%</div>
                           </div>
                           <v-card-actions>
                       <!-- <v-btn flat dark>View Now</v-btn> -->
@@ -191,7 +191,7 @@ export default {
           user: this.$store.state.userId,
           breed: post.child('breed').val(),
           dogImageSent: post.child('dogImageSent').val(),
-          probability: Math.round(post.child('probability').val()*100)
+          probability: (Math.floor(100*post.child('probability').val() * Math.pow(10, 2)) / Math.pow(10, 2)).toFixed(2)     
         })
       })
       this.posts.reverse()

@@ -138,7 +138,7 @@
                       <v-card-actions>
                         <v-spacer></v-spacer>
                         <v-btn color="green darken-1" flat @click.native="dialog = false" router-link to="/profile">Yay</v-btn>
-                        <v-btn color="red darken-1" flat @click.native="dialog = false">Nah</v-btn>
+                        <v-btn color="red darken-1" flat @click.native="dialog = false" @click="reset()">Nah</v-btn>
                       </v-card-actions>
                     </v-card>
                   </v-dialog>
@@ -440,16 +440,9 @@ export default {
         reader.onload = e => {
           this.item_url = e.target.result;
 
-          fbStorage
-            .ref("imgs/")
-            .child(this.$store.state.userId + "_pup.png")
-            .put(input.files[0], {
-              contentType: "image/png"
-            });
-
           this.uploadTask = fbStorage
-            .ref("imgs/")
-            .child(this.$store.state.userId + "_pup.png")
+            .ref("PupImages/")
+            .child(this.guid() + "_pup.png")
             .put(input.files[0], {
               contentType: "image/png"
             });
@@ -494,7 +487,7 @@ export default {
           this.backendResponse = response.body
           this.realBreed = response.body.breed
           this.breedInfo = response.body.breed_info
-          this.breedProb = Math.round(response.body.prob * 100)
+          this.breedProb = response.body.prob * 100
           this.shelter = response.body.shelter_contact.address1
           this.sheltercity = response.body.shelter_contact.city
           this.shelterzip = response.body.shelter_contact.zip
@@ -534,7 +527,15 @@ export default {
           this.shelter = "Address N/A"
         }
       });
-    }
+    },
+    guid () {
+      return this.s4()+this.s4()+this.s4()+this.s4()+this.s4()+this.s4()+this.s4()+this.s4()
+    },
+    s4() {
+      return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
+    },
   },
   mounted() {
     this.reset();
