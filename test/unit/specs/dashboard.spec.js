@@ -4,7 +4,7 @@ import router from '../../../src/router.js'
 
 describe('DashboardPage.vue', () => {
   it('sets the correct default data', done => {
-    /*
+
     const Constructor = Vue.extend(DashboardPage)
     const comp = new Constructor({
     }).$mount()
@@ -17,7 +17,7 @@ describe('DashboardPage.vue', () => {
     expect(defaultData.uploadTask).to.equal('')
     expect(defaultData.downloadUrl).to.equal('')
     expect(defaultData.drawer).to.equal(true)
-    */
+
     done()
   })
   it(`Home link under navigation drawer should go to /dashboard`, done => {

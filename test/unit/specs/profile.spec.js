@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import ProfilePageinfo from '../../../src/components/profile/profileinfo.vue'
 
-describe('DashboardPage.vue', () => {
+describe('Profile.vue', () => {
   it('sets the correct default data', () => {
     const Constructor = Vue.extend(ProfilePageinfo)
     const comp = new Constructor({}).$mount()
@@ -19,7 +19,7 @@ describe('DashboardPage.vue', () => {
     expect(defaultData.provideServices.walker).to.equal(false)
     expect(defaultData.provideServices.trainer).to.equal(false)
     expect(defaultData.provideServices.sitter).to.equal(false)
-    expect(defaultData.userWantServices).to.equal('')
+    expect(defaultData.userWantServices).to.equal(false)
     expect(defaultData.wantServices.walker).to.equal(false)
     expect(defaultData.wantServices.trainer).to.equal(false)
     expect(defaultData.wantServices.sitter).to.equal(false)
