@@ -31,7 +31,7 @@ describe('Park.vue', () => {
     expect(buttonContent).to.include('Find Parks')
 
     let componentHTML = comp.$el.innerHTML
-    console.log(componentHTML)
+    // console.log(componentHTML)
 
     const clickEvent = new window.Event('click')
     button.dispatchEvent(clickEvent)
@@ -126,7 +126,7 @@ describe('Park.vue', () => {
     // comp.toggleInfoWindow(comp.markers[0], 0)
 
     Vue.nextTick(() => {
-      console.log('html:', comp.$el)
+      // console.log('html:', comp.$el)
       const popup = comp.$el.querySelector('.card__title--primary')
       var popupContent = popup.innerText
       expect(popupContent).to.include('liacourse center')

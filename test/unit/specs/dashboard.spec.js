@@ -39,7 +39,7 @@ describe('DashboardPage.vue', () => {
     router.push({name: '/dashboard'})
 
     Vue.nextTick(() => {
-      console.log('html:', vm.$el)
+      // console.log('html:', vm.$el)
       expect(vm.$el.textContent).to.include('dashboard')
     })
     done()
@@ -66,7 +66,7 @@ describe('DashboardPage.vue', () => {
     router.push({name: '/breed'})
 
     Vue.nextTick(() => {
-      console.log('html:', vm.$el)
+      // console.log('html:', vm.$el)
       expect(vm.$el.textContent).to.include('breed')
     })
     done()
@@ -93,7 +93,7 @@ describe('DashboardPage.vue', () => {
     router.push({name: '/signin'})
 
     Vue.nextTick(() => {
-      console.log('html:', vm.$el)
+      // console.log('html:', vm.$el)
       expect(vm.$el.textContent).to.include('Login')
     })
     done()
