@@ -20,7 +20,7 @@ describe('SigninPage.vue', () => {
     comp.onSubmit()
     expect(comp.password).to.equal('')
     expect(comp.email).to.equal('')
-    console.log(comp.$el.textContent)
+    // console.log(comp.$el.textContent)
     // try to compare what is in the local store in the store.js to the user id in firebase
     expect(comp.$el.textContent).to.include('contact_mail')
     expect(comp.$el.textContent).to.include('Login')
@@ -39,7 +39,7 @@ describe('SigninPage.vue', () => {
     expect(buttonContent).to.include('icon material-icons">send')
 
     let componentHTML = comp.$el.innerHTML
-    console.log(componentHTML)
+    // console.log(componentHTML)
     // console.log(store)
 
     // simulate click event
@@ -48,14 +48,14 @@ describe('SigninPage.vue', () => {
     comp._watcher.run()
 
     componentHTML = comp.$el.innerHTML
-    console.log(componentHTML)
+    // console.log(componentHTML)
     // console.log(store)
 
     let storeData = state
     let storeActions = actions
     expect(state.user).to.be.null
-    console.log(storeData)
-    console.log(storeActions)
+    // console.log(storeData)
+    // console.log(storeActions)
     actions.setUser('test')
     state.user.should.equal('test')
     comp.password = '123123'
@@ -67,7 +67,7 @@ describe('SigninPage.vue', () => {
       email: comp.email,
       password: comp.password
     })
-    console.log(state.password)
+    // console.log(state.password)
     expect(state.email).to.equal('pls@work.com')
     expect(state.password).to.equal('123123')
     done()
@@ -92,7 +92,7 @@ describe('SigninPage.vue', () => {
     })
     router.push({name: '/overview'})
     Vue.nextTick(() => {
-      console.log('html:', vm.$el)
+      // console.log('html:', vm.$el)
       expect(vm.$el.textContent).to.include('overview')
     })
     done()
@@ -106,8 +106,8 @@ describe('SigninPage.vue', () => {
     let storeData = state
     let storeActions = actions
 
-    console.log(storeData)
-    console.log(storeActions)
+    // console.log(storeData)
+    // console.log(storeActions)
 
     comp.password = 'wrongpassword'
     comp.email = 'pls@work.com'
@@ -120,7 +120,7 @@ describe('SigninPage.vue', () => {
       password: comp.password
     })
     state.error = true
-    console.log(state.password)
+    // console.log(state.password)
     expect(state.error).to.equal(true)
 
     done()
@@ -145,13 +145,13 @@ describe('SigninPage.vue', () => {
     let storeData = state
     let storeActions = actions
 
-    console.log(storeData)
-    console.log(storeActions)
+    // console.log(storeData)
+    // console.log(storeActions)
 
     state.userId = '6NSspNCP0ZRzJ0GcD2MDn1x5stg1'
 
     setTimeout(function () {
-      console.log('state user id:' + state.userId)
+      // console.log('state user id:' + state.userId)
       expect(state.userId).to.equal('6NSspNCP0ZRzJ0GcD2MDn1x5stg1')
       done()
     }, 1000)

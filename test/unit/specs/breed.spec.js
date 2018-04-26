@@ -55,7 +55,7 @@ describe('BreedPage.vue', () => {
           })
 
         uploadTask.then(snapshot => {
-          console.log(snapshot)
+          // console.log(snapshot)
           this.downloadUrl = snapshot.downloadURL
           this.$emit('url', this.downloadUrl)
         })
@@ -86,7 +86,7 @@ describe('BreedPage.vue', () => {
       url: 'https://firebasestorage.googleapis.com/v0/b/pic-a-pup.appspot.com/o/imgs%2FKvzIX6rmUBgmBQYEKL7Z1il6wki1_pup.png?alt=media&token=3fdad998-8d5e-4fb5-855f-c409d6039448'
     })
       .then(response => {
-        console.log(response)
+        // console.log(response)
         comp.realBreed = response.body.breed
       })
     done()
@@ -104,7 +104,7 @@ describe('BreedPage.vue', () => {
       url: 'https://firebasestorage.googleapis.com/v0/b/pic-a-pup.appspot.com/o/imgs%2FKvzIX6rmUBgmBQYEKL7Z1il6wki1_pup.png?alt=media&token=3fdad998-8d5e-4fb5-855f-c409d6039448'
     })
       .then(response => {
-        console.log(response)
+        // console.log(response)
         this.shelter = response.body['shelter Contact'].address1
       })
     done()

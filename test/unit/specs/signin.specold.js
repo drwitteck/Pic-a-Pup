@@ -17,7 +17,7 @@ describe('SigninPage.vue', () => {
     expect(buttonContent).to.include('icon material-icons">send')
 
     let componentHTML = comp.$el.innerHTML
-    console.log(componentHTML)
+    // console.log(componentHTML)
     // console.log(store)
 
     // simulate click event
@@ -26,7 +26,7 @@ describe('SigninPage.vue', () => {
     comp._watcher.run()
 
     componentHTML = comp.$el.innerHTML
-    console.log(componentHTML)
+    // console.log(componentHTML)
 
     expect(store.state.user).to.be.null
     store.actions.setUser('test')
@@ -40,7 +40,7 @@ describe('SigninPage.vue', () => {
       email: comp.email,
       password: comp.password
     })
-    console.log(store.state.password)
+    // console.log(store.state.password)
     expect(store.state.email).to.equal('pls@work.com')
     expect(store.state.password).to.equal('123123')
     done()
